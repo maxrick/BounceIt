@@ -1,0 +1,37 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:background="#0099cc"
+    tools:context="max.jumping.StartScreen">
+
+   <RelativeLayout
+       android:layout_width="match_parent"
+       android:layout_height="match_parent">
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Play Game"
+        android:padding="5dp"
+        android:id="@+id/buttonPlay"
+        android:layout_gravity="center"
+        android:layout_above="@+id/buttonScores"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="91dp"
+        android:onClick="buttonPlayClicked"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="High Scores"
+        android:padding="5dp"
+        android:id="@+id/buttonScores"
+        android:layout_gravity="center_horizontal|bottom"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:onClick="buttonHighScoresClicked"/>
+
+   </RelativeLayout>
+    <!-- This FrameLayout insets its children based on system windows using
+         android:fitsSystemWindows. -->
+
+</FrameLayout>
