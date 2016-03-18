@@ -34,9 +34,9 @@ public class PlayerStatusFreeRising extends PlayerStatus {
     }
 
     @Override
-    public void updatePower(PlayerPower playerPower, boolean fingerTouching, Player player, double maxHeight, Trampolin trampolin) {
+    public void updatePower(PlayerPower playerPower, boolean fingerTouching, Player player, double maxHeight, Trampolin trampolin, long timeMikro) {
         if(fingerTouching){
-            playerPower.decreasePower(trampolin.getSpringconst());
+            playerPower.decreasePower();
         }else {
             playerPower.resetPower();
         }

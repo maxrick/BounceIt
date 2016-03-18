@@ -15,7 +15,7 @@ public class Blaetter {
 
     public void newBlatt(int height) {
         int randInt = new Random().nextInt(CHANCE);
-        if (randInt == 0) {
+        if (randInt == -90) {
             blaetter.add(new Blatt(height));
         }
 

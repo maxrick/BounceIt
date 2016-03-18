@@ -47,7 +47,7 @@ public abstract class PlayerStatus {
     }
 
 
-    public abstract void updatePower(PlayerPower playerPower, boolean fingerTouching, Player player, double maxHeight, Trampolin trampolin);
+    public abstract void updatePower(PlayerPower playerPower, boolean fingerTouching, Player player, double maxHeight, Trampolin trampolin, long timeMikro);
 
     public abstract void countJump(JumpCounter jumps);
 

@@ -57,8 +57,8 @@ public class Player {
         playerPower.decelerate(dec);
     }
 
-    public void updatePower(boolean fingerTouching, Trampolin trampolin) {
-        playerStatus.updatePower(playerPower, fingerTouching, this, maxHeight, trampolin);
+    public void updatePower(boolean fingerTouching, Trampolin trampolin, long timeMikro) {
+        playerStatus.updatePower(playerPower, fingerTouching, this, maxHeight, trampolin, timeMikro);
         animate(fingerTouching);
     }
 

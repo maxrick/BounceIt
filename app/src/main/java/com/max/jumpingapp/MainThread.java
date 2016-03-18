@@ -23,7 +23,7 @@ public class MainThread extends Thread {
     @Override
     public void run() {
         long startTime;
-        long timeMillis;
+        long timeMikro=0;
         long waitTime;
         long totalTime = 0;
         int frameCount = 0;
@@ -35,7 +35,7 @@ public class MainThread extends Thread {
             try {
                 canvas = surfaceholder.lockCanvas();
                 synchronized (surfaceholder) {
-                    this.gamepanel.update();
+                    this.gamepanel.update(timeMikro);
                     this.gamepanel.draw(canvas);
                 }
             } catch (Exception e) {
@@ -45,8 +45,8 @@ public class MainThread extends Thread {
                     surfaceholder.unlockCanvasAndPost(canvas);
                 }
             }
-            timeMillis = (System.nanoTime() - startTime) / 1000000;
-            waitTime = targetTime - timeMillis;
+            timeMikro = (System.nanoTime() - startTime) / 1000;
+            waitTime = targetTime - timeMikro/1000;
             if (waitTime < 0) {
                 waitTime = 0;
             }

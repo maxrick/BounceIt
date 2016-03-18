@@ -99,10 +99,10 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
         meGamePanel = null;
     }
 
-    public void update() {
+    public void update(long timeMikro) {
 //        playerStatus = playerStatus.getCurrentPlayerStatus();
         player.updatePosition(blaetter, trampolin);
-        player.updatePower(touching, trampolin);
+        player.updatePower(touching, trampolin, timeMikro);
     }
 
 
