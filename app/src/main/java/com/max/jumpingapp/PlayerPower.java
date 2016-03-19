@@ -1,4 +1,4 @@
-package com.max.jumpingapp;
+ package com.max.jumpingapp;
 
 /**
  * Created by normal on 24.10.2015.
@@ -10,36 +10,53 @@ public class PlayerPower {
     private long decreasePowerMikro = 0;
     private int maxPower = 2000;
     private double minPower;
+    private boolean accelerated;
+    private int accelerator;
 
     public PlayerPower() {
         this.powerPercent = 0;
+        this.accelerated = false;
+        this.accelerator =0;
     }
 
     private void resetAccelerator() {
         decreasePowerMikro =0;
         increasePowerMikro =0;
         powerPercent=0;
-
+        accelerated = false;
+        accelerator = 0;
     }
 
-    public void accelerate(double maxHeight, double oscPeriod) {
+    private void accelerate(double maxHeight, double oscPeriod) {
+        powerPercent = 0;
         if(increasePowerMikro != 0) {
             long timeMikro = System.nanoTime() / 1000;
             long elapsed = timeMikro - increasePowerMikro;
             if (decreasePowerMikro != 0) {
                 elapsed -= (increasePowerMikro - decreasePowerMikro);
             }
-            powerPercent = 0;
             if (elapsed > 0) {
-                powerPercent = (elapsed / (oscPeriod * 2000000))*100;
+                powerPercent = (elapsed / (oscPeriod * 2000000)) * 100;
             }
-            minPower = 100 - 90 * Math.pow(2, -maxHeight / 10000);
+            if (powerPercent > 100) {
+                powerPercent = 100;
+            }
+        }
+        minPower = 100 - 90 * Math.pow(2, -maxHeight / 10000);
+        accelerator = (int)((powerPercent-minPower)/(100-minPower)*maxPower);
+    }
+
+    public void accelerateOnce(double maxHeight, double oscPeriod){
+        if(!accelerated){
+            accelerate(maxHeight, oscPeriod);
+            System.out.println("accelerated: "+ accelerator);
+            accelerated = true;
         }
     }
 
     //@TODO: 18.03.2016 is overridden in accelerate()
     public void decelerate(double decelerateBy) {
-        powerPercent -= Math.abs(decelerateBy);
+       // powerPercent -= Math.abs(decelerateBy);
     }
 
     public boolean noPower() {
@@ -47,10 +64,9 @@ public class PlayerPower {
     }
 
     public void activateAccelaration(Player player) {
-        if(0 != powerPercent){
-
-            int accelerator = (int)((powerPercent-minPower)/(100-minPower)*maxPower);
+        if(accelerator != 0){
             player.activateAccelaration(accelerator);
+            System.out.println("accel activated: "+ accelerator);
             resetAccelerator();
         }
     }
@@ -69,6 +85,8 @@ public class PlayerPower {
     public void increasePower() {
         if(increasePowerMikro == 0){
             increasePowerMikro = System.nanoTime()/1000;
+            accelerated = false;
+            System.out.println("increasing: "+increasePowerMikro);
         }
     }
 }

@@ -50,7 +50,7 @@ public class PlayerStatusSpringFalling extends PlayerStatus {
         if(fingerTouching){
             playerPower.increasePower();
         }else {
-            playerPower.accelerate(maxHeight,oscPeriod);
+            playerPower.accelerateOnce(maxHeight,oscPeriod);
             playerPower.resetPower();
         }
     }

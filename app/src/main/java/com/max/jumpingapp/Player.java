@@ -43,7 +43,8 @@ public class Player {
         try {
             playerStatus.calculatePos(playerObject, playerPower, (int) maxHeight, trampolin);
         } catch (PlayerDiedException e) {
-            die();
+            //die();
+            System.out.println("would have died");
         }
         updateBlaetter(blaetter);
         if ((GamePanel.heightNill - curHeight) > maxScore) {
@@ -51,11 +52,11 @@ public class Player {
         }
     }
 
-    private void die() {
-        System.out.println("dead");
-        int dec = (int) (maxHeight/3);
-        playerPower.decelerate(dec);
-    }
+//    private void die() {
+//        System.out.println("dead");
+//        int dec = (int) (maxHeight/3);
+//        playerPower.decelerate(dec);
+//    }
 
     public void updatePower(boolean fingerTouching, Trampolin trampolin, long timeMikro) {
         playerStatus.updatePower(playerPower, fingerTouching, this, maxHeight, trampolin, timeMikro);
