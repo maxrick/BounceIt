@@ -8,7 +8,6 @@ public class PlayerPower {
     private int minAccelerator=10;
     private long increasePowerMikro = 0;
     private long decreasePowerMikro = 0;
-    private int maxPower = 2000;
     private double minPower;
     private boolean accelerated;
     private int accelerator;
@@ -43,6 +42,7 @@ public class PlayerPower {
             }
         }
         minPower = 100 - 90 * Math.pow(2, -maxHeight / 10000);
+        double maxPower = (4*maxHeight)/20 + 200;
         accelerator = (int)((powerPercent-minPower)/(100-minPower)*maxPower);
     }
 
@@ -86,6 +86,7 @@ public class PlayerPower {
         if(increasePowerMikro == 0){
             increasePowerMikro = System.nanoTime()/1000;
             accelerated = false;
+            accelerator = 0;
             System.out.println("increasing: "+increasePowerMikro);
         }
     }
