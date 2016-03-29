@@ -46,11 +46,11 @@ public class Trampolin {
     public Trampolin upgrade(double increaseSpringConst){
         return new Trampolin(this.xPos, this.yPos, this.width, this.Springconst + increaseSpringConst);
     }
-    public int draw(Canvas canvas, Player player, int screenheight, int screenWidth, Drawable shape) {
+    public int draw(Canvas canvas, Player player, Background shape) {
 
 
        // Rect rect = player.getRect();
-        int moveBy = player.draw(canvas, screenheight, screenWidth, shape);
+        int moveBy = player.draw(canvas, shape);
 
 //        Path myPath = calculateBezier(rect.exactCenterX(), rect.width(), rect.bottom);
         Path myPath = trampCurve(player.getLeft(), player.getRight(), player.getBottom());

@@ -19,7 +19,7 @@ public class PlayerStatusSpringRising extends PlayerStatus {
         }
         int curHeight = (int) (-(Math.sqrt(2 * mass * PlayerStatus.gravitaion * maxHeight / trampolin.getSpringconst())
                 * Math.sin((elapsed+this.oscPeriod) / Math.sqrt(mass / trampolin.getSpringconst()))));
-        playerObject.setRect(curHeight);
+        playerObject.setRect(curHeight, null);
     }
 
     @Override

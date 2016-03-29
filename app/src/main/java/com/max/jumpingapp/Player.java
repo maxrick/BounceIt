@@ -67,8 +67,8 @@ public class Player {
         playerObject.removeTouchingLeaves(blaetter);
     }
 
-    public int draw(Canvas canvas, int screenheight, int screenWidth, Drawable shape) {
-        int moveBy = playerObject.draw(canvas, screenheight, screenWidth, shape);
+    public int draw(Canvas canvas, Background shape) {
+        int moveBy = playerObject.draw(canvas, shape);
         Paint testPaint = new Paint();
         testPaint.setColor(Color.CYAN);
         canvas.drawRect(new Rect(0, 0, 150, 120), testPaint);

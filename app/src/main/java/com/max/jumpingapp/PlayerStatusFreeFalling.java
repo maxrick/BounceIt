@@ -20,7 +20,7 @@ public class PlayerStatusFreeFalling extends PlayerStatus {
         playerObject.setColor(Color.YELLOW);
         testDieSet = false;
         int curHeight = (int) (-0.5 * PlayerStatus.gravitaion * Math.pow(elapsed, 2) + maxHeight);
-        playerObject.setRect(curHeight);
+        playerObject.setRect(curHeight, null);
     }
 
     @Override

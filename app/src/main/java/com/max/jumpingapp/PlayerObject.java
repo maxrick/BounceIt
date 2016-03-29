@@ -54,7 +54,7 @@ public class PlayerObject {
         paint.setColor(color);
     }
 
-    public void setRect(int curHeight) {
+    public void setRect(int curHeight, XAdjust xAdjust) {
         int rectHeight = rect.bottom - rect.top;
         rect.set(rect.left, GamePanel.heightNill - curHeight - rectHeight, rect.right, GamePanel.heightNill - curHeight);
     }
@@ -68,16 +68,17 @@ public class PlayerObject {
         return touchingBlaeter;
     }
 
-    public int draw(Canvas canvas, int screenheight, int screenWidth, Drawable shape) {
+    public int draw(Canvas canvas, Background shape) {
         int moveBy = 0;
         if (rect.top - GAPTOP < 0) {
             moveBy = rect.top - GAPTOP;
         }
-        if (rect.bottom > screenheight) {
-            moveBy = rect.bottom - screenheight;
+        if (rect.bottom > GamePanel.screenHeight) {
+            moveBy = rect.bottom - GamePanel.screenHeight;
         }
-        shape.setBounds(0, -1000, screenWidth, screenheight + 200 - moveBy / 2);
-        shape.draw(canvas);
+        shape.drawMovedBy(canvas, moveBy);
+//        shape.setBounds(0, -1000, screenWidth, screenheight + 200 - moveBy / 2);
+//        shape.draw(canvas);
         Rect r = new Rect(rect);
         r.offset(0, -moveBy);
         //canvas.drawRect(r, paint);

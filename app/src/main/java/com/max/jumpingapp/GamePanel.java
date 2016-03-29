@@ -53,14 +53,16 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
 
 
 
-        int trampXCenter = (int) (getWidth() * 0.5);
-        int trampWidth = (int) (getWidth() * 0.8);
-        int trampYPos = (int) (getHeight() * 0.8);
+        int trampXCenter = (int) (GamePanel.screenWidth * 0.5);
+        int trampWidth = (int) (GamePanel.screenWidth * 1.2);
+        int trampYPos = (int) (GamePanel.screenHeight * 0.8);
         trampolin = new Trampolin((int) (trampXCenter - 0.5 * trampWidth), trampYPos, trampWidth, 10);
         blaetter = new Blaetter();
-        int rectWidth = (int) (getWidth() * 0.2);
+        int rectWidth = (int) (GamePanel.screenWidth * 0.2);
         Bitmap playerImage = BitmapFactory.decodeResource(getResources(), R.drawable.playerimage);
-        player = new Player((int) (trampXCenter - 0.5 * rectWidth), (int) (trampXCenter + 0.5 * rectWidth), 200, 300, trampolin, playerImage);
+        player = new Player((int) (trampXCenter - 0.5*rectWidth), (int) (trampXCenter+ 0.5*rectWidth ), 200, 300, trampolin, playerImage);//(trampXCenter - 0.5 * rectWidth), (int) (trampXCenter + 0.5 * rectWidth), 200, 300, trampolin, playerImage);
+        Bitmap backgroundImage = BitmapFactory.decodeResource(getResources(), R.drawable.background3);
+        bg = new Background(backgroundImage);
         thread = new MainThread(getHolder(), this);
         thread.setRunning(true);
         thread.start();
@@ -71,8 +73,8 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
 
         super.draw(canvas);
         //bg.draw(canvas);
-        Drawable shape = ContextCompat.getDrawable(getContext(), R.drawable.gradient);
-        int moveBy = trampolin.draw(canvas, player, getHeight(), getWidth(), shape);
+        //Drawable shape = ContextCompat.getDrawable(getContext(), R.drawable.gradient);
+        int moveBy = trampolin.draw(canvas, player, bg);
         blaetter.draw(canvas, moveBy);
     }
 

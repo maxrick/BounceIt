@@ -28,7 +28,7 @@ public class PlayerStatusSpringFalling extends PlayerStatus {
                 throw new PlayerDiedException();
             }
         }
-        playerObject.setRect(curHeight);
+        playerObject.setRect(curHeight, null);
     }
 
     @Override
