@@ -4,11 +4,14 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
-import android.graphics.drawable.Drawable;
-import android.support.v4.content.ContextCompat;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
+
+import com.max.jumpingapp.objects.Background;
+import com.max.jumpingapp.objects.Blaetter;
+import com.max.jumpingapp.objects.Player;
+import com.max.jumpingapp.objects.Trampolin;
 
 /**
  * Created by normal on 29.08.2015.
@@ -120,9 +123,11 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
         }
         if (event.getAction() == MotionEvent.ACTION_UP) {
             long elapsed = (System.nanoTime() - timeTouchBeg) / 1000000;//millisec
-            int xMoved = Math.abs((int) event.getX() - xTouchBeg);
-            if (elapsed < 1000 && xMoved > 100) {
-                swiped();
+            float xTouchEnd = event.getX();
+            int xSwipedToRight = (int) xTouchEnd - xTouchBeg;
+            if (elapsed < 1000 && Math.abs(xSwipedToRight) > 100) {
+                boolean toRight = xTouchEnd - xTouchBeg > 0;
+                swiped(xSwipedToRight);
             }
             this.touching = false;
         }
@@ -134,8 +139,9 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
         player.trampolinChanged(trampolin);
     }
 
-    private void swiped() {
+    private void swiped(int xSwipedToRight) {
         player.removeBlaetter(blaetter);
+        player.xAccel(xSwipedToRight);
     }
 
 }

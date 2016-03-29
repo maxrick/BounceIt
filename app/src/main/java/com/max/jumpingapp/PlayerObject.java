@@ -5,7 +5,10 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
-import android.graphics.drawable.Drawable;
+
+import com.max.jumpingapp.objects.Background;
+import com.max.jumpingapp.objects.Blaetter;
+import com.max.jumpingapp.types.XPosition;
 
 /**
  * Created by normal on 24.10.2015.
@@ -54,9 +57,10 @@ public class PlayerObject {
         paint.setColor(color);
     }
 
-    public void setRect(int curHeight, XAdjust xAdjust) {
+    public void setRect(int curHeight, XPosition xAdjust) {
         int rectHeight = rect.bottom - rect.top;
-        rect.set(rect.left, GamePanel.heightNill - curHeight - rectHeight, rect.right, GamePanel.heightNill - curHeight);
+        rect.set(xAdjust.adjusted(rect.left), GamePanel.heightNill - curHeight - rectHeight, xAdjust.adjusted(rect.right), GamePanel.heightNill - curHeight);
+//        rect.set(rect.left, GamePanel.heightNill - curHeight - rectHeight, rect.right, GamePanel.heightNill - curHeight);
     }
 
     public void addBlattTo(Blaetter blaetter) {

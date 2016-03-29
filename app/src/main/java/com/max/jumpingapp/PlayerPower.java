@@ -1,6 +1,8 @@
  package com.max.jumpingapp;
 
-/**
+ import com.max.jumpingapp.objects.Player;
+
+ /**
  * Created by normal on 24.10.2015.
  */
 public class PlayerPower {

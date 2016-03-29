@@ -1,11 +1,19 @@
-package com.max.jumpingapp;
+package com.max.jumpingapp.objects;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
-import android.graphics.drawable.Drawable;
+
+import com.max.jumpingapp.GamePanel;
+import com.max.jumpingapp.JumpCounter;
+import com.max.jumpingapp.PlayerDiedException;
+import com.max.jumpingapp.PlayerObject;
+import com.max.jumpingapp.PlayerPower;
+import com.max.jumpingapp.PlayerStatus;
+import com.max.jumpingapp.PlayerStatusFreeFalling;
+import com.max.jumpingapp.types.XPosition;
 
 /**
  * Created by normal on 29.10.2015.
@@ -18,6 +26,7 @@ public class Player {
     private double maxHeight;
     private double maxScore;
     private PlayerObject playerObject;
+    protected XPosition xPosition;
     private JumpCounter jumps=new JumpCounter();
 
     //game
@@ -33,6 +42,7 @@ public class Player {
         playerPower = new PlayerPower();
 
         playerStatus = new PlayerStatusFreeFalling(maxHeight, trampolin);
+        xPosition = new XPosition(0);
 
     }
 
@@ -41,14 +51,14 @@ public class Player {
         playerStatus.countJump(jumps);
             playerObject.addBlattTo(blaetter);
         try {
-            playerStatus.calculatePos(playerObject, playerPower, (int) maxHeight, trampolin);
+            playerStatus.calculatePos(playerObject, playerPower, (int) maxHeight, trampolin, xPosition);
         } catch (PlayerDiedException e) {
             //die();
             System.out.println("would have died");
         }
         updateBlaetter(blaetter);
-        if ((GamePanel.heightNill - curHeight) > maxScore) {
-            maxScore = (GamePanel.heightNill - curHeight);
+        if (maxHeight > maxScore) {
+            maxScore = maxHeight;
         }
     }
 
@@ -124,5 +134,9 @@ public class Player {
 
     public float getBottom(){
         return getRect().bottom;
+    }
+
+    public void xAccel(int xSwipedToRight) {
+        xPosition.adjustVelocity(xSwipedToRight);
     }
 }

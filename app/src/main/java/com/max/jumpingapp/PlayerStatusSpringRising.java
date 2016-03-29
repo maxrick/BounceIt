@@ -2,6 +2,10 @@ package com.max.jumpingapp;
 
 import android.graphics.Color;
 
+import com.max.jumpingapp.objects.Player;
+import com.max.jumpingapp.objects.Trampolin;
+import com.max.jumpingapp.types.XPosition;
+
 /**
  * Created by normal on 25.10.2015.
  */
@@ -11,15 +15,16 @@ public class PlayerStatusSpringRising extends PlayerStatus {
     }
 
     @Override
-    public void calculatePos(PlayerObject playerObject, PlayerPower playerPower, double maxHeight, Trampolin trampolin) throws PlayerDiedException {
-        double elapsed = (System.nanoTime() - lastUpdateTime) / 1000000000.d;
+    public void calculatePos(PlayerObject playerObject, PlayerPower playerPower, double maxHeight, Trampolin trampolin, XPosition xPosition) throws PlayerDiedException {
+        double elapsedSeconds = (System.nanoTime() - lastUpdateTime) / PlayerStatus.secondInNanos;
+        xPosition.move( elapsedSeconds);
         playerObject.setColor(Color.GRAY);
         if(testDieSet){
             playerObject.setColor(Color.RED);
         }
         int curHeight = (int) (-(Math.sqrt(2 * mass * PlayerStatus.gravitaion * maxHeight / trampolin.getSpringconst())
-                * Math.sin((elapsed+this.oscPeriod) / Math.sqrt(mass / trampolin.getSpringconst()))));
-        playerObject.setRect(curHeight, null);
+                * Math.sin((elapsedSeconds+this.oscPeriod) / Math.sqrt(mass / trampolin.getSpringconst()))));
+        playerObject.setRect(curHeight, xPosition);
     }
 
     @Override

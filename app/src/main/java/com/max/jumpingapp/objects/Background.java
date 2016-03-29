@@ -1,4 +1,4 @@
-package com.max.jumpingapp;
+package com.max.jumpingapp.objects;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -44,7 +44,6 @@ public class Background {
         canvas.drawBitmap(image, x, y, paint);
 
         paint.setAlpha(255-(alpha+GREY_STEP));
-        System.out.println("moved by: "+moveBy+" alpha: "+ alpha);
         if (y > 0) {
             canvas.drawBitmap(image, x, y-image.getHeight(), paint);
         }

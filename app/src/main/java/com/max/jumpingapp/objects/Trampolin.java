@@ -1,11 +1,12 @@
-package com.max.jumpingapp;
+package com.max.jumpingapp.objects;
 
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.Rect;
-import android.graphics.drawable.Drawable;
+
+import com.max.jumpingapp.GamePanel;
 
 /**
  * Created by normal on 29.08.2015.

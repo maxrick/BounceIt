@@ -1,10 +1,8 @@
 package com.max.jumpingapp;
 
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
-import android.graphics.Rect;
-import android.graphics.drawable.Drawable;
+import com.max.jumpingapp.objects.Player;
+import com.max.jumpingapp.objects.Trampolin;
+import com.max.jumpingapp.types.XPosition;
 
 /**
  * Created by normal on 02.09.2015.
@@ -36,7 +34,7 @@ public abstract class PlayerStatus {
         this.toleranceHeight = toleranceHeight;
     }
 
-    public abstract  void calculatePos(PlayerObject playerObject, PlayerPower playerPower, double maxHeight, Trampolin trampolin) throws PlayerDiedException;
+    public abstract  void calculatePos(PlayerObject playerObject, PlayerPower playerPower, double maxHeight, Trampolin trampolin, XPosition xPosition) throws PlayerDiedException;
 
     public abstract PlayerStatus getCurrentPlayerStatus();
 

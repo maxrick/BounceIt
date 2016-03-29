@@ -1,6 +1,8 @@
-package com.max.jumpingapp;
+package com.max.jumpingapp.objects;
 
 import android.graphics.Canvas;
+
+import com.max.jumpingapp.Blatt;
 
 import java.util.ArrayList;
 import java.util.List;
