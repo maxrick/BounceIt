@@ -11,7 +11,6 @@ public abstract class PlayerStatus {
     //physics
     private static final int MINSPEED = 3;
     public static double gravitaion = 1000;//10m/s -> 1000px/s
-    public static double secondInNanos= 1000000000.d;
     protected boolean testDieSet=false;
     protected double mass = 1;
 
@@ -34,7 +33,7 @@ public abstract class PlayerStatus {
         this.toleranceHeight = toleranceHeight;
     }
 
-    public abstract  void calculatePos(PlayerObject playerObject, PlayerPower playerPower, double maxHeight, Trampolin trampolin, XPosition xPosition) throws PlayerDiedException;
+    public abstract int calculatePos(PlayerObject playerObject, PlayerPower playerPower, double maxHeight, Trampolin trampolin, XPosition xPosition) throws PlayerDiedException;
 
     public abstract PlayerStatus getCurrentPlayerStatus();
 

@@ -13,6 +13,7 @@ import com.max.jumpingapp.PlayerObject;
 import com.max.jumpingapp.PlayerPower;
 import com.max.jumpingapp.PlayerStatus;
 import com.max.jumpingapp.PlayerStatusFreeFalling;
+import com.max.jumpingapp.Wind;
 import com.max.jumpingapp.types.XPosition;
 
 /**
@@ -46,16 +47,17 @@ public class Player {
 
     }
 
-    public void updatePosition(Blaetter blaetter, Trampolin trampolin){
+    public void updatePosition(Blaetter blaetter, Trampolin trampolin, Wind wind){
         playerStatus = playerStatus.getCurrentPlayerStatus();
         playerStatus.countJump(jumps);
             playerObject.addBlattTo(blaetter);
         try {
-            playerStatus.calculatePos(playerObject, playerPower, (int) maxHeight, trampolin, xPosition);
+            curHeight = playerStatus.calculatePos(playerObject, playerPower, (int) maxHeight, trampolin, xPosition);
         } catch (PlayerDiedException e) {
             //die();
             System.out.println("would have died");
         }
+        wind.blow(xPosition, curHeight);
         updateBlaetter(blaetter);
         if (maxHeight > maxScore) {
             maxScore = maxHeight;
@@ -83,8 +85,9 @@ public class Player {
         testPaint.setColor(Color.CYAN);
         canvas.drawRect(new Rect(0, 0, 150, 120), testPaint);
         testPaint.setColor(Color.BLACK);
-        canvas.drawText("Height: " + ( maxHeight), 20, 20, testPaint);
-        canvas.drawText("Score: " + (score), 20, 50, testPaint);
+        canvas.drawText("Height: " + (maxHeight), 20, 20, testPaint);
+        canvas.drawText("Score: " + (score), 20, 40, testPaint);
+        canvas.drawText("Current: " + (curHeight), 20, 60, testPaint);
         jumps.draw(canvas, 20, 80, testPaint);
         return moveBy;
     }

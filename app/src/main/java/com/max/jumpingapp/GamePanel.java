@@ -20,6 +20,8 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
     public static int heightNill = 700;
     public static int screenHeight;
     public static int screenWidth;
+    public static double secondInNanos= 1000000000.d;
+    //    public static double secondInNanos= 1000000000.d;
     private static GamePanel meGamePanel;
     private MainThread thread;
     private Background bg;
@@ -27,6 +29,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
     //    private Rect rect;
     private Player player;
     private Blaetter blaetter;
+    private Wind wind;
     private boolean touching = false;
     private int dy;
     private int xTouchBeg = 0;
@@ -61,6 +64,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
         int trampYPos = (int) (GamePanel.screenHeight * 0.8);
         trampolin = new Trampolin((int) (trampXCenter - 0.5 * trampWidth), trampYPos, trampWidth, 10);
         blaetter = new Blaetter();
+        wind = new Wind();
         int rectWidth = (int) (GamePanel.screenWidth * 0.2);
         Bitmap playerImage = BitmapFactory.decodeResource(getResources(), R.drawable.playerimage);
         player = new Player((int) (trampXCenter - 0.5*rectWidth), (int) (trampXCenter+ 0.5*rectWidth ), 200, 300, trampolin, playerImage);//(trampXCenter - 0.5 * rectWidth), (int) (trampXCenter + 0.5 * rectWidth), 200, 300, trampolin, playerImage);
@@ -106,7 +110,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
 
     public void update(long timeMikro) {
 //        playerStatus = playerStatus.getCurrentPlayerStatus();
-        player.updatePosition(blaetter, trampolin);
+        player.updatePosition(blaetter, trampolin, wind);
         player.updatePower(touching, trampolin, timeMikro);
     }
 

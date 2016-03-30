@@ -15,9 +15,9 @@ public class PlayerStatusSpringRising extends PlayerStatus {
     }
 
     @Override
-    public void calculatePos(PlayerObject playerObject, PlayerPower playerPower, double maxHeight, Trampolin trampolin, XPosition xPosition) throws PlayerDiedException {
-        double elapsedSeconds = (System.nanoTime() - lastUpdateTime) / PlayerStatus.secondInNanos;
-        xPosition.move( elapsedSeconds);
+    public int calculatePos(PlayerObject playerObject, PlayerPower playerPower, double maxHeight, Trampolin trampolin, XPosition xPosition) throws PlayerDiedException {
+        double elapsedSeconds = (System.nanoTime() - lastUpdateTime) / GamePanel.secondInNanos;
+        xPosition.dontMove();
         playerObject.setColor(Color.GRAY);
         if(testDieSet){
             playerObject.setColor(Color.RED);
@@ -25,11 +25,12 @@ public class PlayerStatusSpringRising extends PlayerStatus {
         int curHeight = (int) (-(Math.sqrt(2 * mass * PlayerStatus.gravitaion * maxHeight / trampolin.getSpringconst())
                 * Math.sin((elapsedSeconds+this.oscPeriod) / Math.sqrt(mass / trampolin.getSpringconst()))));
         playerObject.setRect(curHeight, xPosition);
+        return curHeight;
     }
 
     @Override
     public PlayerStatus getCurrentPlayerStatus() {
-        double elapsed = (System.nanoTime() - lastUpdateTime) / PlayerStatus.secondInNanos;
+        double elapsed = (System.nanoTime() - lastUpdateTime) / GamePanel.secondInNanos;
         if(elapsed > oscPeriod){
             return new PlayerStatusFreeRising(oscPeriod, fallPeriod, toleranceHeight);
         }
