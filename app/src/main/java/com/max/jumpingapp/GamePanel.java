@@ -22,7 +22,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
     public static int screenWidth;
     public static double secondInNanos= 1000000000.d;
     //    public static double secondInNanos= 1000000000.d;
-    private static GamePanel meGamePanel;
+    public static GamePanel meGamePanel;//todo only for test
     private MainThread thread;
     private Background bg;
     private Trampolin trampolin;
@@ -52,6 +52,10 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
         return meGamePanel;
     }
 
+    public void setNewPlayer(Player newPlayer) {
+        this.player = newPlayer;
+    }
+
     @Override
     public void surfaceCreated(SurfaceHolder holder) {
         GamePanel.screenWidth = getWidth();
@@ -60,7 +64,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
 
 
         int trampXCenter = (int) (GamePanel.screenWidth * 0.5);
-        int trampWidth = (int) (GamePanel.screenWidth * 1.2);
+        int trampWidth = (int) (GamePanel.screenWidth * 0.8);
         int trampYPos = (int) (GamePanel.screenHeight * 0.8);
         trampolin = new Trampolin((int) (trampXCenter - 0.5 * trampWidth), trampYPos, trampWidth, 10);
         blaetter = new Blaetter();

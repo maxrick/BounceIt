@@ -30,8 +30,11 @@ public class PlayerStatusSpringFalling extends PlayerStatus {
         if(elapsedSeconds > oscPeriod*0.45 && playerPower.noPower() && curHeight < toleranceHeight){
             if(!testDieSet){
                 testDieSet = true;
-                throw new PlayerDiedException();
+                //throw new PlayerDiedException(trampolin);
             }
+        }
+        if(!trampolin.supportingPlayer(playerObject)){
+            throw new PlayerDiedException(trampolin);
         }
         playerObject.setRect(curHeight, xPosition);
         return curHeight;

@@ -49,7 +49,8 @@ public class XPosition {
 
     public void velocityByWind(int windPower) {
         boolean windPositive = (windPower >0);
-        xVelocity = windPower + (windPositive? xVelocity : -xVelocity);
+        //xVelocity = windPower + (windPositive? xVelocity : -xVelocity);
+        xVelocity += windPower;
         capVelocity();
     }
 }

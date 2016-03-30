@@ -51,7 +51,7 @@ public class PlayerPower {
     public void accelerateOnce(double maxHeight, double oscPeriod){
         if(!accelerated){
             accelerate(maxHeight, oscPeriod);
-            System.out.println("accelerated: "+ accelerator);
+            //System.out.println("accelerated: "+ accelerator);
             accelerated = true;
         }
     }
@@ -68,7 +68,7 @@ public class PlayerPower {
     public void activateAccelaration(Player player) {
         if(accelerator != 0){
             player.activateAccelaration(accelerator);
-            System.out.println("accel activated: "+ accelerator);
+            //System.out.println("accel activated: "+ accelerator);
             resetAccelerator();
         }
     }

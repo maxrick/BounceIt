@@ -19,7 +19,7 @@ public class Wind {
         if(curHeight >0){
             double chance = random.nextInt(CHANCE);
             if(chance == 1){
-                int windPower = random.nextInt(curHeight/10);
+                int windPower = random.nextInt(curHeight/30);
                 windPower = random.nextBoolean()? windPower : -windPower;
                 xPosition.velocityByWind(windPower);
             }

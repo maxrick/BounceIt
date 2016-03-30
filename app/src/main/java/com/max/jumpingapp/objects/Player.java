@@ -54,8 +54,8 @@ public class Player {
         try {
             curHeight = playerStatus.calculatePos(playerObject, playerPower, (int) maxHeight, trampolin, xPosition);
         } catch (PlayerDiedException e) {
-            //die();
-            System.out.println("would have died");
+            die(e.trampolin);
+            //System.out.println("would have died");
         }
         wind.blow(xPosition, curHeight);
         updateBlaetter(blaetter);
@@ -64,11 +64,13 @@ public class Player {
         }
     }
 
-//    private void die() {
-//        System.out.println("dead");
-//        int dec = (int) (maxHeight/3);
-//        playerPower.decelerate(dec);
-//    }
+    private void die(Trampolin trampolin) {
+        System.out.println("dead with maxHeight: "+maxHeight);
+        Player p = new Player(this.getRect().left, this.getRect().right, 200, 300, trampolin, playerObject.image);
+        GamePanel.meGamePanel.setNewPlayer(p);
+        //int dec = (int) (maxHeight/3);
+        //playerPower.decelerate(dec);
+    }
 
     public void updatePower(boolean fingerTouching, Trampolin trampolin, long timeMikro) {
         playerStatus.updatePower(playerPower, fingerTouching, this, maxHeight, trampolin, timeMikro);

@@ -7,6 +7,7 @@ import android.graphics.Path;
 import android.graphics.Rect;
 
 import com.max.jumpingapp.GamePanel;
+import com.max.jumpingapp.PlayerObject;
 
 /**
  * Created by normal on 29.08.2015.
@@ -110,4 +111,8 @@ private Path trampCurve(float left, float right, float bottom) {
         double result = 10 - Springconst/10 + Math.pow(Springconst, 1.2)/(100*Springconst);//without *maxHeight, gets to exponential
         return result;//better formular needed
     }//Math.abs(playerPower)*maxHeight/100;
+
+    public boolean supportingPlayer(PlayerObject playerObject) {
+        return (this.xPos <= playerObject.rect.left && (this.xPos+width) >= playerObject.rect.right && playerObject.rect.left < playerObject.rect.right);
+    }
 }

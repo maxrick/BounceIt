@@ -21,7 +21,7 @@ public class PlayerObject {
     private final Paint paint;
     private boolean animateStrech;
     private final int GAPTOP = 200;
-    private Bitmap image;
+    public Bitmap image;
 
     public PlayerObject(Rect rect, Bitmap res) {
         this.rect = rect;
