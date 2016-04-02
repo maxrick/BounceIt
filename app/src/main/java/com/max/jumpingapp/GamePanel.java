@@ -1,6 +1,7 @@
 package com.max.jumpingapp;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -28,6 +29,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
     public static double secondInNanos= 1000000000.d;
     public static GamePanel meGamePanel;//todo only for test
     private MainThread thread;
+    private MainActivity activity;
 
     public Game game;
 
@@ -40,7 +42,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
 
     private GamePanel(Context context) {
         super(context);
-
+        this.activity = (MainActivity) context;
         getHolder().addCallback(this);
 
         setFocusable(true);
@@ -111,7 +113,12 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
     }
 
     public void update(long timeMikro) {
-        game.update(timeMikro, touching);
+        try {
+            game.update(timeMikro, touching);
+        } catch (PlayerDiedException e) {
+            activity.changeToDiedScreen((int) e.height);
+//            surfaceDestroyed(getHolder());
+        }
     }
 
     @Override

@@ -10,7 +10,6 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="HardcodedDebugMode">
-
         <activity
             android:name=".StartScreen"
             android:configChanges="orientation|keyboardHidden|screenSize"
@@ -23,14 +22,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".MainActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
-            android:theme="@style/FullscreenTheme">
-        </activity>
+            android:theme="@style/FullscreenTheme"></activity>
+        <activity android:name=".DiedScreen"></activity>
     </application>
 
 </manifest>

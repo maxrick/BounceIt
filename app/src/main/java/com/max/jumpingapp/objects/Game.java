@@ -34,13 +34,14 @@ public class Game {
         blaetter.draw(canvas, moveBy);
     }
 
-    public void update(long timeMikro, boolean touching) {
-        try {
-            player.updatePosition(blaetter, trampolin, wind);
-        } catch (PlayerDiedException e) {
-            System.out.println("Player died with height :"+ +e.height);
-            this.player = GamePanel.createPlayer(e.playerObject.image);
-        }
+    public void update(long timeMikro, boolean touching) throws PlayerDiedException {
+        player.updatePosition(blaetter, trampolin, wind);
+//        try {
+//            player.updatePosition(blaetter, trampolin, wind);
+//        } catch (PlayerDiedException e) {
+//            System.out.println("Player died with height :"+ +e.height);
+//            this.player = GamePanel.createPlayer(e.playerObject.image);
+//        }
         player.updatePower(touching, trampolin, timeMikro);
     }
 

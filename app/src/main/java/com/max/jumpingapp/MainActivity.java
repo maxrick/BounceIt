@@ -1,10 +1,12 @@
 package com.max.jumpingapp;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.WindowManager;
+import android.widget.ViewSwitcher;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -18,6 +20,7 @@ public class MainActivity extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         setContentView(GamePanel.create(this));
+
     }
 
     @Override
@@ -45,5 +48,12 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+    }
+
+    public void changeToDiedScreen(int score){
+        System.out.print("died");
+        Intent intent = new Intent(this, DiedScreen.class);
+        intent.putExtra("score", score);
+        startActivity(intent);
     }
 }
