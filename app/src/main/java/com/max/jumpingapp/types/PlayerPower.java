@@ -1,6 +1,6 @@
- package com.max.jumpingapp;
+ package com.max.jumpingapp.types;
 
- import com.max.jumpingapp.objects.Player;
+ import com.max.jumpingapp.objects.player.Player;
 
  /**
  * Created by normal on 24.10.2015.

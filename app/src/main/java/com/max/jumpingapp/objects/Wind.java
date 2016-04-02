@@ -1,4 +1,4 @@
-package com.max.jumpingapp;
+package com.max.jumpingapp.objects;
 
 import com.max.jumpingapp.types.XPosition;
 

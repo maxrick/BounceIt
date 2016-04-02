@@ -1,9 +1,11 @@
-package com.max.jumpingapp;
+package com.max.jumpingapp.objects.player;
 
-import android.graphics.Color;
-
-import com.max.jumpingapp.objects.Player;
+import com.max.jumpingapp.GamePanel;
+import com.max.jumpingapp.JumpCounter;
+import com.max.jumpingapp.PlayerDiedException;
 import com.max.jumpingapp.objects.Trampolin;
+import com.max.jumpingapp.objects.visuals.PlayerObject;
+import com.max.jumpingapp.types.PlayerPower;
 import com.max.jumpingapp.types.XPosition;
 
 /**
@@ -15,13 +17,11 @@ public class PlayerStatusFreeRising extends PlayerStatus {
     }
 
     @Override
-    public int calculatePos(PlayerObject playerObject, PlayerPower playerPower, double maxHeight, Trampolin trampolin, XPosition xPosition) throws PlayerDiedException {
+    public int calculatePos(PlayerPower playerPower, double maxHeight, XPosition xPosition, PlayerObject playerObject, Trampolin trampolin) throws PlayerDiedException {
         double elapsedSeconds = (System.nanoTime() - lastUpdateTime) / GamePanel.secondInNanos;
         testDieSet=false;
         xPosition.move();
-        playerObject.setColor(Color.GREEN);
         int curHeight = (int) (- 0.5 * PlayerStatus.gravitaion * Math.pow((elapsedSeconds - Math.sqrt(2*maxHeight/ PlayerStatus.gravitaion)), 2)+ maxHeight);
-        playerObject.setRect(curHeight, xPosition);
         return curHeight;
     }
 

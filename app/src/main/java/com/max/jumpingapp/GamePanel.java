@@ -4,16 +4,14 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
-import android.graphics.Rect;
 import android.support.annotation.NonNull;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
-import com.max.jumpingapp.objects.Background;
-import com.max.jumpingapp.objects.Blaetter;
+import com.max.jumpingapp.objects.visuals.Background;
 import com.max.jumpingapp.objects.Game;
-import com.max.jumpingapp.objects.Player;
+import com.max.jumpingapp.objects.player.Player;
 import com.max.jumpingapp.objects.Trampolin;
 
 /**
@@ -21,7 +19,6 @@ import com.max.jumpingapp.objects.Trampolin;
  */
 public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
     private static final double TRAMPOLIN_SPAN_OF_SCREEN = 0.8;
-    private static final double TRAMPOLIN_YPOS_OF_SCREEN = 0.8;
     public static final int SPRINGCONST = 10;
     public static final int HEIGHT_POS = 300;
     public static final int FORM_HEIGHT = 200;
@@ -62,10 +59,9 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
         GamePanel.screenWidth = getWidth();
         GamePanel.screenHeight = getHeight();
 
-        int trampXCenter = GamePanel.screenWidth/2;//@// TODO: 4/2/2016 same type
+        int trampXCenter = GamePanel.screenWidth/2;
         int trampWidth = (int) (GamePanel.screenWidth * TRAMPOLIN_SPAN_OF_SCREEN);
-        int trampYPos = (int) (GamePanel.screenHeight * TRAMPOLIN_YPOS_OF_SCREEN);
-        Trampolin trampolin = new Trampolin((trampXCenter - trampWidth/2), trampYPos, trampWidth, SPRINGCONST);//@// TODO: 4/2/2016 give trampXCenter only
+        Trampolin trampolin = new Trampolin(trampXCenter, trampWidth, SPRINGCONST);
 
         Bitmap backgroundImage = BitmapFactory.decodeResource(getResources(), R.drawable.background3);
         Background background = new Background(backgroundImage);

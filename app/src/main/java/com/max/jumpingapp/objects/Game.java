@@ -1,13 +1,11 @@
 package com.max.jumpingapp.objects;
 
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 
 import com.max.jumpingapp.GamePanel;
 import com.max.jumpingapp.PlayerDiedException;
-import com.max.jumpingapp.R;
-import com.max.jumpingapp.Wind;
+import com.max.jumpingapp.objects.player.Player;
+import com.max.jumpingapp.objects.visuals.Background;
 
 /**
  * Created by max on 4/2/2016.
@@ -32,32 +30,28 @@ public class Game {
     }
 
     public void draw(Canvas canvas) {
-        int moveBy = getTrampolin().draw(canvas, player, bg);
+        int moveBy = trampolin.draw(canvas, player, bg);
         blaetter.draw(canvas, moveBy);
     }
 
     public void update(long timeMikro, boolean touching) {
         try {
-            player.updatePosition(blaetter, getTrampolin(), wind);
+            player.updatePosition(blaetter, trampolin, wind);
         } catch (PlayerDiedException e) {
             System.out.println("Player died with height :"+ +e.height);
             this.player = GamePanel.createPlayer(e.playerObject.image);
         }
-        player.updatePower(touching, getTrampolin(), timeMikro);
+        player.updatePower(touching, trampolin, timeMikro);
     }
 
     private void upgradeTrampolin() {
-        this.trampolin = getTrampolin().upgrade(10);
-        player.trampolinChanged(getTrampolin());
+        this.trampolin = trampolin.upgrade(10);
+        player.trampolinChanged(trampolin);
     }
 
     public void swiped(int xSwipedToRight) {
         player.removeBlaetter(blaetter);
         player.xAccel(xSwipedToRight);
-    }
-
-    public Trampolin getTrampolin() {
-        return trampolin;
     }
 
 }

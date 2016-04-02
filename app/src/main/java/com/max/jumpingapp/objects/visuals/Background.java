@@ -1,4 +1,4 @@
-package com.max.jumpingapp.objects;
+package com.max.jumpingapp.objects.visuals;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;

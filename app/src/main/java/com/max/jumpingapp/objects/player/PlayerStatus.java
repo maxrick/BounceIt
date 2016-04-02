@@ -1,7 +1,11 @@
-package com.max.jumpingapp;
+package com.max.jumpingapp.objects.player;
 
-import com.max.jumpingapp.objects.Player;
+import com.max.jumpingapp.GamePanel;
+import com.max.jumpingapp.JumpCounter;
+import com.max.jumpingapp.PlayerDiedException;
 import com.max.jumpingapp.objects.Trampolin;
+import com.max.jumpingapp.objects.visuals.PlayerObject;
+import com.max.jumpingapp.types.PlayerPower;
 import com.max.jumpingapp.types.XPosition;
 
 /**
@@ -9,7 +13,6 @@ import com.max.jumpingapp.types.XPosition;
  */
 public abstract class PlayerStatus {
     //physics
-    private static final int MINSPEED = 3;
     public static double gravitaion = 1000;//10m/s -> 1000px/s
     protected boolean testDieSet=false;
     protected double mass = 1;
@@ -30,7 +33,7 @@ public abstract class PlayerStatus {
         this.fallPeriod = fallperiod;
     }
 
-    public abstract int calculatePos(PlayerObject playerObject, PlayerPower playerPower, double maxHeight, Trampolin trampolin, XPosition xPosition) throws PlayerDiedException;
+    public abstract int calculatePos(PlayerPower playerPower, double maxHeight, XPosition xPosition, PlayerObject playerObject, Trampolin trampolin) throws PlayerDiedException;
 
     public abstract PlayerStatus getCurrentPlayerStatus();
 

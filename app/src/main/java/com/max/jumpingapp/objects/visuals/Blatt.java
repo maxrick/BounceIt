@@ -1,8 +1,10 @@
-package com.max.jumpingapp;
+package com.max.jumpingapp.objects.visuals;
 
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+
+import com.max.jumpingapp.objects.player.PlayerStatus;
 
 /**
  * Created by normal on 19.09.2015.

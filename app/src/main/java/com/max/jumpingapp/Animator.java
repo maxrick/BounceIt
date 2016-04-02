@@ -1,5 +1,7 @@
 package com.max.jumpingapp;
 
+import com.max.jumpingapp.objects.player.PlayerStatus;
+
 public class Animator {
     private final PlayerStatus playerStatus;
 

@@ -1,9 +1,11 @@
-package com.max.jumpingapp;
+package com.max.jumpingapp.objects.player;
 
-import android.graphics.Color;
-
-import com.max.jumpingapp.objects.Player;
+import com.max.jumpingapp.GamePanel;
+import com.max.jumpingapp.JumpCounter;
+import com.max.jumpingapp.PlayerDiedException;
 import com.max.jumpingapp.objects.Trampolin;
+import com.max.jumpingapp.objects.visuals.PlayerObject;
+import com.max.jumpingapp.types.PlayerPower;
 import com.max.jumpingapp.types.XPosition;
 
 /**
@@ -16,20 +18,14 @@ public class PlayerStatusSpringFalling extends PlayerStatus {
     }
 
     @Override
-    public int calculatePos(PlayerObject playerObject, PlayerPower playerPower, double maxHeight, Trampolin trampolin, XPosition xPosition) throws PlayerDiedException {
+    public int calculatePos(PlayerPower playerPower, double maxHeight, XPosition xPosition, PlayerObject playerObject, Trampolin trampolin) throws PlayerDiedException {
         double elapsedSeconds = (System.nanoTime() - lastUpdateTime) / GamePanel.secondInNanos;
         xPosition.dontMove();
-        playerObject.setColor(Color.BLACK);
-        if(testDieSet){
-            playerObject.setColor(Color.RED);
-        }
-        int curHeight = (int) (-(Math.sqrt(2 * mass * PlayerStatus.gravitaion * maxHeight / trampolin.getSpringconst()) *
-                Math.sin(elapsedSeconds / Math.sqrt(mass / trampolin.getSpringconst()))));
-
+        int curHeight = (int) (-(Math.sqrt(2 * mass * PlayerStatus.gravitaion * maxHeight / GamePanel.SPRINGCONST) *
+                Math.sin(elapsedSeconds / Math.sqrt(mass / GamePanel.SPRINGCONST))));
         if(!trampolin.supportingPlayer(playerObject)){
             throw new PlayerDiedException(playerObject, maxHeight);//@// TODO: 4/2/2016 score need to be printed; does Player have score?
         }
-        playerObject.setRect(curHeight, xPosition);
         return curHeight;
     }
 

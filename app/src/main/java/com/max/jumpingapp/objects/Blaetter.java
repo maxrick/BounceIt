@@ -2,7 +2,7 @@ package com.max.jumpingapp.objects;
 
 import android.graphics.Canvas;
 
-import com.max.jumpingapp.Blatt;
+import com.max.jumpingapp.objects.visuals.Blatt;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,4 +1,4 @@
-package com.max.jumpingapp;
+package com.max.jumpingapp.objects.visuals;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -6,7 +6,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
 
-import com.max.jumpingapp.objects.Background;
+import com.max.jumpingapp.GamePanel;
 import com.max.jumpingapp.objects.Blaetter;
 import com.max.jumpingapp.types.XPosition;
 

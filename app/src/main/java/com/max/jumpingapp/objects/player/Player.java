@@ -1,4 +1,4 @@
-package com.max.jumpingapp.objects;
+package com.max.jumpingapp.objects.player;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -6,14 +6,14 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
 
-import com.max.jumpingapp.GamePanel;
 import com.max.jumpingapp.JumpCounter;
 import com.max.jumpingapp.PlayerDiedException;
-import com.max.jumpingapp.PlayerObject;
-import com.max.jumpingapp.PlayerPower;
-import com.max.jumpingapp.PlayerStatus;
-import com.max.jumpingapp.PlayerStatusFreeFalling;
-import com.max.jumpingapp.Wind;
+import com.max.jumpingapp.objects.visuals.Background;
+import com.max.jumpingapp.objects.Blaetter;
+import com.max.jumpingapp.objects.Trampolin;
+import com.max.jumpingapp.objects.Wind;
+import com.max.jumpingapp.objects.visuals.PlayerObject;
+import com.max.jumpingapp.types.PlayerPower;
 import com.max.jumpingapp.types.XPosition;
 
 /**
@@ -49,7 +49,8 @@ public class Player {
         playerStatus = playerStatus.getCurrentPlayerStatus();
         playerStatus.countJump(jumps);
         playerObject.addBlattTo(blaetter);
-        curHeight = playerStatus.calculatePos(playerObject, playerPower, (int) maxHeight, trampolin, xPosition);
+        curHeight = playerStatus.calculatePos(playerPower, (int) maxHeight, xPosition, playerObject, trampolin);
+        playerObject.setRect(curHeight, xPosition);
         wind.blow(xPosition, curHeight);
         updateBlaetter(blaetter);
         if (maxHeight > maxScore) {
