@@ -23,8 +23,8 @@ public class PlayerObject {
     private final int GAPTOP = 200;
     public Bitmap image;
 
-    public PlayerObject(Rect rect, Bitmap res) {
-        this.rect = rect;
+    public PlayerObject(int xCenter, int width, int formHeight, int yPositionBottom, Bitmap res) {
+        this.rect = new Rect(xCenter -width/2, GamePanel.heightNill - yPositionBottom - formHeight, xCenter + width/2, GamePanel.heightNill - yPositionBottom);
         normalHeightRect = rect.height();
         minHeightRect = 4*normalHeightRect/10;
         maxHeightRect = 3*normalHeightRect/2;
@@ -94,5 +94,9 @@ public class PlayerObject {
 
     public void removeTouchingLeaves(Blaetter blaetter) {
         blaetter.removeTouching(rect.top);
+    }
+
+    public double getHeight() {
+        return GamePanel.heightNill - rect.bottom;
     }
 }

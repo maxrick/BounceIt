@@ -10,8 +10,8 @@ import com.max.jumpingapp.types.XPosition;
  * Created by normal on 25.10.2015.
  */
 public class PlayerStatusFreeRising extends PlayerStatus {
-    public PlayerStatusFreeRising(double oscPeriod, double fallPeriod, double toleranceHeight) {
-        super(oscPeriod, fallPeriod, toleranceHeight);
+    public PlayerStatusFreeRising(double oscPeriod, double fallPeriod) {
+        super(oscPeriod, fallPeriod);
     }
 
     @Override
@@ -29,7 +29,7 @@ public class PlayerStatusFreeRising extends PlayerStatus {
     public PlayerStatus getCurrentPlayerStatus() {
         double elapsed = (System.nanoTime() - lastUpdateTime) / GamePanel.secondInNanos;
         if(elapsed > fallPeriod){
-            return new PlayerStatusFreeFalling(oscPeriod, fallPeriod, toleranceHeight);
+            return new PlayerStatusFreeFalling(oscPeriod, fallPeriod);
         }
         return this;
     }

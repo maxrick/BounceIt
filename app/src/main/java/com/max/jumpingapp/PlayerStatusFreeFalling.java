@@ -11,11 +11,11 @@ import com.max.jumpingapp.types.XPosition;
  */
 public class PlayerStatusFreeFalling extends PlayerStatus {
 
-    public PlayerStatusFreeFalling(double oscPeriod, double fallPeriod, double toleranceHeight) {
-        super(oscPeriod, fallPeriod, toleranceHeight);
+    public PlayerStatusFreeFalling(double oscPeriod, double fallPeriod) {
+        super(oscPeriod, fallPeriod);
     }
-    public PlayerStatusFreeFalling(double maxHeight, Trampolin trampolin){
-        super(maxHeight, trampolin);
+    public PlayerStatusFreeFalling(double maxHeight){
+        super(maxHeight);
     }
 
     @Override
@@ -33,7 +33,7 @@ public class PlayerStatusFreeFalling extends PlayerStatus {
     public PlayerStatus getCurrentPlayerStatus() {
         double elapsed = (System.nanoTime() - lastUpdateTime) / GamePanel.secondInNanos;
         if(elapsed > fallPeriod){
-            return new PlayerStatusSpringFalling(oscPeriod, fallPeriod, toleranceHeight);
+            return new PlayerStatusSpringFalling(oscPeriod, fallPeriod);
         }
         return this;
     }

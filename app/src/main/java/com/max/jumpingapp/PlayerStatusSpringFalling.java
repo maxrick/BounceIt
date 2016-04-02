@@ -11,8 +11,8 @@ import com.max.jumpingapp.types.XPosition;
  */
 public class PlayerStatusSpringFalling extends PlayerStatus {
 
-    public PlayerStatusSpringFalling(double oscPeriod, double fallPeriod, double toleranceHeight) {
-        super(oscPeriod, fallPeriod, toleranceHeight);
+    public PlayerStatusSpringFalling(double oscPeriod, double fallPeriod) {
+        super(oscPeriod, fallPeriod);
     }
 
     @Override
@@ -26,15 +26,8 @@ public class PlayerStatusSpringFalling extends PlayerStatus {
         int curHeight = (int) (-(Math.sqrt(2 * mass * PlayerStatus.gravitaion * maxHeight / trampolin.getSpringconst()) *
                 Math.sin(elapsedSeconds / Math.sqrt(mass / trampolin.getSpringconst()))));
 
-//        if(curHeight < -200 && playerPower.noPower()){
-        if(elapsedSeconds > oscPeriod*0.45 && playerPower.noPower() && curHeight < toleranceHeight){
-            if(!testDieSet){
-                testDieSet = true;
-                //throw new PlayerDiedException(trampolin);
-            }
-        }
         if(!trampolin.supportingPlayer(playerObject)){
-            throw new PlayerDiedException(trampolin);
+            throw new PlayerDiedException(playerObject, maxHeight);//@// TODO: 4/2/2016 score need to be printed; does Player have score?
         }
         playerObject.setRect(curHeight, xPosition);
         return curHeight;
@@ -44,7 +37,7 @@ public class PlayerStatusSpringFalling extends PlayerStatus {
     public PlayerStatus getCurrentPlayerStatus() {
         double elapsed = (System.nanoTime() - lastUpdateTime) / GamePanel.secondInNanos;
         if(elapsed > oscPeriod){
-            return new PlayerStatusSpringRising(oscPeriod, fallPeriod, toleranceHeight);
+            return new PlayerStatusSpringRising(oscPeriod, fallPeriod);
         }
         return this;
     }

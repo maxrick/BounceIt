@@ -35,41 +35,26 @@ public class Player {
     private int right;
 
 
-    public Player(int left, int right, int formHeight, int heightPos, Trampolin trampolin, Bitmap playerImage) {
-        maxHeight = Math.abs(heightPos);
-        playerObject = new PlayerObject(
-                new Rect(left, GamePanel.heightNill - (int) maxHeight - formHeight, right, GamePanel.heightNill - (int) maxHeight), playerImage
-        );
+    public Player(int playerXCenter, int playerWidth, int formHeight, int height_pos, Bitmap playerImage) {
+        maxHeight = Math.abs(height_pos);
+        this.playerObject = new PlayerObject(playerXCenter, playerWidth, formHeight, height_pos, playerImage);
         playerPower = new PlayerPower();
 
-        playerStatus = new PlayerStatusFreeFalling(maxHeight, trampolin);
+        playerStatus = new PlayerStatusFreeFalling(maxHeight);
         xPosition = new XPosition(0);
 
     }
 
-    public void updatePosition(Blaetter blaetter, Trampolin trampolin, Wind wind){
+    public void updatePosition(Blaetter blaetter, Trampolin trampolin, Wind wind) throws PlayerDiedException {
         playerStatus = playerStatus.getCurrentPlayerStatus();
         playerStatus.countJump(jumps);
-            playerObject.addBlattTo(blaetter);
-        try {
-            curHeight = playerStatus.calculatePos(playerObject, playerPower, (int) maxHeight, trampolin, xPosition);
-        } catch (PlayerDiedException e) {
-            die(e.trampolin);
-            //System.out.println("would have died");
-        }
+        playerObject.addBlattTo(blaetter);
+        curHeight = playerStatus.calculatePos(playerObject, playerPower, (int) maxHeight, trampolin, xPosition);
         wind.blow(xPosition, curHeight);
         updateBlaetter(blaetter);
         if (maxHeight > maxScore) {
             maxScore = maxHeight;
         }
-    }
-
-    private void die(Trampolin trampolin) {
-        System.out.println("dead with maxHeight: "+maxHeight);
-        Player p = new Player(this.getRect().left, this.getRect().right, 200, 300, trampolin, playerObject.image);
-        GamePanel.meGamePanel.setNewPlayer(p);
-        //int dec = (int) (maxHeight/3);
-        //playerPower.decelerate(dec);
     }
 
     public void updatePower(boolean fingerTouching, Trampolin trampolin, long timeMikro) {

@@ -4,12 +4,15 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.graphics.Rect;
+import android.support.annotation.NonNull;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
 import com.max.jumpingapp.objects.Background;
 import com.max.jumpingapp.objects.Blaetter;
+import com.max.jumpingapp.objects.Game;
 import com.max.jumpingapp.objects.Player;
 import com.max.jumpingapp.objects.Trampolin;
 
@@ -17,19 +20,21 @@ import com.max.jumpingapp.objects.Trampolin;
  * Created by normal on 29.08.2015.
  */
 public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
+    private static final double TRAMPOLIN_SPAN_OF_SCREEN = 0.8;
+    private static final double TRAMPOLIN_YPOS_OF_SCREEN = 0.8;
+    public static final int SPRINGCONST = 10;
+    public static final int HEIGHT_POS = 300;
+    public static final int FORM_HEIGHT = 200;
     public static int heightNill = 700;
     public static int screenHeight;
     public static int screenWidth;
     public static double secondInNanos= 1000000000.d;
-    //    public static double secondInNanos= 1000000000.d;
     public static GamePanel meGamePanel;//todo only for test
     private MainThread thread;
-    private Background bg;
-    private Trampolin trampolin;
-    //    private Rect rect;
-    private Player player;
-    private Blaetter blaetter;
-    private Wind wind;
+
+    public Game game;
+
+
     private boolean touching = false;
     private int dy;
     private int xTouchBeg = 0;
@@ -52,43 +57,40 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
         return meGamePanel;
     }
 
-    public void setNewPlayer(Player newPlayer) {
-        this.player = newPlayer;
-    }
-
     @Override
     public void surfaceCreated(SurfaceHolder holder) {
         GamePanel.screenWidth = getWidth();
         GamePanel.screenHeight = getHeight();
 
+        int trampXCenter = GamePanel.screenWidth/2;//@// TODO: 4/2/2016 same type
+        int trampWidth = (int) (GamePanel.screenWidth * TRAMPOLIN_SPAN_OF_SCREEN);
+        int trampYPos = (int) (GamePanel.screenHeight * TRAMPOLIN_YPOS_OF_SCREEN);
+        Trampolin trampolin = new Trampolin((trampXCenter - trampWidth/2), trampYPos, trampWidth, SPRINGCONST);//@// TODO: 4/2/2016 give trampXCenter only
 
-
-        int trampXCenter = (int) (GamePanel.screenWidth * 0.5);
-        int trampWidth = (int) (GamePanel.screenWidth * 0.8);
-        int trampYPos = (int) (GamePanel.screenHeight * 0.8);
-        trampolin = new Trampolin((int) (trampXCenter - 0.5 * trampWidth), trampYPos, trampWidth, 10);
-        blaetter = new Blaetter();
-        wind = new Wind();
-        int rectWidth = (int) (GamePanel.screenWidth * 0.2);
-        Bitmap playerImage = BitmapFactory.decodeResource(getResources(), R.drawable.playerimage);
-        player = new Player((int) (trampXCenter - 0.5*rectWidth), (int) (trampXCenter+ 0.5*rectWidth ), 200, 300, trampolin, playerImage);//(trampXCenter - 0.5 * rectWidth), (int) (trampXCenter + 0.5 * rectWidth), 200, 300, trampolin, playerImage);
         Bitmap backgroundImage = BitmapFactory.decodeResource(getResources(), R.drawable.background3);
-        bg = new Background(backgroundImage);
+        Background background = new Background(backgroundImage);
+
+        Bitmap playerImage = BitmapFactory.decodeResource(getResources(), R.drawable.playerimage);
+        Player player = GamePanel.createPlayer(playerImage);
+
+        this.game = new Game(background, trampolin, player);
         thread = new MainThread(getHolder(), this);
         thread.setRunning(true);
         thread.start();
     }
 
-    @Override
-    public void draw(Canvas canvas) {
-
-        super.draw(canvas);
-        //bg.draw(canvas);
-        //Drawable shape = ContextCompat.getDrawable(getContext(), R.drawable.gradient);
-        int moveBy = trampolin.draw(canvas, player, bg);
-        blaetter.draw(canvas, moveBy);
+    @NonNull
+    public static Player createPlayer(Bitmap playerImage) {
+        int xCenter = GamePanel.screenWidth/2;
+        int playerWidth = (int) (GamePanel.screenWidth * 0.2);
+        return new Player(xCenter, playerWidth, FORM_HEIGHT, HEIGHT_POS, playerImage);
     }
 
+    @Override
+    public void draw(Canvas canvas) {
+        super.draw(canvas);
+        game.draw(canvas);
+    }
 
     @Override
     public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
@@ -113,18 +115,15 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
     }
 
     public void update(long timeMikro) {
-//        playerStatus = playerStatus.getCurrentPlayerStatus();
-        player.updatePosition(blaetter, trampolin, wind);
-        player.updatePower(touching, trampolin, timeMikro);
+        game.update(timeMikro, touching);
     }
-
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         if (event.getAction() == MotionEvent.ACTION_DOWN) {
-            if(event.getX()<150 && event.getY() < 120){
-                upgradeTrampolin();
-            }
+//            if(event.getX()<150 && event.getY() < 120){
+//                game.upgradeTrampolin();
+//            }
             xTouchBeg = (int) event.getX();
             timeTouchBeg = System.nanoTime();
             this.touching = true;
@@ -135,21 +134,10 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
             int xSwipedToRight = (int) xTouchEnd - xTouchBeg;
             if (elapsed < 1000 && Math.abs(xSwipedToRight) > 100) {
                 boolean toRight = xTouchEnd - xTouchBeg > 0;
-                swiped(xSwipedToRight);
+                game.swiped(xSwipedToRight);
             }
             this.touching = false;
         }
         return true;
     }
-
-    private void upgradeTrampolin() {
-        trampolin = trampolin.upgrade(10);
-        player.trampolinChanged(trampolin);
-    }
-
-    private void swiped(int xSwipedToRight) {
-        player.removeBlaetter(blaetter);
-        player.xAccel(xSwipedToRight);
-    }
-
 }

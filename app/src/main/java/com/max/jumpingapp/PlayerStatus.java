@@ -17,20 +17,17 @@ public abstract class PlayerStatus {
     protected double oscPeriod;
     protected double fallPeriod;
     protected long lastUpdateTime = System.nanoTime();
-    protected double toleranceHeight;
 
-    public PlayerStatus(double maxHeight, Trampolin trampolin) {
+    public PlayerStatus(double maxHeight) {
 //        this.playerPower = new PlayerPower();
-        oscPeriod = 0.5* Math.PI * Math.sqrt(mass / trampolin.getSpringconst());
+        oscPeriod = 0.5* Math.PI * Math.sqrt(mass / GamePanel.SPRINGCONST);
         fallPeriod = Math.sqrt((2 * maxHeight) / PlayerStatus.gravitaion);
-        toleranceHeight = trampolin.toleranz();
     }
 
-    protected PlayerStatus(double oscPeriod, double fallperiod, double toleranceHeight){
+    protected PlayerStatus(double oscPeriod, double fallperiod){
         this.lastUpdateTime = System.nanoTime();
         this.oscPeriod = oscPeriod;
         this.fallPeriod = fallperiod;
-        this.toleranceHeight = toleranceHeight;
     }
 
     public abstract int calculatePos(PlayerObject playerObject, PlayerPower playerPower, double maxHeight, Trampolin trampolin, XPosition xPosition) throws PlayerDiedException;
