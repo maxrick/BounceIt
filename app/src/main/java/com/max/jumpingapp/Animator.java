@@ -1,12 +1,23 @@
 package com.max.jumpingapp;
 
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.support.v4.content.ContextCompat;
+
+import com.max.jumpingapp.objects.Wind;
 import com.max.jumpingapp.objects.player.PlayerStatus;
 
 public class Animator {
-    private final PlayerStatus playerStatus;
+    private static final long timeToDisplayAnimation = 1000000000; //1 Second
+    private boolean animated = false;
+    private long time;
+    private Paint defaultPaint;
+    private Paint currentPaint;
 
-    public Animator(PlayerStatus playerStatus) {
-        this.playerStatus = playerStatus;
+
+    public Animator(Paint defaultPaint) {
+        this.defaultPaint = defaultPaint;
+        this.currentPaint = new Paint(defaultPaint);
     }
 
     void animate(boolean touching) {
@@ -26,6 +37,50 @@ public class Animator {
 //        if (!touching && !playerStatus.isAnimateStrech() && playerStatus.getRect().height() - 15 > playerStatus.getNormalHeightRect()) {
 //            playerStatus.getRect().top += 15;
 //        }
+
+    }
+
+    public void animate(double accelPercentage) {
+        time = System.nanoTime();
+        setAnimatedColor(accelPercentage);
+        if(accelPercentage < 0){//@// TODO: 4/5/2016  does not belong here 
+            Wind.moreWind();
+        }
+        System.out.println("animator: accelpercent = "+accelPercentage);
+    }
+
+    private void setAnimatedColor(double accelerator) {
+        if (accelerator < -150) {
+            currentPaint.setColor(GamePanel.RED5);
+        } else if (accelerator < -80) {
+            currentPaint.setColor(GamePanel.RED4);
+        } else if (accelerator < -50) {
+            currentPaint.setColor(GamePanel.RED3);
+        } else if (accelerator < -20) {
+            currentPaint.setColor(GamePanel.RED2);
+        } else if (accelerator < 0) {
+            currentPaint.setColor(GamePanel.RED1);
+        } else if (accelerator < 20) {
+            currentPaint.setColor(GamePanel.GREEN1);
+        } else if (accelerator < 40) {
+            currentPaint.setColor(GamePanel.GREEN2);
+        } else if (accelerator < 60) {
+            currentPaint.setColor(GamePanel.GREEN3);
+        } else if (accelerator < 80) {
+            currentPaint.setColor(GamePanel.GREEN4);
+        } else {
+            currentPaint.setColor(GamePanel.GREEN5);
+        }
+    }
+
+    public Paint adjustedPaint() {
+        long elapsed = System.nanoTime()-time;
+        System.out.println("animator: elapsed = "+elapsed);
+        if(elapsed < timeToDisplayAnimation){
+            return currentPaint;
+        }else {
+            return defaultPaint;
+        }
 
     }
 }

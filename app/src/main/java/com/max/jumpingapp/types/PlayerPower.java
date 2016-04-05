@@ -11,6 +11,7 @@ public class PlayerPower {
     private long increasePowerMikro = 0;
     private long decreasePowerMikro = 0;
     private double minPower;
+    private double maxPower;
     private boolean accelerated;
     private int accelerator;
 
@@ -44,7 +45,8 @@ public class PlayerPower {
             }
         }
         minPower = 100 - 90 * Math.pow(2, -maxHeight / 10000);
-        double maxPower = (4*maxHeight)/20 + 200;
+        maxPower = (4*maxHeight)/20 + 200;
+
         accelerator = (int)((powerPercent-minPower)/(100-minPower)*maxPower);
     }
 
@@ -67,7 +69,7 @@ public class PlayerPower {
 
     public void activateAccelaration(Player player) {
         if(accelerator != 0){
-            player.activateAccelaration(accelerator);
+            player.activateAccelaration(accelerator, maxPower);
             //System.out.println("accel activated: "+ accelerator);
             resetAccelerator();
         }

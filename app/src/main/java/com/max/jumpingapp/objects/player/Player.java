@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
 
+import com.max.jumpingapp.Animator;
 import com.max.jumpingapp.JumpCounter;
 import com.max.jumpingapp.PlayerDiedException;
 import com.max.jumpingapp.objects.visuals.Background;
@@ -29,6 +30,7 @@ public class Player {
     private PlayerObject playerObject;
     protected XPosition xPosition;
     private JumpCounter jumps=new JumpCounter();
+    private Animator animator;
 
     //game
     private double score=0;
@@ -39,6 +41,9 @@ public class Player {
         maxHeight = Math.abs(height_pos);
         this.playerObject = new PlayerObject(playerXCenter, playerWidth, formHeight, height_pos, playerImage);
         playerPower = new PlayerPower();
+        Paint defaultPaint = new Paint();
+        defaultPaint.setColor(Color.CYAN);
+        animator = new Animator(defaultPaint);
 
         playerStatus = new PlayerStatusFreeFalling(maxHeight);
         xPosition = new XPosition(0);
@@ -73,9 +78,8 @@ public class Player {
 
     public int draw(Canvas canvas, Background shape) {
         int moveBy = playerObject.draw(canvas, shape);
+        canvas.drawRect(new Rect(0, 0, 150, 120), animator.adjustedPaint());
         Paint testPaint = new Paint();
-        testPaint.setColor(Color.CYAN);
-        canvas.drawRect(new Rect(0, 0, 150, 120), testPaint);
         testPaint.setColor(Color.BLACK);
         canvas.drawText("Height: " + (maxHeight), 20, 20, testPaint);
         canvas.drawText("Score: " + (maxScore), 20, 40, testPaint);
@@ -88,9 +92,10 @@ public class Player {
         return playerObject.rect;
     }
 
-    public void activateAccelaration(int accelerator) {
+    public void activateAccelaration(int accelerator, double maxPower) {
         System.out.println("maxh: "+ maxHeight + " accel: " + accelerator);
         maxHeight += accelerator;
+        animator.animate(100*accelerator/maxPower);
         if(maxHeight <0){
             maxHeight=0;}
         playerStatus.updateFallperiod(maxHeight);

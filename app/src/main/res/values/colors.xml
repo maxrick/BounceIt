@@ -4,4 +4,29 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
     <color name="black_overlay">#66000000</color>
+
+        <item name="green1" type="color">#FF55914b</item>
+        <item name="green2" type="color">#FF49a239</item>
+        <item name="green3" type="color">#FF3eb22a</item>
+        <item name="green4" type="color">#FF31c417</item>
+        <item name="green5" type="color">#FF25f500</item>
+        <item name="red1" type="color">#FFa55550</item>
+        <item name="red2" type="color">#FFbb423a</item>
+        <item name="red3" type="color">#FFd32e22</item>
+        <item name="red4" type="color">#FFeb190a</item>
+        <item name="red5" type="color">#FFFF0000</item>
+
+        <integer-array name="androidcolors">
+            <item>@color/green1</item>
+            <item>@color/green2</item>
+            <item>@color/green3</item>
+            <item>@color/green4</item>
+            <item>@color/green5</item>
+            <item>@color/red1</item>
+            <item>@color/red2</item>
+            <item>@color/red3</item>
+            <item>@color/red4</item>
+            <item>@color/red5</item>
+        </integer-array>
+
 </resources>

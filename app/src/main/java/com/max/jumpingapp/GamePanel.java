@@ -6,6 +6,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.support.annotation.NonNull;
+import android.support.v4.content.ContextCompat;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -23,6 +24,16 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
     public static final int SPRINGCONST = 10;
     public static final int HEIGHT_POS = 300;
     public static final int FORM_HEIGHT = 200;
+    public static int GREEN1;
+    public static int GREEN2;
+    public static int GREEN3;
+    public static int GREEN4;
+    public static int GREEN5;
+    public static int RED1;
+    public static int RED2;
+    public static int RED3;
+    public static int RED4;
+    public static int RED5;
     public static int heightNill = 700;
     public static int screenHeight;
     public static int screenWidth;
@@ -44,6 +55,16 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
         super(context);
         this.activity = (MainActivity) context;
         getHolder().addCallback(this);
+        this.GREEN1 = ContextCompat.getColor(context, R.color.green1);
+        this.GREEN2 = ContextCompat.getColor(context, R.color.green2);
+        this.GREEN3 = ContextCompat.getColor(context, R.color.green3);
+        this.GREEN4 = ContextCompat.getColor(context, R.color.green4);
+        this.GREEN5 = ContextCompat.getColor(context, R.color.green5);
+        this.RED1 = ContextCompat.getColor(context, R.color.red1);
+        this.RED2 = ContextCompat.getColor(context, R.color.red2);
+        this.RED3 = ContextCompat.getColor(context, R.color.red3);
+        this.RED4 = ContextCompat.getColor(context, R.color.red4);
+        this.RED5 = ContextCompat.getColor(context, R.color.red5);
 
         setFocusable(true);
 
