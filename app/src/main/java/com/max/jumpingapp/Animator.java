@@ -46,7 +46,6 @@ public class Animator {
         if(accelPercentage < 0){//@// TODO: 4/5/2016  does not belong here 
             Wind.moreWind();
         }
-        System.out.println("animator: accelpercent = "+accelPercentage);
     }
 
     private void setAnimatedColor(double accelerator) {
@@ -75,7 +74,6 @@ public class Animator {
 
     public Paint adjustedPaint() {
         long elapsed = System.nanoTime()-time;
-        System.out.println("animator: elapsed = "+elapsed);
         if(elapsed < timeToDisplayAnimation){
             return currentPaint;
         }else {

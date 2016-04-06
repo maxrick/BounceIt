@@ -33,7 +33,7 @@ public abstract class PlayerStatus {
         this.fallPeriod = fallperiod;
     }
 
-    public abstract int calculatePos(PlayerPower playerPower, double maxHeight, XPosition xPosition, PlayerObject playerObject, Trampolin trampolin) throws PlayerDiedException;
+    public abstract int calculatePos(PlayerPower playerPower, double maxHeight, XPosition xPosition, Player player, Trampolin trampolin) throws PlayerDiedException;
 
     public abstract PlayerStatus getCurrentPlayerStatus();
 

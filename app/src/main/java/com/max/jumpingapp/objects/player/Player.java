@@ -55,9 +55,9 @@ public class Player {
         playerStatus.countJump(jumps);
         playerObject.addBlattTo(blaetter);
         try{
-            curHeight = playerStatus.calculatePos(playerPower, (int) maxHeight, xPosition, playerObject, trampolin);
+            curHeight = playerStatus.calculatePos(playerPower, (int) maxHeight, xPosition, this, trampolin);
         }catch (PlayerDiedException e){
-            throw new PlayerDiedException(e.playerObject, maxScore);
+            throw new PlayerDiedException(e.player, maxScore);
         }
         playerObject.setRect(curHeight, xPosition);
         wind.blow(xPosition, curHeight);
@@ -85,6 +85,7 @@ public class Player {
         canvas.drawText("Score: " + (maxScore), 20, 40, testPaint);
         canvas.drawText("Current: " + (curHeight), 20, 60, testPaint);
         jumps.draw(canvas, 20, 80, testPaint);
+        playerPower.draw(canvas);
         return moveBy;
     }
 

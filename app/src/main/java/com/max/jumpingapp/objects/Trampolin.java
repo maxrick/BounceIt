@@ -47,7 +47,7 @@ public class Trampolin {
         return result;//better formular needed
     }//Math.abs(playerPower)*maxHeight/100;
 
-    public boolean supportingPlayer(PlayerObject playerObject) {
-        return (this.xPos <= playerObject.rect.left && (this.xPos+width) >= playerObject.rect.right && playerObject.rect.left < playerObject.rect.right);
+    public boolean supportingPlayer(Player player) {
+        return (this.xPos <= player.getLeft() && (this.xPos+width) >= player.getRight() && player.getLeft() < player.getRight());
     }
 }
