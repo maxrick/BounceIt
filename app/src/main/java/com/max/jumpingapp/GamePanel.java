@@ -103,15 +103,15 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
 
         Map<String, Bitmap> backgroundImages = new HashMap<>();
         backgroundImages.put(NORMAL,BitmapFactory.decodeResource(getResources(), R.drawable.background3));
-        backgroundImages.put(GREY, BitmapFactory.decodeResource(getResources(), R.drawable.background3_grey));
-        backgroundImages.put(ERROR_1, BitmapFactory.decodeResource(getResources(), R.drawable.background3_error1));
+//        backgroundImages.put(GREY, BitmapFactory.decodeResource(getResources(), R.drawable.background3_grey));
+//        backgroundImages.put(ERROR_1, BitmapFactory.decodeResource(getResources(), R.drawable.background3_error1));
 //        backgroundImages.put(ERROR_2, BitmapFactory.decodeResource(getResources(), R.drawable.background3_error2));
-        backgroundImages.put(ERROR_3, BitmapFactory.decodeResource(getResources(), R.drawable.background3_error3));
+//        backgroundImages.put(ERROR_3, BitmapFactory.decodeResource(getResources(), R.drawable.background3_error3));
 //        backgroundImages.put(ERROR_4, BitmapFactory.decodeResource(getResources(), R.drawable.background3_error4));
 //        backgroundImages.put(ERROR_5, BitmapFactory.decodeResource(getResources(), R.drawable.background3_error5));
-        backgroundImages.put(SUCCESS_1, BitmapFactory.decodeResource(getResources(), R.drawable.background3_success1));
+//        backgroundImages.put(SUCCESS_1, BitmapFactory.decodeResource(getResources(), R.drawable.background3_success1));
 //        backgroundImages.put(SUCCESS_2, BitmapFactory.decodeResource(getResources(), R.drawable.background3_success2));
-        backgroundImages.put(SUCCESS_3, BitmapFactory.decodeResource(getResources(), R.drawable.background3_success3));
+//        backgroundImages.put(SUCCESS_3, BitmapFactory.decodeResource(getResources(), R.drawable.background3_success3));
 //        backgroundImages.put(SUCCESS_4, BitmapFactory.decodeResource(getResources(), R.drawable.background3_success4));
 //        backgroundImages.put(SUCCESS_5, BitmapFactory.decodeResource(getResources(), R.drawable.background3_success5));
         Background background = new Background(backgroundImages);

@@ -96,7 +96,7 @@ public class Player {
     public void activateAccelaration(int accelerator, double maxPower) {
         System.out.println("maxh: "+ maxHeight + " accel: " + accelerator);
         maxHeight += accelerator;
-        animator.animate(100*accelerator/maxPower);
+        animator.animate(100*accelerator/maxPower, playerObject);
         if(maxHeight <0){
             maxHeight=0;}
         playerStatus.updateFallperiod(maxHeight);

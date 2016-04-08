@@ -3,6 +3,7 @@ package com.max.jumpingapp.objects.visuals;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.LightingColorFilter;
 import android.graphics.Paint;
 import android.graphics.Rect;
 
@@ -22,6 +23,9 @@ public class PlayerObject {
     private boolean animateStrech;
     private final int GAPTOP = 200;
     public Bitmap image;
+    private Paint imagePaint;
+    private static final long timeToDisplayAnimation = 1000000000; //1 Second
+    private long time;
 
     public PlayerObject(int xCenter, int width, int formHeight, int yPositionBottom, Bitmap res) {
         this.rect = new Rect(xCenter -width/2, GamePanel.heightNill - yPositionBottom - formHeight, xCenter + width/2, GamePanel.heightNill - yPositionBottom);
@@ -30,6 +34,7 @@ public class PlayerObject {
         maxHeightRect = 3*normalHeightRect/2;
         paint = new Paint();
         paint.setColor(Color.RED);
+        imagePaint = new Paint();
         //image = Bitmap.createScaledBitmap(res, rect.width(), rect.height(), false);
         image = Bitmap.createBitmap(res);
     }
@@ -73,6 +78,7 @@ public class PlayerObject {
     }
 
     public int draw(Canvas canvas, Background shape) {
+        resetImageAfterTime();
         int moveBy = 0;
         if (rect.top - GAPTOP < 0) {
             moveBy = rect.top - GAPTOP;
@@ -87,9 +93,20 @@ public class PlayerObject {
         r.offset(0, -moveBy);
         //canvas.drawRect(r, paint);
 
-        canvas.drawBitmap(image, null, r, null);
+        canvas.drawBitmap(image, null, r, imagePaint);
 
         return moveBy;
+    }
+
+    public void setPlayerColor(int color){
+        imagePaint.setColorFilter(new LightingColorFilter(Color.rgb(0, 0, 0), color));
+        time = System.nanoTime();
+    }
+    private void resetImageAfterTime() {
+        long elapsed = System.nanoTime()-time;
+        if(elapsed > timeToDisplayAnimation){
+            imagePaint = new Paint();
+        }
     }
 
     public void removeTouchingLeaves(Blaetter blaetter) {

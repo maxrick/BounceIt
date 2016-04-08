@@ -74,7 +74,7 @@ public class Background {
 
     public void setCurrentImage(String image){
         if(images.containsKey(image)){
-            currentImage = images.get(image);
+//            currentImage = images.get(image);
             time = System.nanoTime();
         }
 
