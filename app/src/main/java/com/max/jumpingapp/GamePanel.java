@@ -104,12 +104,12 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
         Map<String, Bitmap> backgroundImages = new HashMap<>();
         backgroundImages.put(NORMAL,BitmapFactory.decodeResource(getResources(), R.drawable.background3));
         backgroundImages.put(GREY, BitmapFactory.decodeResource(getResources(), R.drawable.background3_grey));
-//        backgroundImages.put(ERROR_1, BitmapFactory.decodeResource(getResources(), R.drawable.background3_error1));
+        backgroundImages.put(ERROR_1, BitmapFactory.decodeResource(getResources(), R.drawable.background3_error1));
 //        backgroundImages.put(ERROR_2, BitmapFactory.decodeResource(getResources(), R.drawable.background3_error2));
         backgroundImages.put(ERROR_3, BitmapFactory.decodeResource(getResources(), R.drawable.background3_error3));
 //        backgroundImages.put(ERROR_4, BitmapFactory.decodeResource(getResources(), R.drawable.background3_error4));
 //        backgroundImages.put(ERROR_5, BitmapFactory.decodeResource(getResources(), R.drawable.background3_error5));
-//        backgroundImages.put(SUCCESS_1, BitmapFactory.decodeResource(getResources(), R.drawable.background3_success1));
+        backgroundImages.put(SUCCESS_1, BitmapFactory.decodeResource(getResources(), R.drawable.background3_success1));
 //        backgroundImages.put(SUCCESS_2, BitmapFactory.decodeResource(getResources(), R.drawable.background3_success2));
         backgroundImages.put(SUCCESS_3, BitmapFactory.decodeResource(getResources(), R.drawable.background3_success3));
 //        backgroundImages.put(SUCCESS_4, BitmapFactory.decodeResource(getResources(), R.drawable.background3_success4));
@@ -145,25 +145,32 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
 
     @Override
     public void surfaceDestroyed(SurfaceHolder holder) {
+        stopThread();
+        meGamePanel = null;
+    }
+
+    private void stopThread() {
         boolean retry = true;
         int count=0;
         while(retry && count<1000){
             count++;
-            try {
+//            try {
+                System.out.println("interrupting");
                 thread.setRunning(false);
-                thread.join();
+//                thread.join();
+                System.out.println("interrupt successful");
                 retry=false;
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+//            } catch (InterruptedException e) {
+//                e.printStackTrace();
+//            }
         }
-        meGamePanel = null;
     }
 
     public void update(long timeMikro) {
         try {
             game.update(timeMikro, touching);
         } catch (PlayerDiedException e) {
+            surfaceDestroyed(getHolder());
             activity.changeToDiedScreen((int) e.height);
 //            surfaceDestroyed(getHolder());
         }

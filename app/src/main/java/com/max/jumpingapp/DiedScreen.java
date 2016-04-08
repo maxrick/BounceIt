@@ -21,6 +21,8 @@ public class DiedScreen extends AppCompatActivity {
 
     public void buttonPlayClicked(View view){
         System.out.println("StartScreen -- buttonPlayClicked()");
+        Runtime.getRuntime().gc();
+        finish();
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
     }

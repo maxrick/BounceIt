@@ -51,9 +51,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void changeToDiedScreen(int score){
+        Runtime.getRuntime().gc();
         System.out.print("died");
         Intent intent = new Intent(this, DiedScreen.class);
         intent.putExtra("score", score);
         startActivity(intent);
+        finish();
     }
 }

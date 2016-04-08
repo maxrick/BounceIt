@@ -75,11 +75,15 @@ public class Animator {
             currentPaint.setColor(GamePanel.GREEN5);
         }
 
-        if(accelerator<0){
+        if(accelerator<-50){
             background.setCurrentImage(GamePanel.ERROR_3);
+        }else if(accelerator < 0){
+            background.setCurrentImage(GamePanel.ERROR_1);
         }
-        if(accelerator>0){
+        if(accelerator>50){
             background.setCurrentImage(GamePanel.SUCCESS_3);
+        }else if(accelerator >0){
+            background.setCurrentImage(GamePanel.SUCCESS_1);
         }
         if(accelerator == 0){
             background.setCurrentImage(GamePanel.GREY);

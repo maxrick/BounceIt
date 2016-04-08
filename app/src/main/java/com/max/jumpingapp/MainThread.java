@@ -55,6 +55,7 @@ public class MainThread extends Thread {
             } catch (InterruptedException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
+                setRunning(false);
             }
 
             totalTime += System.nanoTime() - startTime;
@@ -66,6 +67,7 @@ public class MainThread extends Thread {
             }
 
         }
+        System.out.println("Thread finished");
     }
 
     public void setRunning(boolean b) {

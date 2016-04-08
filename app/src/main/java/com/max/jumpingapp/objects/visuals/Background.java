@@ -24,7 +24,7 @@ public class Background {
     private Map<String, Bitmap> images;
     private Bitmap currentImage;
     private int x, y;
-    private static final long timeToDisplayAnimation = 1000000000; //1 Second
+    private static final long timeToDisplayAnimation = 300000000; //1 Second
     private long time;
 
     public Background(Map<String, Bitmap> res) {
@@ -73,7 +73,10 @@ public class Background {
     }
 
     public void setCurrentImage(String image){
-        currentImage = images.get(image);
-        time = System.nanoTime();
+        if(images.containsKey(image)){
+            currentImage = images.get(image);
+            time = System.nanoTime();
+        }
+
     }
 }
