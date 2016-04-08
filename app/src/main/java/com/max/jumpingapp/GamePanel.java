@@ -16,6 +16,9 @@ import com.max.jumpingapp.objects.Game;
 import com.max.jumpingapp.objects.player.Player;
 import com.max.jumpingapp.objects.Trampolin;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * Created by normal on 29.08.2015.
  */
@@ -24,6 +27,18 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
     public static final int SPRINGCONST = 10;
     public static final int HEIGHT_POS = 300;
     public static final int FORM_HEIGHT = 200;
+    public static final String NORMAL = "normal";
+    public static final String GREY = "grey";
+    public static final String ERROR_1 = "error1";
+    public static final String ERROR_2 = "error2";
+    public static final String ERROR_3 = "error3";
+    public static final String ERROR_4 = "error4";
+    public static final String ERROR_5 = "error5";
+    public static final String SUCCESS_1 = "success1";
+    public static final String SUCCESS_2 = "success2";
+    public static final String SUCCESS_3 = "success3";
+    public static final String SUCCESS_4 = "success4";
+    public static final String SUCCESS_5 = "success5";
     public static int GREEN1;
     public static int GREEN2;
     public static int GREEN3;
@@ -86,11 +101,23 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
         int trampWidth = (int) (GamePanel.screenWidth * TRAMPOLIN_SPAN_OF_SCREEN);
         Trampolin trampolin = new Trampolin(trampXCenter, trampWidth, SPRINGCONST);
 
-        Bitmap backgroundImage = BitmapFactory.decodeResource(getResources(), R.drawable.background3);
-        Background background = new Background(backgroundImage);
+        Map<String, Bitmap> backgroundImages = new HashMap<>();
+        backgroundImages.put(NORMAL,BitmapFactory.decodeResource(getResources(), R.drawable.background3));
+        backgroundImages.put(GREY, BitmapFactory.decodeResource(getResources(), R.drawable.background3_grey));
+//        backgroundImages.put(ERROR_1, BitmapFactory.decodeResource(getResources(), R.drawable.background3_error1));
+//        backgroundImages.put(ERROR_2, BitmapFactory.decodeResource(getResources(), R.drawable.background3_error2));
+        backgroundImages.put(ERROR_3, BitmapFactory.decodeResource(getResources(), R.drawable.background3_error3));
+//        backgroundImages.put(ERROR_4, BitmapFactory.decodeResource(getResources(), R.drawable.background3_error4));
+//        backgroundImages.put(ERROR_5, BitmapFactory.decodeResource(getResources(), R.drawable.background3_error5));
+//        backgroundImages.put(SUCCESS_1, BitmapFactory.decodeResource(getResources(), R.drawable.background3_success1));
+//        backgroundImages.put(SUCCESS_2, BitmapFactory.decodeResource(getResources(), R.drawable.background3_success2));
+        backgroundImages.put(SUCCESS_3, BitmapFactory.decodeResource(getResources(), R.drawable.background3_success3));
+//        backgroundImages.put(SUCCESS_4, BitmapFactory.decodeResource(getResources(), R.drawable.background3_success4));
+//        backgroundImages.put(SUCCESS_5, BitmapFactory.decodeResource(getResources(), R.drawable.background3_success5));
+        Background background = new Background(backgroundImages);
 
         Bitmap playerImage = BitmapFactory.decodeResource(getResources(), R.drawable.playerimage);
-        Player player = GamePanel.createPlayer(playerImage);
+        Player player = GamePanel.createPlayer(playerImage, background);
 
         this.game = new Game(background, trampolin, player);
         thread = new MainThread(getHolder(), this);
@@ -99,10 +126,10 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
     }
 
     @NonNull
-    public static Player createPlayer(Bitmap playerImage) {
+    public static Player createPlayer(Bitmap playerImage, Background background) {
         int xCenter = GamePanel.screenWidth/2;
         int playerWidth = (int) (GamePanel.screenWidth * 0.2);
-        return new Player(xCenter, playerWidth, FORM_HEIGHT, HEIGHT_POS, playerImage);
+        return new Player(xCenter, playerWidth, FORM_HEIGHT, HEIGHT_POS, playerImage, background);
     }
 
     @Override
@@ -164,4 +191,5 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
         }
         return true;
     }
+
 }

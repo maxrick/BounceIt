@@ -37,13 +37,13 @@ public class Player {
     private int right;
 
 
-    public Player(int playerXCenter, int playerWidth, int formHeight, int height_pos, Bitmap playerImage) {
+    public Player(int playerXCenter, int playerWidth, int formHeight, int height_pos, Bitmap playerImage, Background background) {
         maxHeight = Math.abs(height_pos);
         this.playerObject = new PlayerObject(playerXCenter, playerWidth, formHeight, height_pos, playerImage);
         playerPower = new PlayerPower();
         Paint defaultPaint = new Paint();
         defaultPaint.setColor(Color.CYAN);
-        animator = new Animator(defaultPaint);
+        animator = new Animator(defaultPaint, background);
 
         playerStatus = new PlayerStatusFreeFalling(maxHeight);
         xPosition = new XPosition(0);

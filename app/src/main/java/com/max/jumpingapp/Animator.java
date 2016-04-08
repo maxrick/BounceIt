@@ -4,8 +4,10 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.support.v4.content.ContextCompat;
 
+import com.max.jumpingapp.objects.Game;
 import com.max.jumpingapp.objects.Wind;
 import com.max.jumpingapp.objects.player.PlayerStatus;
+import com.max.jumpingapp.objects.visuals.Background;
 
 public class Animator {
     private static final long timeToDisplayAnimation = 1000000000; //1 Second
@@ -13,11 +15,13 @@ public class Animator {
     private long time;
     private Paint defaultPaint;
     private Paint currentPaint;
+    private Background background;
 
 
-    public Animator(Paint defaultPaint) {
+    public Animator(Paint defaultPaint, Background background) {
         this.defaultPaint = defaultPaint;
         this.currentPaint = new Paint(defaultPaint);
+        this.background = background;
     }
 
     void animate(boolean touching) {
@@ -69,6 +73,16 @@ public class Animator {
             currentPaint.setColor(GamePanel.GREEN4);
         } else {
             currentPaint.setColor(GamePanel.GREEN5);
+        }
+
+        if(accelerator<0){
+            background.setCurrentImage(GamePanel.ERROR_3);
+        }
+        if(accelerator>0){
+            background.setCurrentImage(GamePanel.SUCCESS_3);
+        }
+        if(accelerator == 0){
+            background.setCurrentImage(GamePanel.GREY);
         }
     }
 

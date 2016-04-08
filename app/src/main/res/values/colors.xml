@@ -14,7 +14,7 @@
         <item name="red2" type="color">#FFbb423a</item>
         <item name="red3" type="color">#FFd32e22</item>
         <item name="red4" type="color">#FFeb190a</item>
-        <item name="red5" type="color">#FFFF0000</item>
+        <item name="red5" type="color">#FFFF0000</item>ff0000 - 0000ff
 
         <integer-array name="androidcolors">
             <item>@color/green1</item>
