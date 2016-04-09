@@ -1,8 +1,8 @@
 package com.max.jumpingapp.views;
 
 import android.content.SharedPreferences;
-import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
 import android.widget.TextView;
 
 import com.max.jumpingapp.R;
@@ -23,5 +23,4 @@ public class Highscores extends AppCompatActivity {
         }
         scoreView.setText(scoreBuild.toString());
     }
-
 }

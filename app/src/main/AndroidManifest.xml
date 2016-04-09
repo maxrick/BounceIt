@@ -29,10 +29,7 @@
             android:screenOrientation="portrait"
             android:theme="@style/FullscreenTheme" />
         <activity android:name=".views.DiedScreen" />
-        <activity
-            android:name=".views.Highscores"
-            android:label="@string/title_activity_highscores"
-            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".views.Highscores"></activity>
     </application>
 
 </manifest>

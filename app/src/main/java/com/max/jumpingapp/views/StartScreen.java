@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.max.jumpingapp.R;
-import com.max.jumpingapp.views.MainActivity;
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
