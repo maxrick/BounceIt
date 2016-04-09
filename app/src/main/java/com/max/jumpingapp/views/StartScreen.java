@@ -1,8 +1,12 @@
 package com.max.jumpingapp.views;
 
 import android.content.Intent;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.ShareActionProvider;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 
 import com.max.jumpingapp.R;
@@ -50,6 +54,25 @@ public class StartScreen extends AppCompatActivity {
         // are available.
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main, menu);
+
+        MenuItem shareItem = (MenuItem) menu.findItem(R.id.action_share);
+
+        ShareActionProvider mShare = new ShareActionProvider(this);
+        MenuItemCompat.setActionProvider(shareItem, mShare);
+
+        Intent shareIntent = new Intent(Intent.ACTION_SEND);
+        shareIntent.setAction(Intent.ACTION_SEND);
+        shareIntent.setType("text/plain");
+        shareIntent.putExtra(Intent.EXTRA_TEXT, "bounce it is awesome");
+
+        mShare.setShareIntent(shareIntent);
+
+        return true;
+    }
+
     /**
      * Touch listener to use for in-layout UI controls to delay hiding the
      * system UI. This is to prevent the jarring behavior of controls going away
@@ -67,5 +90,13 @@ public class StartScreen extends AppCompatActivity {
     public void buttonHighScoresClicked(View view){
         Intent intent = new Intent(this, Highscores.class);
         startActivity(intent);
+    }
+
+    public void buttonRecommendAppClicked(View view){
+        Intent sendIntent = new Intent();
+        sendIntent.setAction(Intent.ACTION_SEND);
+        sendIntent.putExtra(Intent.EXTRA_TEXT, "Hi\nThis app \"bounce it\" is amazing. You should get it");
+        sendIntent.setType("text/plain");
+        startActivity(Intent.createChooser(sendIntent, getResources().getText(R.string.recommend_to)));
     }
 }
