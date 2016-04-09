@@ -1,7 +1,7 @@
 package com.max.jumpingapp;
 
 import android.content.Context;
-import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -15,6 +15,7 @@ import com.max.jumpingapp.objects.visuals.Background;
 import com.max.jumpingapp.objects.Game;
 import com.max.jumpingapp.objects.player.Player;
 import com.max.jumpingapp.objects.Trampolin;
+import com.max.jumpingapp.views.MainActivity;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -170,6 +171,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
         try {
             game.update(timeMikro, touching);
         } catch (PlayerDiedException e) {
+            activity.setHighScore(e.height);
             surfaceDestroyed(getHolder());
             activity.changeToDiedScreen((int) e.height);
 //            surfaceDestroyed(getHolder());

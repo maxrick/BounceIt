@@ -1,13 +1,12 @@
-package com.max.jumpingapp;
+package com.max.jumpingapp.views;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.os.Handler;
-import android.view.MotionEvent;
 import android.view.View;
+
+import com.max.jumpingapp.R;
+import com.max.jumpingapp.views.MainActivity;
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
@@ -63,6 +62,11 @@ public class StartScreen extends AppCompatActivity {
     public void buttonPlayClicked(View view){
         System.out.println("StartScreen -- buttonPlayClicked()");
         Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+    }
+
+    public void buttonHighScoresClicked(View view){
+        Intent intent = new Intent(this, Highscores.class);
         startActivity(intent);
     }
 }

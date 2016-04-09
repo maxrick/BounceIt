@@ -1,4 +1,4 @@
-package com.max.jumpingapp;
+package com.max.jumpingapp.types;
 
 import android.graphics.Canvas;
 import android.graphics.Paint;

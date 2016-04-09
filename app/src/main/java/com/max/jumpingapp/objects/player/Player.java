@@ -7,7 +7,7 @@ import android.graphics.Paint;
 import android.graphics.Rect;
 
 import com.max.jumpingapp.Animator;
-import com.max.jumpingapp.JumpCounter;
+import com.max.jumpingapp.types.JumpCounter;
 import com.max.jumpingapp.PlayerDiedException;
 import com.max.jumpingapp.objects.visuals.Background;
 import com.max.jumpingapp.objects.Blaetter;
