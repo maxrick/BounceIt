@@ -8,7 +8,7 @@ import java.util.Random;
  * Created by max on 3/30/2016.
  */
 public class Wind {
-    private static int CHANCE = 30;
+    private static int CHANCE = 20;
     private Random random;
 
     public Wind(){
@@ -19,7 +19,7 @@ public class Wind {
         if(curHeight >0){
             double chance = random.nextInt(CHANCE);
             if(chance == 1){
-                int windPower = random.nextInt(curHeight/20);
+                int windPower = random.nextInt(curHeight/15);
                 windPower = random.nextBoolean()? windPower : -windPower;
                 xPosition.velocityByWind(windPower);
             }

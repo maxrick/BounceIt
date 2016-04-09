@@ -69,6 +69,9 @@ public class Animator {
         } else if (accelerator < 0) {
             currentPaint.setColor(GamePanel.RED1);
             playerObject.setPlayerColor(GamePanel.RED1);
+        }else if(accelerator ==0){
+            currentPaint.setColor(defaultPaint.getColor());
+            playerObject.setPlayerColor(Color.DKGRAY);
         }else if (accelerator < 20) {
             currentPaint.setColor(GamePanel.GREEN1);
             playerObject.setPlayerColor(GamePanel.GREEN1);

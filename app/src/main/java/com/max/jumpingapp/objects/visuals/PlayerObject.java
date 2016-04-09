@@ -26,10 +26,12 @@ public class PlayerObject {
     private Paint imagePaint;
     private static final long timeToDisplayAnimation = 1000000000; //1 Second
     private long time;
+    private boolean missedJump;
 
     public PlayerObject(int xCenter, int width, int formHeight, int yPositionBottom, Bitmap res) {
         this.rect = new Rect(xCenter -width/2, GamePanel.heightNill - yPositionBottom - formHeight, xCenter + width/2, GamePanel.heightNill - yPositionBottom);
         normalHeightRect = rect.height();
+        missedJump = false;
         minHeightRect = 4*normalHeightRect/10;
         maxHeightRect = 3*normalHeightRect/2;
         paint = new Paint();
@@ -40,6 +42,22 @@ public class PlayerObject {
     }
 
     public void animate(boolean touching) {
+        if(!missedJump){
+            animateStrech(touching);
+        }else {
+            animateNoStrech();
+        }
+    }
+
+    private void animateNoStrech() {
+        if (rect.height() +10< normalHeightRect) {
+            rect.top -= 15;
+        }else {
+            setMissedJump(false);
+        }
+    }
+
+    private void animateStrech(boolean touching) {
         if (touching && (rect.height() ) >= minHeightRect) {
             rect.top += 5;
         }
@@ -91,6 +109,19 @@ public class PlayerObject {
 //        shape.draw(canvas);
         Rect r = new Rect(rect);
         r.offset(0, -moveBy);
+        if(r.left > r.right){
+            Rect secondRect;
+            if(r.right < 0){
+                r.right += GamePanel.screenWidth;
+                secondRect = new Rect(r);
+                secondRect.offset(-GamePanel.screenWidth, 0);
+            }else {
+                r.left -= GamePanel.screenWidth;
+                secondRect = new Rect(r);
+                secondRect.offset(GamePanel.screenWidth, 0);
+            }
+            canvas.drawBitmap(image, null, secondRect, imagePaint);
+        }
         //canvas.drawRect(r, paint);
 
         canvas.drawBitmap(image, null, r, imagePaint);
@@ -115,5 +146,9 @@ public class PlayerObject {
 
     public double getHeight() {
         return GamePanel.heightNill - rect.bottom;
+    }
+
+    public void setMissedJump(boolean missedJump) {
+        this.missedJump = missedJump;
     }
 }

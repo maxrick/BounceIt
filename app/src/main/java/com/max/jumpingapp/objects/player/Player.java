@@ -140,4 +140,13 @@ public class Player {
     public void xAccel(int xSwipedToRight) {
         xPosition.adjustVelocity(xSwipedToRight);
     }
+
+    public void missedJump() {
+        System.out.println("jump missed");
+        playerObject.setMissedJump(true);
+        animator.animate(0, playerObject);
+        playerPower.resetPower();
+        playerStatus.updatePowerDisplay(playerPower);
+    }
+
 }

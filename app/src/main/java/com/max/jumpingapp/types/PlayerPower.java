@@ -12,8 +12,8 @@ import com.max.jumpingapp.objects.visuals.PowerDisplay;
 public class PlayerPower {
     private double powerPercent;  //old name: accelerator
     private int minAccelerator = 10;
-    private long increasePowerMikro = 0;
-    private long decreasePowerMikro = 0;
+    private long increasePowerMikro;
+    private long decreasePowerMikro;
     private double minPower;
     private double maxPower;
     private boolean accelerated;
@@ -21,6 +21,8 @@ public class PlayerPower {
     private PowerDisplay powerDisplay;
 
     public PlayerPower() {
+        increasePowerMikro = 0;
+        decreasePowerMikro = 0;
         this.powerPercent = 0;
         this.accelerated = false;
         this.accelerator = 0;
@@ -84,12 +86,16 @@ public class PlayerPower {
             player.activateAccelaration(accelerator, maxPower);
             //System.out.println("accel activated: "+ accelerator);
             resetAccelerator();
+        }else if(increasePowerMikro !=0){
+            resetPower();
+            player.missedJump();
+        }else {
         }
     }
 
     public void decreasePower(double oscPeriod) {
         if (decreasePowerMikro == 0) {
-            increasePowerMikro = 0;
+//            increasePowerMikro = 0;
             decreasePowerMikro = System.nanoTime() / 1000;
         }
         livePowerDisplay(oscPeriod);
@@ -110,7 +116,7 @@ public class PlayerPower {
         livePowerDisplay(oscPeriod);
     }
 
-    private void livePowerDisplay(double oscPeriod) {
+    public void livePowerDisplay(double oscPeriod) {
         long timeMikro = System.nanoTime() / 1000;
         double livePowerPercent;
         long liveIncreasePowerMikro = increasePowerMikro;

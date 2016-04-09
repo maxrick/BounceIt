@@ -43,7 +43,6 @@ public class PowerDisplay {
 
     public void setPowerPercentage(double percentage) {
         powerLoader.right = (int) (percentage / 100 * (RIGHT - LEFT) + LEFT);
-        System.out.println("Display: percent "+percentage);
         time = System.nanoTime();
     }
 

@@ -52,4 +52,8 @@ public abstract class PlayerStatus {
     public void trampolinChanged(Trampolin trampolin){
         oscPeriod = 0.5* Math.PI * Math.sqrt(mass / trampolin.getSpringconst());
     }
+
+    public void updatePowerDisplay(PlayerPower power) {
+        power.livePowerDisplay(oscPeriod);
+    }
 }
