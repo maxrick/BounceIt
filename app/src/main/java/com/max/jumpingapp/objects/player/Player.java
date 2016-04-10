@@ -7,6 +7,9 @@ import android.graphics.Paint;
 import android.graphics.Rect;
 
 import com.max.jumpingapp.Animator;
+import com.max.jumpingapp.objects.visuals.HighscoreDisplay;
+import com.max.jumpingapp.objects.visuals.LastHeightDisplay;
+import com.max.jumpingapp.objects.visuals.MessageDisplayer;
 import com.max.jumpingapp.types.JumpCounter;
 import com.max.jumpingapp.PlayerDiedException;
 import com.max.jumpingapp.objects.visuals.Background;
@@ -21,6 +24,7 @@ import com.max.jumpingapp.types.XPosition;
  * Created by normal on 29.10.2015.
  */
 public class Player {
+    private static final long timeToDisplayMessage = 1000000000;
     private PlayerStatus playerStatus;
     //position
     private int curHeight = 0;//this should be the bottom of the player
@@ -31,16 +35,22 @@ public class Player {
     protected XPosition xPosition;
     private JumpCounter jumps=new JumpCounter();
     private Animator animator;
+    private MessageDisplayer messageDisplayer;
+    private LastHeightDisplay lastHeightDisplay;
+    private HighscoreDisplay highscoreDisplay;
 
     //game
     private double score=0;
     private int right;
 
 
-    public Player(int playerXCenter, int playerWidth, int formHeight, int height_pos, Bitmap playerImage, Background background) {
+    public Player(int playerXCenter, int playerWidth, int formHeight, int height_pos, Bitmap playerImage, Background background, double[] highScores) {
         maxHeight = Math.abs(height_pos);
         this.playerObject = new PlayerObject(playerXCenter, playerWidth, formHeight, height_pos, playerImage);
         playerPower = new PlayerPower();
+        messageDisplayer = new MessageDisplayer();
+        lastHeightDisplay = new LastHeightDisplay();
+        highscoreDisplay = new HighscoreDisplay(highScores);
         Paint defaultPaint = new Paint();
         defaultPaint.setColor(Color.CYAN);
         animator = new Animator(defaultPaint, background);
@@ -65,6 +75,7 @@ public class Player {
         if (maxHeight > maxScore) {
             maxScore = maxHeight;
         }
+        lastHeightDisplay.update(curHeight);
     }
 
     public void updatePower(boolean fingerTouching, Trampolin trampolin, long timeMikro) {
@@ -85,6 +96,9 @@ public class Player {
         canvas.drawText("Score: " + (maxScore), 20, 40, testPaint);
         canvas.drawText("Current: " + (curHeight), 20, 60, testPaint);
         jumps.draw(canvas, 20, 80, testPaint);
+        messageDisplayer.draw(canvas);
+        lastHeightDisplay.draw(canvas, moveBy);
+        highscoreDisplay.draw(canvas, moveBy);
         playerPower.draw(canvas);
         return moveBy;
     }
@@ -143,10 +157,13 @@ public class Player {
 
     public void missedJump() {
         System.out.println("jump missed");
-        playerObject.setMissedJump(true);
-        animator.animate(0, playerObject);
-        playerPower.resetPower();
-        playerStatus.updatePowerDisplay(playerPower);
+        messageDisplayer.display("Jumped missed", timeToDisplayMessage);
+        playerStatus.accelerateOnce(maxHeight, playerPower);
+        playerPower.activateAccelarationNoCheck(this);
+
+//        playerObject.setMissedJump(true);
+//        animator.animate(0, playerObject);
+//        playerStatus.updatePowerDisplay(playerPower);
     }
 
 }

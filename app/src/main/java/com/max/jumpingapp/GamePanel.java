@@ -57,6 +57,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
     public static GamePanel meGamePanel;//todo only for test
     private MainThread thread;
     private MainActivity activity;
+    private double[] highScores;
 
     public Game game;
 
@@ -67,10 +68,11 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
     private long timeTouchBeg;
 
 
-    private GamePanel(Context context) {
+    private GamePanel(Context context, double[] highScores) {
         super(context);
         this.activity = (MainActivity) context;
         getHolder().addCallback(this);
+        this.highScores = highScores;
         this.GREEN1 = ContextCompat.getColor(context, R.color.green1);
         this.GREEN2 = ContextCompat.getColor(context, R.color.green2);
         this.GREEN3 = ContextCompat.getColor(context, R.color.green3);
@@ -86,9 +88,9 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
 
     }
 
-    public static GamePanel create(MainActivity mainActivity) {
+    public static GamePanel create(MainActivity mainActivity, double[] highScores) {
         if (meGamePanel == null) {
-            meGamePanel = new GamePanel(mainActivity);
+            meGamePanel = new GamePanel(mainActivity, highScores);
         }
         return meGamePanel;
     }
@@ -118,7 +120,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
         Background background = new Background(backgroundImages);
 
         Bitmap playerImage = BitmapFactory.decodeResource(getResources(), R.drawable.playerimage);
-        Player player = GamePanel.createPlayer(playerImage, background);
+        Player player = GamePanel.createPlayer(playerImage, background, highScores);//@// TODO: 4/10/2016 highscores belong to game, not player
 
         this.game = new Game(background, trampolin, player);
         thread = new MainThread(getHolder(), this);
@@ -127,10 +129,10 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
     }
 
     @NonNull
-    public static Player createPlayer(Bitmap playerImage, Background background) {
+    public static Player createPlayer(Bitmap playerImage, Background background, double[] highScores) {
         int xCenter = GamePanel.screenWidth/2;
         int playerWidth = (int) (GamePanel.screenWidth * 0.2);
-        return new Player(xCenter, playerWidth, FORM_HEIGHT, HEIGHT_POS, playerImage, background);
+        return new Player(xCenter, playerWidth, FORM_HEIGHT, HEIGHT_POS, playerImage, background, highScores);
     }
 
     @Override

@@ -16,7 +16,7 @@ import com.max.jumpingapp.types.XPosition;
  */
 public class PlayerObject {
     public final Rect rect;
-    private final int normalHeightRect;
+    public static int normalHeightRect=0;//@// TODO: 4/10/2016 do better
     private final int minHeightRect;
     private int maxHeightRect;
     private final Paint paint;

@@ -25,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().hide();
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
-        setContentView(GamePanel.create(this));
+        setContentView(GamePanel.create(this, getHighScores()));
 
     }
 
@@ -63,6 +63,20 @@ public class MainActivity extends AppCompatActivity {
         intent.putExtra("score", score);
         startActivity(intent);
         finish();
+    }
+
+    public double[] getHighScores(){
+        SharedPreferences gameprefs = getSharedPreferences(HIGH_SCORE_PREFS, 0);
+        String scoreString =gameprefs.getString(HIGH_SCORES, "");
+        double[] scoreNums = null;
+        if(scoreString.length() > 0) {
+            String[] scores = scoreString.split("\\|");
+            scoreNums = new double[scores.length];
+            for (int i = 0; i < scoreNums.length; i++) {
+                scoreNums[i] = Double.valueOf(scores[i]);
+            }
+        }
+        return scoreNums;
     }
 
     public void setHighScore(double score) {

@@ -1,6 +1,7 @@
 package com.max.jumpingapp.objects.player;
 
 import com.max.jumpingapp.GamePanel;
+import com.max.jumpingapp.objects.visuals.LastHeightDisplay;
 import com.max.jumpingapp.types.JumpCounter;
 import com.max.jumpingapp.PlayerDiedException;
 import com.max.jumpingapp.objects.Trampolin;
@@ -55,4 +56,9 @@ public abstract class PlayerStatus {
     public void updatePowerDisplay(PlayerPower power) {
         power.livePowerDisplay(oscPeriod);
     }
+
+    public void accelerateOnce(double maxHeight, PlayerPower playerPower) {
+        playerPower.accelerateOnce(maxHeight, oscPeriod);
+    }
+
 }

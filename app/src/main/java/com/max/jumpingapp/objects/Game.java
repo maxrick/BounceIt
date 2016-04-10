@@ -6,6 +6,7 @@ import com.max.jumpingapp.GamePanel;
 import com.max.jumpingapp.PlayerDiedException;
 import com.max.jumpingapp.objects.player.Player;
 import com.max.jumpingapp.objects.visuals.Background;
+import com.max.jumpingapp.objects.visuals.MessageDisplayer;
 
 /**
  * Created by max on 4/2/2016.

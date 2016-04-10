@@ -1,6 +1,7 @@
 package com.max.jumpingapp.objects.player;
 
 import com.max.jumpingapp.GamePanel;
+import com.max.jumpingapp.objects.visuals.LastHeightDisplay;
 import com.max.jumpingapp.types.JumpCounter;
 import com.max.jumpingapp.PlayerDiedException;
 import com.max.jumpingapp.objects.Trampolin;

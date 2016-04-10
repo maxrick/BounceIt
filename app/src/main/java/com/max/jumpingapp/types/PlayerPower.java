@@ -52,7 +52,7 @@ public class PlayerPower {
                 powerPercent = 100;
             }
         }
-        minPower = 100 - 90 * Math.pow(2, -maxHeight / 10000);
+        minPower = 100 - 90 * Math.pow(2, -maxHeight / 50000);
         maxPower = (4 * maxHeight) / 20 + 200;
 
         powerDisplay.setMinPower(minPower);
@@ -91,6 +91,11 @@ public class PlayerPower {
             player.missedJump();
         }else {
         }
+    }
+
+    public void activateAccelarationNoCheck(Player player){
+        player.activateAccelaration(accelerator, maxPower);
+        resetAccelerator();
     }
 
     public void decreasePower(double oscPeriod) {

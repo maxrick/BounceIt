@@ -43,4 +43,14 @@
         </RelativeLayout>
     </ScrollView>
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Delete Highscores"
+        android:onClick="buttonDeleteScoresClicked"
+        android:id="@+id/button2"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="88dp" />
+
 </RelativeLayout>
