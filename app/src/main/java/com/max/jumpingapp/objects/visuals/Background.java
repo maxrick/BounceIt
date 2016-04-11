@@ -5,10 +5,6 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 
-import com.max.jumpingapp.game.GamePanel;
-
-import java.util.Map;
-
 /**
  * Created by normal on 29.08.2015.
  */

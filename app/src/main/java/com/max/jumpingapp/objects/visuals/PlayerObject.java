@@ -24,7 +24,6 @@ public class PlayerObject {
     private int maxHeightRect;
     private final Paint paint;
     private boolean animateStrech;
-    private final int GAPTOP = 200;
     public Bitmap image;
     private Paint imagePaint;
     private static final long timeToDisplayAnimation = 1000000000; //1 Second
@@ -92,6 +91,7 @@ public class PlayerObject {
     public int draw(Canvas canvas, Background shape) {
         resetImageAfterTime();
         int moveBy = 0;
+        int GAPTOP = 200;
         if (rect.top - GAPTOP < 0) {
             moveBy = rect.top - GAPTOP;
         }

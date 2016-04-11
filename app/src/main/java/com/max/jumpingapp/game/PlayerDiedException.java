@@ -1,7 +1,6 @@
 package com.max.jumpingapp.game;
 
 import com.max.jumpingapp.objects.player.Player;
-import com.max.jumpingapp.objects.visuals.PlayerObject;
 import com.max.jumpingapp.types.Score;
 
 /**

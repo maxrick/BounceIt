@@ -5,8 +5,6 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
 
-import com.max.jumpingapp.types.Height;
-import com.max.jumpingapp.types.Score;
 import com.max.jumpingapp.types.ScoreBoardData;
 
 /**

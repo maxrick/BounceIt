@@ -10,8 +10,6 @@ import com.max.jumpingapp.game.GamePanel;
  */
 public class MainThread extends Thread {
     public static int FPS = 30;
-    private static Canvas canvas;
-    private double averageFPS;
     private final SurfaceHolder surfaceholder;
     private GamePanel gamepanel;
     private boolean running;
@@ -27,12 +25,10 @@ public class MainThread extends Thread {
         long startTime;
         long timeMikro = 0;
         long waitTime;
-        long totalTime = 0;
-        int frameCount = 0;
         long targetTime = 1000 / FPS;
         while (running) {
             startTime = System.nanoTime();
-            canvas = null;
+            Canvas canvas = null;
 
             try {
                 canvas = surfaceholder.lockCanvas();
@@ -58,14 +54,6 @@ public class MainThread extends Thread {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
                 setRunning(false);
-            }
-
-            totalTime += System.nanoTime() - startTime;
-            frameCount++;
-            if (frameCount == FPS) {
-                averageFPS = 1000 / ((totalTime / frameCount) / 1000000);
-                frameCount = 0;
-                totalTime = 0;
             }
 
         }

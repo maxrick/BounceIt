@@ -7,12 +7,11 @@ import com.max.jumpingapp.game.MainThread;
  * Created by max on 3/29/2016.
  */
 public class XPosition {
-    private static int SWIPE_STEP=1;
     private static double maxVelocity;
     private double xVelocity;
     private int value;
     private long lastUpdateTime;
-    public XPosition(int xVelocity){
+    public XPosition(){
         this.xVelocity = 10;
         this.value = 0;
         this.lastUpdateTime = System.nanoTime();
@@ -21,7 +20,7 @@ public class XPosition {
     }
 
     public int adjusted(int position){
-        return (int) (position+value+GamePanel.screenWidth) %GamePanel.screenWidth;
+        return (position+value+GamePanel.screenWidth) %GamePanel.screenWidth;
     }
 
     public void move(){
@@ -32,7 +31,8 @@ public class XPosition {
     }
 
     public void adjustVelocity(int xSwipedToRight) {
-        xVelocity += xSwipedToRight/SWIPE_STEP;
+        int SWIPE_STEP = 1;
+        xVelocity += xSwipedToRight/ SWIPE_STEP;
         capVelocity();
     }
 
@@ -48,8 +48,6 @@ public class XPosition {
     }
 
     public void velocityByWind(int windPower) {
-        boolean windPositive = (windPower >0);
-        //xVelocity = windPower + (windPositive? xVelocity : -xVelocity);
         xVelocity += windPower;
         capVelocity();
     }

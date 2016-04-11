@@ -18,7 +18,7 @@ public class DrawObjects {
     public DrawObjects(int[] highScores){
         this.messageDisplayer = new MessageDisplayer();
         this.lastHeightDisplay = new LastHeightDisplay();
-        this.highscoreDisplay = new HighscoreDisplay(highScores);//@// TODO: 4/11/2016 include High scores
+        this.highscoreDisplay = new HighscoreDisplay(highScores);
         this.scoreBoardDisplay = new ScoreBoardDisplay(new ScoreBoardData(new Height(0), new Score(0)));
     }
 
@@ -32,6 +32,10 @@ public class DrawObjects {
     public void update(ScoreBoardData data) {
         scoreBoardDisplay.update(data);
         lastHeightDisplay.update(data.getHeight());
+    }
+
+    public void displayJumpMissed(){
+        messageDisplayer.display("Jump missed");
     }
 
 //consturcot/

@@ -1,8 +1,8 @@
 package com.max.jumpingapp.objects.player;
 
 import com.max.jumpingapp.game.GamePanel;
+import com.max.jumpingapp.game.JumpMissedException;
 import com.max.jumpingapp.types.Height;
-import com.max.jumpingapp.types.JumpCounter;
 import com.max.jumpingapp.game.PlayerDiedException;
 import com.max.jumpingapp.objects.Trampolin;
 import com.max.jumpingapp.types.PlayerPower;
@@ -37,21 +37,12 @@ public abstract class PlayerStatus {
 
     public abstract PlayerStatus getCurrentPlayerStatus();
 
-    public abstract boolean isRising();
-
     public void updateFallperiod(double maxHeight){
         fallPeriod = Math.sqrt( (2 * maxHeight) / PlayerStatus.gravitaion );
     }
 
 
-    public abstract void updatePower(PlayerPower playerPower, boolean fingerTouching, Player player, double maxHeight, Trampolin trampolin, long timeMikro);
-
-    public abstract void countJump(JumpCounter jumps);
-
-
-    public void updatePowerDisplay(PlayerPower power) {
-        power.livePowerDisplay(oscPeriod);
-    }
+    public abstract void updatePower(PlayerPower playerPower, boolean fingerTouching, Player player, double maxHeight, Trampolin trampolin, long timeMikro) throws JumpMissedException;//@// TODO: 4/11/2016 does this belong here?
 
     public void accelerateOnce(double maxHeight, PlayerPower playerPower) {
         playerPower.accelerateOnce(maxHeight, oscPeriod);

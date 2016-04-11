@@ -52,11 +52,6 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-    }
-
     public void changeToDiedScreen(Score score){
         setHighScore(score);
         Runtime.getRuntime().gc();

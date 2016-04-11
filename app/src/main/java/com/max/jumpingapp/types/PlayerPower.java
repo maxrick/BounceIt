@@ -2,8 +2,8 @@ package com.max.jumpingapp.types;
 
 import android.graphics.Canvas;
 
+import com.max.jumpingapp.game.JumpMissedException;
 import com.max.jumpingapp.objects.player.Player;
-import com.max.jumpingapp.objects.player.PlayerStatus;
 import com.max.jumpingapp.objects.visuals.PowerDisplay;
 
 /**
@@ -14,7 +14,6 @@ public class PlayerPower {
     private int minAccelerator = 10;
     private long increasePowerMikro;
     private long decreasePowerMikro;
-    private double minPower;
     private double maxPower;
     private boolean accelerated;
     private int accelerator;
@@ -52,7 +51,7 @@ public class PlayerPower {
                 powerPercent = 100;
             }
         }
-        minPower = 100 - 90 * Math.pow(2, -maxHeight / 50000);
+        double minPower = 100 - 90 * Math.pow(2, -maxHeight / 50000);
         maxPower = (4 * maxHeight) / 20 + 200;
 
         powerDisplay.setMinPower(minPower);
@@ -72,16 +71,7 @@ public class PlayerPower {
         }
     }
 
-    //@TODO: 18.03.2016 is overridden in accelerate()
-    public void decelerate(double decelerateBy) {
-        // powerPercent -= Math.abs(decelerateBy);
-    }
-
-    public boolean noPower() {
-        return (this.powerPercent <= 0);
-    }
-
-    public void activateAccelaration(Player player) {
+    public void activateAccelaration(Player player) throws JumpMissedException {
         if (accelerator != 0) {
             player.activateAccelaration(accelerator, maxPower);
             //System.out.println("accel activated: "+ accelerator);
@@ -89,7 +79,6 @@ public class PlayerPower {
         }else if(increasePowerMikro !=0){
             resetPower();
             player.missedJump();
-        }else {
         }
     }
 

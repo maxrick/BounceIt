@@ -46,19 +46,10 @@ public class StartScreen extends AppCompatActivity {
     }
 
     @Override
-    protected void onPostCreate(Bundle savedInstanceState) {
-        super.onPostCreate(savedInstanceState);
-
-        // Trigger the initial hide() shortly after the activity has been
-        // created, to briefly hint to the user that UI controls
-        // are available.
-    }
-
-    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main, menu);
 
-        MenuItem shareItem = (MenuItem) menu.findItem(R.id.action_share);
+        MenuItem shareItem = menu.findItem(R.id.action_share);
 
         ShareActionProvider mShare = new ShareActionProvider(this);
         MenuItemCompat.setActionProvider(shareItem, mShare);

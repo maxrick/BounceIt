@@ -10,6 +10,7 @@ import com.max.jumpingapp.game.GamePanel;
  * Created by max on 4/10/2016.
  */
 public class MessageDisplayer {
+    private static final long timeToDisplayMessage = 1000000000;
     private Paint paint;
     private long timer;
     private long timeToDisplay;
@@ -24,7 +25,7 @@ public class MessageDisplayer {
         xPos = 100;
         yPos = GamePanel.screenHeight/5;
     }
-    public void display(String s, long timeToDisplayMessage) {
+    public void display(String s) {
         timer = System.nanoTime();
         timeToDisplay = timeToDisplayMessage;
         message = s;

@@ -1,8 +1,8 @@
 package com.max.jumpingapp.objects.player;
 
 import com.max.jumpingapp.game.GamePanel;
+import com.max.jumpingapp.game.JumpMissedException;
 import com.max.jumpingapp.types.Height;
-import com.max.jumpingapp.types.JumpCounter;
 import com.max.jumpingapp.game.PlayerDiedException;
 import com.max.jumpingapp.objects.Trampolin;
 import com.max.jumpingapp.types.PlayerPower;
@@ -34,12 +34,7 @@ public class PlayerStatusFreeRising extends PlayerStatus {
     }
 
     @Override
-    public boolean isRising() {
-        return true;
-    }
-
-    @Override
-    public void updatePower(PlayerPower playerPower, boolean fingerTouching, Player player, double maxHeight, Trampolin trampolin, long timeMikro) {
+    public void updatePower(PlayerPower playerPower, boolean fingerTouching, Player player, double maxHeight, Trampolin trampolin, long timeMikro) throws JumpMissedException {
         if(fingerTouching){
             playerPower.decreasePower(oscPeriod);
         }else {
@@ -48,9 +43,5 @@ public class PlayerStatusFreeRising extends PlayerStatus {
         playerPower.activateAccelaration(player);
     }
 
-    @Override
-    public void countJump(JumpCounter jumps) {
-        jumps.addJump();
-    }
 
 }

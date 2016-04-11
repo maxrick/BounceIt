@@ -29,6 +29,6 @@ public class Highscores extends AppCompatActivity {
         SharedPreferences gameprefs = getSharedPreferences(MainActivity.HIGH_SCORE_PREFS, 0);
         SharedPreferences.Editor scoreEdit = gameprefs.edit();
         scoreEdit.putString(MainActivity.HIGH_SCORES, "");
-        scoreEdit.commit();
+        scoreEdit.apply();
     }
 }

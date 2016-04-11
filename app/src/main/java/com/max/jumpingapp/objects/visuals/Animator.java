@@ -5,7 +5,6 @@ import android.graphics.Paint;
 
 import com.max.jumpingapp.game.GamePanel;
 import com.max.jumpingapp.objects.Wind;
-import com.max.jumpingapp.objects.visuals.Background;
 import com.max.jumpingapp.objects.visuals.PlayerObject;
 
 public class Animator {

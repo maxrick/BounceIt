@@ -8,4 +8,8 @@
     <string name="dummy_content">DUMMY\nCONTENT</string>
     <string name="title_activity_highscores">Highscores</string>
     <string name="recommend_to">Recommend to</string>
+    <string name="retry">Try again</string>
+    <string name="diedMessage">You FUCKING died, you piece of shit</string>
+    <string name="scoreMessage">You had a lousy score of: </string>
+    <string name="deleteScores">Delete Highscores</string>
 </resources>

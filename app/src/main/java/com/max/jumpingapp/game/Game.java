@@ -27,10 +27,6 @@ public class Game {
         objects = new DrawObjects(highScores);
     }
 
-    public void setNewPlayer(Player newPlayer) {
-        this.player = newPlayer;
-    }
-
     public void draw(Canvas canvas) {
         int moveBy = trampolin.draw(canvas, player, bg);
         objects.draw(canvas, moveBy);
@@ -39,13 +35,11 @@ public class Game {
     public void update(long timeMikro, boolean touching) throws PlayerDiedException {
         ScoreBoardData data = player.updatePosition(trampolin, wind);
         objects.update(data);
-//        try {
-//            player.updatePosition(blaetter, trampolin, wind);
-//        } catch (PlayerDiedException e) {
-//            System.out.println("Player died with height :"+ +e.height);
-//            this.player = GamePanel.createPlayer(e.playerObject.image);
-//        }
-        player.updatePower(touching, trampolin, timeMikro);
+        try {
+            player.updatePower(touching, trampolin, timeMikro);
+        } catch (JumpMissedException e) {
+            objects.displayJumpMissed();
+        }
     }
 
     public void swiped(int xSwipedToRight) {

@@ -18,9 +18,6 @@ import com.max.jumpingapp.types.Width;
 import com.max.jumpingapp.types.XCenter;
 import com.max.jumpingapp.views.MainActivity;
 
-import java.util.HashMap;
-import java.util.Map;
-
 /**
  * Created by normal on 29.08.2015.
  */
@@ -66,16 +63,16 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
     }
 
     private void readCustomColors(Context context) {
-        this.GREEN1 = ContextCompat.getColor(context, R.color.green1);
-        this.GREEN2 = ContextCompat.getColor(context, R.color.green2);
-        this.GREEN3 = ContextCompat.getColor(context, R.color.green3);
-        this.GREEN4 = ContextCompat.getColor(context, R.color.green4);
-        this.GREEN5 = ContextCompat.getColor(context, R.color.green5);
-        this.RED1 = ContextCompat.getColor(context, R.color.red1);
-        this.RED2 = ContextCompat.getColor(context, R.color.red2);
-        this.RED3 = ContextCompat.getColor(context, R.color.red3);
-        this.RED4 = ContextCompat.getColor(context, R.color.red4);
-        this.RED5 = ContextCompat.getColor(context, R.color.red5);
+        GREEN1 = ContextCompat.getColor(context, R.color.green1);
+        GREEN2 = ContextCompat.getColor(context, R.color.green2);
+        GREEN3 = ContextCompat.getColor(context, R.color.green3);
+        GREEN4 = ContextCompat.getColor(context, R.color.green4);
+        GREEN5 = ContextCompat.getColor(context, R.color.green5);
+        RED1 = ContextCompat.getColor(context, R.color.red1);
+        RED2 = ContextCompat.getColor(context, R.color.red2);
+        RED3 = ContextCompat.getColor(context, R.color.red3);
+        RED4 = ContextCompat.getColor(context, R.color.red4);
+        RED5 = ContextCompat.getColor(context, R.color.red5);
     }
 
     public static GamePanel create(MainActivity mainActivity, int[] highScores) {
@@ -95,9 +92,9 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
     }
 
     private void createGame() {
-        Trampolin trampolin = new Trampolin(new XCenter(screenWidth/2), new Width(screenWidth * TRAMPOLIN_SPAN_OF_SCREEN), SPRINGCONST);
+        Trampolin trampolin = new Trampolin(new XCenter(screenWidth/2), new Width(screenWidth * TRAMPOLIN_SPAN_OF_SCREEN));
 
-        Player player = GamePanel.createPlayer(createPlayerImage());//@// TODO: 4/10/2016 highscores belong to game, not player
+        Player player = GamePanel.createPlayer(createPlayerImage());
 
         this.game = new Game(createBackground(), trampolin, player, highScores);
     }
@@ -118,7 +115,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
 
     @NonNull
     public static Player createPlayer(Bitmap playerImage) {
-        return new Player(new XCenter(screenWidth/2), new Width(GamePanel.screenWidth * 0.2), HEIGHT_POS, playerImage);
+        return new Player(new XCenter(screenWidth/2), new Width(GamePanel.screenWidth * 0.2), playerImage);
     }
 
     @Override

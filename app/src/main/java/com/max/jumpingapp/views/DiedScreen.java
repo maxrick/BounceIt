@@ -10,13 +10,12 @@ import com.max.jumpingapp.R;
 import com.max.jumpingapp.views.MainActivity;
 
 public class DiedScreen extends AppCompatActivity {
-    private TextView scoreTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_died_screen);
-        scoreTextView = (TextView) findViewById(R.id.scoreView);
+        TextView scoreTextView = (TextView) findViewById(R.id.scoreView);
         Intent myIntent = getIntent();
         int score = myIntent.getIntExtra("score", 0);
         scoreTextView.setText(String.valueOf(score));
