@@ -28,7 +28,7 @@ public class PlayerStatusSpringFalling extends PlayerStatus {
     }
 
     @Override
-    public PlayerStatus getCurrentPlayerStatus() {
+    public PlayerStatus getCurrentPlayerStatus(Player player) {
         double elapsed = (System.nanoTime() - lastUpdateTime) / GamePanel.secondInNanos;
         if(elapsed > oscPeriod){
             return new PlayerStatusSpringRising(oscPeriod, fallPeriod);

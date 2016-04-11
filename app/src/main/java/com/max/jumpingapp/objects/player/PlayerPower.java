@@ -2,9 +2,13 @@ package com.max.jumpingapp.objects.player;
 
 import android.graphics.Canvas;
 
+import com.max.jumpingapp.game.JumpMissedEvent;
 import com.max.jumpingapp.game.JumpMissedException;
+import com.max.jumpingapp.game.LeftTrampolinEvent;
 import com.max.jumpingapp.objects.player.Player;
 import com.max.jumpingapp.objects.visuals.PowerDisplay;
+
+import de.greenrobot.event.EventBus;
 
 /**
  * Created by normal on 24.10.2015.
@@ -20,12 +24,17 @@ public class PlayerPower {
     private PowerDisplay powerDisplay;//@// TODO: 4/11/2016 does not belong here
 
     public PlayerPower() {
+        EventBus.getDefault().register(this);
         increasePowerMikro = 0;
         decreasePowerMikro = 0;
         this.powerPercent = 0;
         this.accelerated = false;
         this.accelerator = 0;
         this.powerDisplay = new PowerDisplay();
+    }
+
+    public void onEvent(LeftTrampolinEvent event){
+        activateAccelaration(event.getPlayer());
     }
 
     private void resetAccelerator() {
@@ -75,14 +84,15 @@ public class PlayerPower {
         }
     }
 
-    public void activateAccelaration(Player player) throws JumpMissedException {
+    public void activateAccelaration(Player player) {
         if (accelerator != 0) {
             player.activateAccelaration(accelerator, maxPower);
             //System.out.println("accel activated: "+ accelerator);
             resetAccelerator();
         }else if(increasePowerMikro !=0){
             resetPower();
-            player.missedJump();
+//            player.missedJump();
+            EventBus.getDefault().post(new JumpMissedEvent());
         }
     }
 

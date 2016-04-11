@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
 
+import com.max.jumpingapp.game.JumpMissedEvent;
 import com.max.jumpingapp.game.JumpMissedException;
 import com.max.jumpingapp.objects.visuals.Animator;
 import com.max.jumpingapp.types.Height;
@@ -19,6 +20,8 @@ import com.max.jumpingapp.types.ScoreBoardData;
 import com.max.jumpingapp.types.Width;
 import com.max.jumpingapp.types.XCenter;
 import com.max.jumpingapp.types.XPosition;
+
+import de.greenrobot.event.EventBus;
 
 /**
  * Created by normal on 29.10.2015.
@@ -35,6 +38,7 @@ public class Player {
     private Animator animator;
 
     public Player(XCenter playerXCenter, Width playerWidth, Bitmap playerImage) {
+        EventBus.getDefault().register(this);
         maxHeight = Math.abs(com.max.jumpingapp.game.GamePanel.HEIGHT_POS);
         score = new Score(maxHeight);
         this.playerObject = new PlayerObject(playerXCenter, playerWidth, com.max.jumpingapp.game.GamePanel.HEIGHT_POS, playerImage);
@@ -51,7 +55,7 @@ public class Player {
     }
 
     public ScoreBoardData updatePosition(Trampolin trampolin, Wind wind) throws PlayerDiedException {
-        playerStatus = playerStatus.getCurrentPlayerStatus();
+        playerStatus = playerStatus.getCurrentPlayerStatus(this);
         try{
             curHeight = playerStatus.calculatePos(playerPower, maxHeight, xPosition, this, trampolin);
         }catch (PlayerDiedException e){
@@ -110,12 +114,13 @@ public class Player {
         xPosition.adjustVelocity(xSwipedToRight);
     }
 
-    public void missedJump() throws JumpMissedException {
+    public void onEvent(JumpMissedEvent event){
+//    public void missedJump() {//throws JumpMissedException { @// TODO: 4/11/2016 use event bus
         System.out.println("jump missed");
         playerStatus.accelerateOnce(maxHeight, playerPower);
         playerPower.activateAccelarationNoCheck(this);
         playerObject.setMissedJump(true);
-        throw new JumpMissedException();
+//        throw new JumpMissedException();
 //        animator.animate(0, playerObject);
 //        playerStatus.updatePowerDisplay(playerPower);
     }

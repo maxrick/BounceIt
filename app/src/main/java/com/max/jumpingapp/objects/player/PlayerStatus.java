@@ -34,7 +34,7 @@ public abstract class PlayerStatus {
 
     public abstract Height calculatePos(PlayerPower playerPower, int maxHeight, XPosition xPosition, Player player, Trampolin trampolin) throws PlayerDiedException;
 
-    public abstract PlayerStatus getCurrentPlayerStatus();
+    public abstract PlayerStatus getCurrentPlayerStatus(Player player);
 
     public void updateFallperiod(double maxHeight){
         fallPeriod = Math.sqrt( (2 * maxHeight) / PlayerStatus.gravitaion );

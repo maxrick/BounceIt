@@ -1,10 +1,13 @@
 package com.max.jumpingapp.objects.player;
 
 import com.max.jumpingapp.game.GamePanel;
+import com.max.jumpingapp.game.LeftTrampolinEvent;
 import com.max.jumpingapp.types.Height;
 import com.max.jumpingapp.game.PlayerDiedException;
 import com.max.jumpingapp.objects.Trampolin;
 import com.max.jumpingapp.types.XPosition;
+
+import de.greenrobot.event.EventBus;
 
 /**
  * Created by normal on 25.10.2015.
@@ -23,9 +26,11 @@ public class PlayerStatusSpringRising extends PlayerStatus {
     }
 
     @Override
-    public PlayerStatus getCurrentPlayerStatus() {
+    public PlayerStatus getCurrentPlayerStatus(Player player) {
         double elapsed = (System.nanoTime() - lastUpdateTime) / GamePanel.secondInNanos;
         if(elapsed > oscPeriod){
+            EventBus.getDefault().post(new LeftTrampolinEvent(player));
+            System.out.println("left trampolin");
             return new PlayerStatusFreeRising(oscPeriod, fallPeriod);
         }
         return this;

@@ -2,7 +2,6 @@ package com.max.jumpingapp.objects.player;
 
 import com.max.jumpingapp.game.GamePanel;
 import com.max.jumpingapp.game.JumpMissedException;
-import com.max.jumpingapp.game.LeftTrampolinListener;
 import com.max.jumpingapp.types.Height;
 import com.max.jumpingapp.game.PlayerDiedException;
 import com.max.jumpingapp.objects.Trampolin;
@@ -11,7 +10,7 @@ import com.max.jumpingapp.types.XPosition;
 /**
  * Created by normal on 25.10.2015.
  */
-public class PlayerStatusFreeRising extends PlayerStatus implements LeftTrampolinListener {
+public class PlayerStatusFreeRising extends PlayerStatus {
     public PlayerStatusFreeRising(double oscPeriod, double fallPeriod) {
         super(oscPeriod, fallPeriod);
     }
@@ -25,7 +24,7 @@ public class PlayerStatusFreeRising extends PlayerStatus implements LeftTrampoli
     }
 
     @Override
-    public PlayerStatus getCurrentPlayerStatus() {
+    public PlayerStatus getCurrentPlayerStatus(Player player) {
         double elapsed = (System.nanoTime() - lastUpdateTime) / GamePanel.secondInNanos;
         if(elapsed > fallPeriod){
             return new PlayerStatusFreeFalling(oscPeriod, fallPeriod);
@@ -40,7 +39,7 @@ public class PlayerStatusFreeRising extends PlayerStatus implements LeftTrampoli
         }else {
             playerPower.resetPower();
         }
-        playerPower.activateAccelaration(player);
+//        playerPower.activateAccelaration(player);
     }
 
 

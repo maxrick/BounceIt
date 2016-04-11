@@ -5,6 +5,9 @@ import android.graphics.Color;
 import android.graphics.Paint;
 
 import com.max.jumpingapp.game.GamePanel;
+import com.max.jumpingapp.game.JumpMissedEvent;
+
+import de.greenrobot.event.EventBus;
 
 /**
  * Created by max on 4/10/2016.
@@ -19,16 +22,19 @@ public class MessageDisplayer {
     private float yPos;//@// TODO: 4/10/2016 create a type
 
     public MessageDisplayer(){
+        EventBus.getDefault().register(this);
         paint = new Paint();
         paint.setColor(Color.BLACK);
         paint.setTextSize(50);
         xPos = 100;
         yPos = GamePanel.screenHeight/5;
     }
-    public void display(String s) {
+
+    public void onEvent(JumpMissedEvent event){
+//    public void display() {
         timer = System.nanoTime();
         timeToDisplay = timeToDisplayMessage;
-        message = s;
+        message = "Jump missed";
     }
 
     public void draw(Canvas canvas) {

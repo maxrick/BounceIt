@@ -34,8 +34,8 @@ public class DrawObjects {
         lastHeightDisplay.update(data.getHeight());
     }
 
-    public void displayJumpMissed(){
-        messageDisplayer.display("Jump missed");
+    public void displayJumpMissed(){//// TODO: 4/11/2016 delete this method
+//        messageDisplayer.display();
     }
 
 //consturcot/
