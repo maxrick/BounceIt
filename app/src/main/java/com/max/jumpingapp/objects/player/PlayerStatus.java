@@ -1,9 +1,9 @@
 package com.max.jumpingapp.objects.player;
 
-import com.max.jumpingapp.GamePanel;
-import com.max.jumpingapp.objects.visuals.LastHeightDisplay;
+import com.max.jumpingapp.game.GamePanel;
+import com.max.jumpingapp.types.Height;
 import com.max.jumpingapp.types.JumpCounter;
-import com.max.jumpingapp.PlayerDiedException;
+import com.max.jumpingapp.game.PlayerDiedException;
 import com.max.jumpingapp.objects.Trampolin;
 import com.max.jumpingapp.types.PlayerPower;
 import com.max.jumpingapp.types.XPosition;
@@ -33,7 +33,7 @@ public abstract class PlayerStatus {
         this.fallPeriod = fallperiod;
     }
 
-    public abstract int calculatePos(PlayerPower playerPower, double maxHeight, XPosition xPosition, Player player, Trampolin trampolin) throws PlayerDiedException;
+    public abstract Height calculatePos(PlayerPower playerPower, int maxHeight, XPosition xPosition, Player player, Trampolin trampolin) throws PlayerDiedException;
 
     public abstract PlayerStatus getCurrentPlayerStatus();
 
@@ -48,10 +48,6 @@ public abstract class PlayerStatus {
 
     public abstract void countJump(JumpCounter jumps);
 
-
-    public void trampolinChanged(Trampolin trampolin){
-        oscPeriod = 0.5* Math.PI * Math.sqrt(mass / trampolin.getSpringconst());
-    }
 
     public void updatePowerDisplay(PlayerPower power) {
         power.livePowerDisplay(oscPeriod);

@@ -7,8 +7,10 @@ import android.graphics.LightingColorFilter;
 import android.graphics.Paint;
 import android.graphics.Rect;
 
-import com.max.jumpingapp.GamePanel;
-import com.max.jumpingapp.objects.Blaetter;
+import com.max.jumpingapp.game.GamePanel;
+import com.max.jumpingapp.types.Height;
+import com.max.jumpingapp.types.Width;
+import com.max.jumpingapp.types.XCenter;
 import com.max.jumpingapp.types.XPosition;
 
 /**
@@ -16,6 +18,7 @@ import com.max.jumpingapp.types.XPosition;
  */
 public class PlayerObject {
     public final Rect rect;
+    public static final int FORM_HEIGHT= 200;
     public static int normalHeightRect=0;//@// TODO: 4/10/2016 do better
     private final int minHeightRect;
     private int maxHeightRect;
@@ -28,8 +31,8 @@ public class PlayerObject {
     private long time;
     private boolean missedJump;
 
-    public PlayerObject(int xCenter, int width, int formHeight, int yPositionBottom, Bitmap res) {
-        this.rect = new Rect(xCenter -width/2, GamePanel.heightNill - yPositionBottom - formHeight, xCenter + width/2, GamePanel.heightNill - yPositionBottom);
+    public PlayerObject(XCenter xCenter, Width width, int yPositionBottom, Bitmap res) {
+        this.rect = new Rect(width.getLeftWithCenter(xCenter), GamePanel.HEIGHT_NILL - yPositionBottom - FORM_HEIGHT, width.getRighWithCenter(xCenter), GamePanel.HEIGHT_NILL - yPositionBottom);
         normalHeightRect = rect.height();
         missedJump = false;
         minHeightRect = 4*normalHeightRect/10;
@@ -80,19 +83,10 @@ public class PlayerObject {
         paint.setColor(color);
     }
 
-    public void setRect(int curHeight, XPosition xAdjust) {
+    public void setRect(Height curHeight, XPosition xAdjust) {
         int rectHeight = rect.bottom - rect.top;
-        rect.set(xAdjust.adjusted(rect.left), GamePanel.heightNill - curHeight - rectHeight, xAdjust.adjusted(rect.right), GamePanel.heightNill - curHeight);
-//        rect.set(rect.left, GamePanel.heightNill - curHeight - rectHeight, rect.right, GamePanel.heightNill - curHeight);
-    }
-
-    public void addBlattTo(Blaetter blaetter) {
-        blaetter.newBlatt(rect.top - GamePanel.screenHeight);
-    }
-
-    public int getTouchingBlaetter(Blaetter blaetter) {
-        int touchingBlaeter = blaetter.update(rect.top);
-        return touchingBlaeter;
+        rect.set(xAdjust.adjusted(rect.left), curHeight.topOfRect(rect), xAdjust.adjusted(rect.right), curHeight.bottomOfRect());
+//        rect.set(rect.left, GamePanel.HEIGHT_NILL - curHeight - rectHeight, rect.right, GamePanel.HEIGHT_NILL - curHeight);
     }
 
     public int draw(Canvas canvas, Background shape) {
@@ -140,12 +134,8 @@ public class PlayerObject {
         }
     }
 
-    public void removeTouchingLeaves(Blaetter blaetter) {
-        blaetter.removeTouching(rect.top);
-    }
-
     public double getHeight() {
-        return GamePanel.heightNill - rect.bottom;
+        return GamePanel.HEIGHT_NILL - rect.bottom;
     }
 
     public void setMissedJump(boolean missedJump) {

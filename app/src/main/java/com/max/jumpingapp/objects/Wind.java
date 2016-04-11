@@ -1,5 +1,6 @@
 package com.max.jumpingapp.objects;
 
+import com.max.jumpingapp.types.Height;
 import com.max.jumpingapp.types.XPosition;
 
 import java.util.Random;
@@ -15,11 +16,11 @@ public class Wind {
         random = new Random();
     }
 
-    public void blow(XPosition xPosition, int curHeight) {
-        if(curHeight >0){
+    public void blow(XPosition xPosition, Height curHeight) {
+        if(curHeight.isPositive()){
             double chance = random.nextInt(CHANCE);
             if(chance == 1){
-                int windPower = random.nextInt(curHeight/15);
+                int windPower = random.nextInt(curHeight.devideBy(15));
                 windPower = random.nextBoolean()? windPower : -windPower;
                 xPosition.velocityByWind(windPower);
             }

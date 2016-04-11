@@ -1,9 +1,9 @@
 package com.max.jumpingapp.objects.player;
 
-import com.max.jumpingapp.GamePanel;
-import com.max.jumpingapp.objects.visuals.LastHeightDisplay;
+import com.max.jumpingapp.game.GamePanel;
+import com.max.jumpingapp.types.Height;
 import com.max.jumpingapp.types.JumpCounter;
-import com.max.jumpingapp.PlayerDiedException;
+import com.max.jumpingapp.game.PlayerDiedException;
 import com.max.jumpingapp.objects.Trampolin;
 import com.max.jumpingapp.types.PlayerPower;
 import com.max.jumpingapp.types.XPosition;
@@ -17,12 +17,11 @@ public class PlayerStatusFreeRising extends PlayerStatus {
     }
 
     @Override
-    public int calculatePos(PlayerPower playerPower, double maxHeight, XPosition xPosition, Player player, Trampolin trampolin) throws PlayerDiedException {
+    public Height calculatePos(PlayerPower playerPower, int maxHeight, XPosition xPosition, Player player, Trampolin trampolin) throws PlayerDiedException {
         double elapsedSeconds = (System.nanoTime() - lastUpdateTime) / GamePanel.secondInNanos;
         testDieSet=false;
         xPosition.move();
-        int curHeight = (int) (- 0.5 * PlayerStatus.gravitaion * Math.pow((elapsedSeconds - Math.sqrt(2*maxHeight/ PlayerStatus.gravitaion)), 2)+ maxHeight);
-        return curHeight;
+        return new Height((int) (- 0.5 * PlayerStatus.gravitaion * Math.pow((elapsedSeconds - Math.sqrt(2*maxHeight/ PlayerStatus.gravitaion)), 2)+ maxHeight));
     }
 
     @Override

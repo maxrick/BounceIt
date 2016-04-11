@@ -6,18 +6,23 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
 
-import com.max.jumpingapp.Animator;
+import com.max.jumpingapp.game.MainThread;
+import com.max.jumpingapp.objects.visuals.Animator;
 import com.max.jumpingapp.objects.visuals.HighscoreDisplay;
 import com.max.jumpingapp.objects.visuals.LastHeightDisplay;
 import com.max.jumpingapp.objects.visuals.MessageDisplayer;
+import com.max.jumpingapp.types.Height;
 import com.max.jumpingapp.types.JumpCounter;
-import com.max.jumpingapp.PlayerDiedException;
+import com.max.jumpingapp.game.PlayerDiedException;
 import com.max.jumpingapp.objects.visuals.Background;
-import com.max.jumpingapp.objects.Blaetter;
 import com.max.jumpingapp.objects.Trampolin;
 import com.max.jumpingapp.objects.Wind;
 import com.max.jumpingapp.objects.visuals.PlayerObject;
 import com.max.jumpingapp.types.PlayerPower;
+import com.max.jumpingapp.types.Score;
+import com.max.jumpingapp.types.ScoreBoardData;
+import com.max.jumpingapp.types.Width;
+import com.max.jumpingapp.types.XCenter;
 import com.max.jumpingapp.types.XPosition;
 
 /**
@@ -27,55 +32,49 @@ public class Player {
     private static final long timeToDisplayMessage = 1000000000;
     private PlayerStatus playerStatus;
     //position
-    private int curHeight = 0;//this should be the bottom of the player
+    private Height curHeight;//this should be the bottom of the player
     protected PlayerPower playerPower;
-    private double maxHeight;
-    private double maxScore;
+    private int maxHeight;
+    private Score maxScore;
     private PlayerObject playerObject;
     protected XPosition xPosition;
     private JumpCounter jumps=new JumpCounter();
     private Animator animator;
-    private MessageDisplayer messageDisplayer;
-    private LastHeightDisplay lastHeightDisplay;
-    private HighscoreDisplay highscoreDisplay;
+
 
     //game
     private double score=0;
     private int right;
 
 
-    public Player(int playerXCenter, int playerWidth, int formHeight, int height_pos, Bitmap playerImage, Background background, double[] highScores) {
+    public Player(XCenter playerXCenter, Width playerWidth, int height_pos, Bitmap playerImage) {
         maxHeight = Math.abs(height_pos);
-        this.playerObject = new PlayerObject(playerXCenter, playerWidth, formHeight, height_pos, playerImage);
+        maxScore = new Score(maxHeight);
+        this.playerObject = new PlayerObject(playerXCenter, playerWidth, height_pos, playerImage);
         playerPower = new PlayerPower();
-        messageDisplayer = new MessageDisplayer();
-        lastHeightDisplay = new LastHeightDisplay();
-        highscoreDisplay = new HighscoreDisplay(highScores);
+        curHeight = new Height();
+
         Paint defaultPaint = new Paint();
         defaultPaint.setColor(Color.CYAN);
-        animator = new Animator(defaultPaint, background);
+        animator = new Animator(defaultPaint);
 
         playerStatus = new PlayerStatusFreeFalling(maxHeight);
         xPosition = new XPosition(0);
 
     }
 
-    public void updatePosition(Blaetter blaetter, Trampolin trampolin, Wind wind) throws PlayerDiedException {
+    public ScoreBoardData updatePosition(Trampolin trampolin, Wind wind) throws PlayerDiedException {
         playerStatus = playerStatus.getCurrentPlayerStatus();
         playerStatus.countJump(jumps);
-        playerObject.addBlattTo(blaetter);
         try{
-            curHeight = playerStatus.calculatePos(playerPower, (int) maxHeight, xPosition, this, trampolin);
+            curHeight = playerStatus.calculatePos(playerPower, maxHeight, xPosition, this, trampolin);
         }catch (PlayerDiedException e){
             throw new PlayerDiedException(e.player, maxScore);
         }
         playerObject.setRect(curHeight, xPosition);
         wind.blow(xPosition, curHeight);
-        updateBlaetter(blaetter);
-        if (maxHeight > maxScore) {
-            maxScore = maxHeight;
-        }
-        lastHeightDisplay.update(curHeight);
+        maxScore.update(maxHeight);
+        return new ScoreBoardData(curHeight, maxScore);
     }
 
     public void updatePower(boolean fingerTouching, Trampolin trampolin, long timeMikro) {
@@ -83,22 +82,12 @@ public class Player {
         animate(fingerTouching);
     }
 
-    public void removeBlaetter(Blaetter blaetter) {
-        playerObject.removeTouchingLeaves(blaetter);
-    }
 
     public int draw(Canvas canvas, Background shape) {
         int moveBy = playerObject.draw(canvas, shape);
-        canvas.drawRect(new Rect(0, 0, 150, 120), animator.adjustedPaint());
-        Paint testPaint = new Paint();
-        testPaint.setColor(Color.BLACK);
-        canvas.drawText("Height: " + (maxHeight), 20, 20, testPaint);
-        canvas.drawText("Score: " + (maxScore), 20, 40, testPaint);
-        canvas.drawText("Current: " + (curHeight), 20, 60, testPaint);
-        jumps.draw(canvas, 20, 80, testPaint);
-        messageDisplayer.draw(canvas);
-        lastHeightDisplay.draw(canvas, moveBy);
-        highscoreDisplay.draw(canvas, moveBy);
+
+//        jumps.draw(canvas, 20, 80, testPaint);//@// TODO: 4/11/2016 delet jumcounter
+
         playerPower.draw(canvas);
         return moveBy;
     }
@@ -121,20 +110,8 @@ public class Player {
 
     }
 
-    private void updateBlaetter(Blaetter blaetter) {
-        int touchingLeaves = playerObject.getTouchingBlaetter(blaetter) ;
-        if(playerStatus.isRising() && touchingLeaves > 0) {
-            playerPower.decelerate(touchingLeaves);
-            playerPower.activateAccelaration(this);
-        }
-    }
-
     public void addScore() {
         score += maxHeight;
-    }
-
-    public void trampolinChanged(Trampolin trampolin) {
-        playerStatus.trampolinChanged(trampolin);
     }
 
     public float getLeft() {
@@ -157,7 +134,6 @@ public class Player {
 
     public void missedJump() {
         System.out.println("jump missed");
-        messageDisplayer.display("Jumped missed", timeToDisplayMessage);
         playerStatus.accelerateOnce(maxHeight, playerPower);
         playerPower.activateAccelarationNoCheck(this);
 

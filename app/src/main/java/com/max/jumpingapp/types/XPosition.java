@@ -1,7 +1,7 @@
 package com.max.jumpingapp.types;
 
-import com.max.jumpingapp.GamePanel;
-import com.max.jumpingapp.MainThread;
+import com.max.jumpingapp.game.GamePanel;
+import com.max.jumpingapp.game.MainThread;
 
 /**
  * Created by max on 3/29/2016.

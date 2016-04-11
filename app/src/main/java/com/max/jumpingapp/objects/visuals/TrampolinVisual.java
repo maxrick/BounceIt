@@ -5,7 +5,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
 
-import com.max.jumpingapp.GamePanel;
+import com.max.jumpingapp.game.GamePanel;
 import com.max.jumpingapp.objects.player.Player;
 
 /**
@@ -14,15 +14,12 @@ import com.max.jumpingapp.objects.player.Player;
 public class TrampolinVisual {
     private Paint paint;
 
-    public TrampolinVisual(Paint paint){
-        this.paint = paint;
-        if(this.paint == null){
-            this.paint = new Paint();
-            this.paint.setColor(Color.YELLOW);
-            this.paint.setStrokeWidth(2);
-            this.paint.setStyle(Paint.Style.STROKE);
-            this.paint.setAntiAlias(true);
-        }
+    public TrampolinVisual() {
+        this.paint = new Paint();
+        this.paint.setColor(Color.YELLOW);
+        this.paint.setStrokeWidth(2);
+        this.paint.setStyle(Paint.Style.STROKE);
+        this.paint.setAntiAlias(true);
     }
 
     public int draw(Canvas canvas, Player player, Background shape, int trampXPos, int trampWidth) {
@@ -35,9 +32,9 @@ public class TrampolinVisual {
 
     private Path trampCurve(float playerLeft, float playerRight, float playerBottom, int trampXPos, int trampWidth) {
         Path myPath = new Path();
-        int trampYPos = GamePanel.heightNill;
+        int trampYPos = GamePanel.HEIGHT_NILL;
         myPath.moveTo(trampXPos, trampYPos);
-        float xCenter = (playerLeft+playerRight)/2;
+        float xCenter = (playerLeft + playerRight) / 2;
         if (playerBottom > trampYPos) {
             myPath.quadTo(playerLeft - 0.2F * (playerLeft - trampXPos), trampYPos + 0.2F * (playerBottom - trampYPos), playerLeft, playerBottom);
             myPath.quadTo(xCenter, playerBottom + (playerBottom - trampYPos) * 0.3F, playerRight, playerBottom);

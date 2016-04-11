@@ -5,7 +5,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
 
-import com.max.jumpingapp.GamePanel;
+import com.max.jumpingapp.game.GamePanel;
 
 /**
  * Created by max on 4/6/2016.

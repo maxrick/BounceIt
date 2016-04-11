@@ -1,9 +1,9 @@
 package com.max.jumpingapp.objects.player;
 
-import com.max.jumpingapp.GamePanel;
-import com.max.jumpingapp.objects.visuals.LastHeightDisplay;
+import com.max.jumpingapp.game.GamePanel;
+import com.max.jumpingapp.types.Height;
 import com.max.jumpingapp.types.JumpCounter;
-import com.max.jumpingapp.PlayerDiedException;
+import com.max.jumpingapp.game.PlayerDiedException;
 import com.max.jumpingapp.objects.Trampolin;
 import com.max.jumpingapp.types.PlayerPower;
 import com.max.jumpingapp.types.XPosition;
@@ -18,13 +18,13 @@ public class PlayerStatusSpringFalling extends PlayerStatus {
     }
 
     @Override
-    public int calculatePos(PlayerPower playerPower, double maxHeight, XPosition xPosition, Player player, Trampolin trampolin) throws PlayerDiedException {
+    public Height calculatePos(PlayerPower playerPower, int maxHeight, XPosition xPosition, Player player, Trampolin trampolin) throws PlayerDiedException {
         double elapsedSeconds = (System.nanoTime() - lastUpdateTime) / GamePanel.secondInNanos;
         xPosition.dontMove();
-        int curHeight = (int) (-(Math.sqrt(2 * mass * PlayerStatus.gravitaion * maxHeight / GamePanel.SPRINGCONST) *
-                Math.sin(elapsedSeconds / Math.sqrt(mass / GamePanel.SPRINGCONST))));
+        Height curHeight = new Height((int) (-(Math.sqrt(2 * mass * PlayerStatus.gravitaion * maxHeight / GamePanel.SPRINGCONST) *
+                Math.sin(elapsedSeconds / Math.sqrt(mass / GamePanel.SPRINGCONST)))));
         if(!trampolin.supportingPlayer(player)){
-            throw new PlayerDiedException(player, maxHeight);//@// TODO: 4/2/2016 score need to be printed; does Player have score?
+            throw new PlayerDiedException(player);//@// TODO: 4/2/2016 score need to be printed; does Player have score?
         }
         return curHeight;
     }

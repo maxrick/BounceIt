@@ -4,7 +4,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 
-import com.max.jumpingapp.GamePanel;
+import com.max.jumpingapp.game.GamePanel;
 
 /**
  * Created by max on 4/10/2016.

@@ -3,17 +3,16 @@ package com.max.jumpingapp.objects.visuals;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.graphics.Path;
 
-import com.max.jumpingapp.GamePanel;
-import com.max.jumpingapp.objects.Game;
+import com.max.jumpingapp.game.GamePanel;
+import com.max.jumpingapp.types.Height;
 
 /**
  * Created by max on 4/10/2016.
  */
 public class LastHeightDisplay {
     private Paint paint;
-    private double height;
+    private Height height;
     private String message;
 
     public LastHeightDisplay(){
@@ -21,13 +20,11 @@ public class LastHeightDisplay {
         paint.setColor(Color.WHITE);
         this.paint.setStrokeWidth(2);
         this.paint.setStyle(Paint.Style.STROKE);
-        height = 0;
+        height = new Height(0);
     }
 
-    public void update(double currentHeight) {
-        if(currentHeight > height){
-            height = currentHeight;
-        }
+    public void update(Height currentHeight) {
+        height.setNewMaximum(currentHeight);
     }
 
     public void draw(Canvas canvas, int moveBy) {
@@ -35,7 +32,7 @@ public class LastHeightDisplay {
 //        myPath.moveTo(0, (float) height);
 //        myPath.moveTo(GamePanel.screenWidth, (float) height);
 //        myPath.offset(0, -moveBy);
-        float drawHeight = (float)(GamePanel.heightNill - height -moveBy -PlayerObject.normalHeightRect);
+        float drawHeight = height.calculateDrawHeight(moveBy);
         canvas.drawLine(0, drawHeight, GamePanel.screenWidth, drawHeight, paint);
 //        canvas.drawPath(myPath, paint);
     }

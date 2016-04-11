@@ -9,7 +9,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.WindowManager;
 
-import com.max.jumpingapp.GamePanel;
+import com.max.jumpingapp.game.GamePanel;
+import com.max.jumpingapp.types.Score;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -56,30 +57,31 @@ public class MainActivity extends AppCompatActivity {
         super.onDestroy();
     }
 
-    public void changeToDiedScreen(int score){
+    public void changeToDiedScreen(Score score){
+        setHighScore(score);
         Runtime.getRuntime().gc();
         System.out.print("died");
         Intent intent = new Intent(this, DiedScreen.class);
-        intent.putExtra("score", score);
+        intent.putExtra("score", score.toInt());
         startActivity(intent);
         finish();
     }
 
-    public double[] getHighScores(){
+    public int[] getHighScores(){
         SharedPreferences gameprefs = getSharedPreferences(HIGH_SCORE_PREFS, 0);
         String scoreString =gameprefs.getString(HIGH_SCORES, "");
-        double[] scoreNums = null;
+        int[] scoreNums = null;
         if(scoreString.length() > 0) {
             String[] scores = scoreString.split("\\|");
-            scoreNums = new double[scores.length];
+            scoreNums = new int[scores.length];
             for (int i = 0; i < scoreNums.length; i++) {
-                scoreNums[i] = Double.valueOf(scores[i]);
+                scoreNums[i] = Integer.valueOf(scores[i]);
             }
         }
         return scoreNums;
     }
 
-    public void setHighScore(double score) {
+    private void setHighScore(Score score) {
         SharedPreferences gameprefs = getSharedPreferences(HIGH_SCORE_PREFS, 0);
         SharedPreferences.Editor scoreEdit = gameprefs.edit();
         String scores = gameprefs.getString(HIGH_SCORES, "");
@@ -89,26 +91,26 @@ public class MainActivity extends AppCompatActivity {
             newScores = new String[Math.min(exScores.length+1, 10)];
             int move = 0;
             for(int i = 0; i<exScores.length; i++){
-                double scoreNum = Double.valueOf(exScores[i]);//@// TODO: 4/9/2016 check if cast works
-                if(score > scoreNum){
-                    newScores[i] = String.valueOf(score);
+                int scoreNum = Integer.valueOf(exScores[i]);//@// TODO: 4/9/2016 check if cast works
+                if(score.betterThan(scoreNum)){
+                    newScores[i] = score.valueAsString();
                     move = 1;
-                    score = 0;
+                    score = new Score(0);
                 }
                 if(i+move < 10){
                     newScores[i+move] = String.valueOf(scoreNum);
                 }
             }
             if(exScores.length < newScores.length && move == 0){
-                newScores[newScores.length-1] = String.valueOf(score);
+                newScores[newScores.length-1] = score.valueAsString();
             }
         }else{
             newScores = new String[1];
-            newScores[0] = String.valueOf(score);
+            newScores[0] = score.valueAsString();
         }
         String scoreString = TextUtils.join("|", newScores);
         System.out.println("highscores: "+scoreString);
         scoreEdit.putString(HIGH_SCORES, scoreString);
-        scoreEdit.commit();
+        scoreEdit.apply();
     }
 }
