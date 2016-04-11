@@ -1,4 +1,4 @@
-package com.max.jumpingapp.types;
+package com.max.jumpingapp.objects.player;
 
 import android.graphics.Canvas;
 
@@ -17,7 +17,7 @@ public class PlayerPower {
     private double maxPower;
     private boolean accelerated;
     private int accelerator;
-    private PowerDisplay powerDisplay;
+    private PowerDisplay powerDisplay;//@// TODO: 4/11/2016 does not belong here
 
     public PlayerPower() {
         increasePowerMikro = 0;
@@ -37,6 +37,16 @@ public class PlayerPower {
     }
 
     private void accelerate(double maxHeight, double oscPeriod) {
+        calculatePowerPercent(oscPeriod);
+        double minPower = 100 - 90 * Math.pow(2, -maxHeight / 50000);
+        maxPower = (4 * maxHeight) / 20 + 200;
+
+        powerDisplay.setMinPower(minPower);
+
+        accelerator = (int) ((powerPercent - minPower) / (100 - minPower) * maxPower);
+    }
+
+    private void calculatePowerPercent(double oscPeriod) {
         powerPercent = 0;
         if (increasePowerMikro != 0) {
             long timeMikro = System.nanoTime() / 1000;
@@ -51,12 +61,6 @@ public class PlayerPower {
                 powerPercent = 100;
             }
         }
-        double minPower = 100 - 90 * Math.pow(2, -maxHeight / 50000);
-        maxPower = (4 * maxHeight) / 20 + 200;
-
-        powerDisplay.setMinPower(minPower);
-
-        accelerator = (int) ((powerPercent - minPower) / (100 - minPower) * maxPower);
     }
 
     public void draw(Canvas canvas) {
@@ -89,7 +93,6 @@ public class PlayerPower {
 
     public void decreasePower(double oscPeriod) {
         if (decreasePowerMikro == 0) {
-//            increasePowerMikro = 0;
             decreasePowerMikro = System.nanoTime() / 1000;
         }
         livePowerDisplay(oscPeriod);
@@ -129,6 +132,10 @@ public class PlayerPower {
             powerPercent = 100;
         }
         powerDisplay.setPowerPercentage(livePowerPercent);
+    }
+
+    public double percentage() {
+        return 100*powerPercent;
     }
 }
 

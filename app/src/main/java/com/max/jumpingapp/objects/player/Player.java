@@ -14,7 +14,6 @@ import com.max.jumpingapp.objects.visuals.Background;
 import com.max.jumpingapp.objects.Trampolin;
 import com.max.jumpingapp.objects.Wind;
 import com.max.jumpingapp.objects.visuals.PlayerObject;
-import com.max.jumpingapp.types.PlayerPower;
 import com.max.jumpingapp.types.Score;
 import com.max.jumpingapp.types.ScoreBoardData;
 import com.max.jumpingapp.types.Width;
@@ -84,7 +83,7 @@ public class Player {
     public void activateAccelaration(int accelerator, double maxPower) {
         System.out.println("maxh: "+ maxHeight + " accel: " + accelerator);
         maxHeight += accelerator;
-        animator.animate(100*accelerator/maxPower, playerObject);
+        animator.animate(playerPower.percentage(), playerObject);
         if(maxHeight <0){
             maxHeight=0;}
         playerStatus.updateFallperiod(maxHeight);

@@ -5,7 +5,6 @@ import com.max.jumpingapp.game.JumpMissedException;
 import com.max.jumpingapp.types.Height;
 import com.max.jumpingapp.game.PlayerDiedException;
 import com.max.jumpingapp.objects.Trampolin;
-import com.max.jumpingapp.types.PlayerPower;
 import com.max.jumpingapp.types.XPosition;
 
 /**
