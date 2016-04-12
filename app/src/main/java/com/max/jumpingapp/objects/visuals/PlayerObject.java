@@ -83,9 +83,7 @@ public class PlayerObject {
     }
 
     public void setRect(Height curHeight, XPosition xAdjust) {
-        int rectHeight = rect.bottom - rect.top;
         rect.set(xAdjust.adjusted(rect.left), curHeight.topOfRect(rect), xAdjust.adjusted(rect.right), curHeight.bottomOfRect());
-//        rect.set(rect.left, GamePanel.HEIGHT_NILL - curHeight - rectHeight, rect.right, GamePanel.HEIGHT_NILL - curHeight);
     }
 
     public int draw(Canvas canvas, Background shape) {
@@ -98,8 +96,6 @@ public class PlayerObject {
             moveBy = rect.bottom - GamePanel.screenHeight;
         }
         shape.drawMovedBy(canvas, moveBy);
-//        shape.setBounds(0, -1000, screenWidth, screenheight + 200 - moveBy / 2);
-//        shape.draw(canvas);
         Rect r = new Rect(rect);
         r.offset(0, -moveBy);
         if(r.left > r.right){
@@ -115,7 +111,6 @@ public class PlayerObject {
             }
             canvas.drawBitmap(image, null, secondRect, animator.adjustedPaint());
         }
-        //canvas.drawRect(r, paint);
 
         canvas.drawBitmap(image, null, r, animator.adjustedPaint());
 
@@ -132,5 +127,17 @@ public class PlayerObject {
 
     public void setPaint(double percentage) {
         animator.animate(percentage);
+    }
+
+    public float getLeft() {
+        return  (rect.left + 0.3F*rect.width());
+    }
+
+    public float getRight() {
+        return (rect.right - 0.2F*rect.width());
+    }
+
+    public float getBottom() {
+        return rect.bottom;
     }
 }

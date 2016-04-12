@@ -41,7 +41,6 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
     public static int screenHeight;
     public static int screenWidth;
     public static double secondInNanos = 1000000000.d;
-    public static GamePanel meGamePanel;//todo only for test
     private MainThread thread;
     private MainActivity activity;
     private int[] highScores;
@@ -78,10 +77,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
     }
 
     public static GamePanel create(MainActivity mainActivity, int[] highScores) {
-        if (meGamePanel == null) {
-            meGamePanel = new GamePanel(mainActivity, highScores);
-        }
-        return meGamePanel;
+       return new GamePanel(mainActivity, highScores);
     }
 
     @Override
@@ -134,7 +130,6 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
     @Override
     public void surfaceDestroyed(SurfaceHolder holder) {
         thread.stopRunning();
-        meGamePanel = null;
     }
 
     public void update(long timeMikro) {
@@ -155,10 +150,10 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
 
     private void actOnRelease(MotionEvent event) {
         if (event.getAction() == MotionEvent.ACTION_UP) {
-            long elapsed = (System.nanoTime() - timeTouchBeg) / 1000000;//millisec
+            long elapsed = (System.nanoTime() - timeTouchBeg);
             float xTouchEnd = event.getX();
             int xSwipedToRight = (int) xTouchEnd - xTouchBeg;
-            if (elapsed < 1000 && Math.abs(xSwipedToRight) > 100) {
+            if (elapsed < secondInNanos && Math.abs(xSwipedToRight) > 100) {
                 game.swiped(xSwipedToRight);
             }
             EventBus.getDefault().post(new FingerReleasedEvent());

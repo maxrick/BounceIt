@@ -24,16 +24,11 @@ public class LastHeightDisplay {
     }
 
     public void update(Height currentHeight) {
-        height.setNewMaximum(currentHeight);
+        height = height.setNewMaximum(currentHeight);
     }
 
     public void draw(Canvas canvas, int moveBy) {
-//        Path myPath = new Path();
-//        myPath.moveTo(0, (float) height);
-//        myPath.moveTo(GamePanel.screenWidth, (float) height);
-//        myPath.offset(0, -moveBy);
         float drawHeight = height.calculateDrawHeight(moveBy);
         canvas.drawLine(0, drawHeight, GamePanel.screenWidth, drawHeight, paint);
-//        canvas.drawPath(myPath, paint);
     }
 }

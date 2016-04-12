@@ -21,7 +21,6 @@ public abstract class PlayerStatus {
     protected long lastUpdateTime = System.nanoTime();
 
     public PlayerStatus(double maxHeight) {
-//        this.playerPower = new PlayerPower();
         oscPeriod = 0.5* Math.PI * Math.sqrt(mass / GamePanel.SPRINGCONST);
         fallPeriod = Math.sqrt((2 * maxHeight) / PlayerStatus.gravitaion);
     }
@@ -41,7 +40,7 @@ public abstract class PlayerStatus {
     }
 
 
-    public abstract void updatePower(PlayerPower playerPower, boolean fingerTouching, Player player, double maxHeight, Trampolin trampolin, long timeMikro) throws JumpMissedException;//@// TODO: 4/11/2016 does this belong here?
+    public abstract void updatePower(PlayerPower playerPower, boolean fingerTouching);
 
     public void accelerate(double maxHeight, PlayerPower playerPower) {
         playerPower.setAccelerator(maxHeight, oscPeriod);

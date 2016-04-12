@@ -31,7 +31,6 @@ public class MessageDisplayer {
     }
 
     public void onEvent(JumpMissedEvent event){
-//    public void display() {
         timer = System.nanoTime();
         timeToDisplay = timeToDisplayMessage;
         message = "Jump missed";

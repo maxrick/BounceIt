@@ -9,7 +9,7 @@ import com.max.jumpingapp.types.XPosition;
 /**
  * Created by normal on 25.10.2015.
  */
-public class PlayerStatusSpringFalling extends PlayerStatus {
+public class PlayerStatusSpringFalling extends PlayerStatus {//@// TODO: 4/12/2016 make subclass Spring and Rising
 
     public PlayerStatusSpringFalling(double oscPeriod, double fallPeriod) {
         super(oscPeriod, fallPeriod);
@@ -37,7 +37,7 @@ public class PlayerStatusSpringFalling extends PlayerStatus {
     }
 
     @Override
-    public void updatePower(PlayerPower playerPower, boolean fingerTouching, Player player, double maxHeight, Trampolin trampolin, long timeMikro) {
+    public void updatePower(PlayerPower playerPower, boolean fingerTouching) {
         if(fingerTouching){
             playerPower.increasePower(oscPeriod);
         }

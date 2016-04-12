@@ -7,7 +7,7 @@ import com.max.jumpingapp.game.MainThread;
  * Created by max on 3/29/2016.
  */
 public class XPosition {
-    private static double maxVelocity;
+    private final double maxVelocity;
     private double xVelocity;
     private int value;
     private long lastUpdateTime;
@@ -16,7 +16,6 @@ public class XPosition {
         this.value = 0;
         this.lastUpdateTime = System.nanoTime();
         maxVelocity = MainThread.FPS * 0.1*GamePanel.screenWidth;
-        System.out.println("max velocity x: "+maxVelocity);
     }
 
     public int adjusted(int position){

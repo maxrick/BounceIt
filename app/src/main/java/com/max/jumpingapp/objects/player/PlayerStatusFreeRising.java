@@ -33,7 +33,7 @@ public class PlayerStatusFreeRising extends PlayerStatus {
     }
 
     @Override
-    public void updatePower(PlayerPower playerPower, boolean fingerTouching, Player player, double maxHeight, Trampolin trampolin, long timeMikro) throws JumpMissedException {
+    public void updatePower(PlayerPower playerPower, boolean fingerTouching) {
         if(fingerTouching){
             playerPower.decreasePower(oscPeriod);
         }

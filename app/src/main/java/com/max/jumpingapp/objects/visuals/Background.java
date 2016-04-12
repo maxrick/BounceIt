@@ -12,21 +12,13 @@ public class Background {
     public static final int GREY_STEP = 60;
     private Bitmap image;
     private int x, y;
-    private static final long timeToDisplayAnimation = 300000000; //1 Second
-    private long time;
 
     public Background(Bitmap res) {
         image = res;
 //        double scaleFactor = GamePanel.screenWidth*1.0 / res.getWidth();
 //        image = Bitmap.createScaledBitmap(res, GamePanel.screenWidth, (int)( GamePanel.screenHeight*scaleFactor), false); @// TODO: 4/11/2016 scale image
         y = 0;
-    }
-
-    private void move(int moveBackground) {
-        y = -moveBackground %image.getHeight();
-//        if(y>image.getHeight() || y < -image.getHeight()){
-//            y=0;
-//        }
+        x = 0;
     }
 
     private void draw(Canvas canvas) {

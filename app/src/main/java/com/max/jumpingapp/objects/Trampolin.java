@@ -16,7 +16,6 @@ public class Trampolin {
     private int xPos;
     private int width;
     private TrampolinVisual trampolinVisual;
-//    private Paint paint;
 
     public Trampolin(XCenter xCenter, Width width) {
         xPos = width.getLeftWithCenter(xCenter);

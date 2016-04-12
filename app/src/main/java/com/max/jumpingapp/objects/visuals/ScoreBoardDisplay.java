@@ -5,18 +5,21 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
 
-import com.max.jumpingapp.types.ScoreBoardData;
+import com.max.jumpingapp.types.Height;
+import com.max.jumpingapp.types.Score;
 
 /**
  * Created by max on 4/11/2016.
  */
 public class ScoreBoardDisplay {
-    private ScoreBoardData scoreBoardData;
+    private Height height;
+    private Score score;
     private Paint backgroundPaint;
     private Paint dataPaint;
 
-    public ScoreBoardDisplay(ScoreBoardData data){
-        this.scoreBoardData = data;
+    public ScoreBoardDisplay(Height height, Score score){
+        this.height = height;
+        this.score = score;
         backgroundPaint = new Paint();
         backgroundPaint.setColor(Color.CYAN);
         dataPaint = new Paint();
@@ -26,12 +29,12 @@ public class ScoreBoardDisplay {
     public void draw(Canvas canvas) {
 
         canvas.drawRect(new Rect(0, 0, 150, 120), backgroundPaint);
-//        canvas.drawText("Height: " + (maxHeight), 20, 20, testPaint);
-        canvas.drawText(scoreBoardData.scoreString(), 20, 40, dataPaint);
-        canvas.drawText(scoreBoardData.heightString(), 20, 60, dataPaint);
+        canvas.drawText(score.toString(), 20, 40, dataPaint);
+        canvas.drawText(height.toString(), 20, 60, dataPaint);
     }
 
-    public void update(ScoreBoardData data) {
-        this.scoreBoardData.update(data);
+    public void update(Height height, Score score) {
+        this.height = height;
+        this.score = score;
     }
 }

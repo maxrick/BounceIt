@@ -1,14 +1,9 @@
 package com.max.jumpingapp.objects.player;
 
-import android.graphics.Canvas;
-
 import com.max.jumpingapp.game.JumpMissedEvent;
-import com.max.jumpingapp.game.JumpMissedException;
 import com.max.jumpingapp.game.LeftTrampolinEvent;
 import com.max.jumpingapp.game.LivePowerEvent;
 import com.max.jumpingapp.game.MinPowerEvent;
-import com.max.jumpingapp.objects.player.Player;
-import com.max.jumpingapp.objects.visuals.PowerDisplay;
 import com.max.jumpingapp.types.PowerPercent;
 
 import de.greenrobot.event.EventBus;
@@ -17,7 +12,7 @@ import de.greenrobot.event.EventBus;
  * Created by normal on 24.10.2015.
  */
 public class PlayerPower {
-    private PowerPercent powerPercent;  //old name: accelerator
+    private PowerPercent powerPercent;
     private int minAccelerator = 10;
     private long increasePowerMikro;
     private long decreasePowerMikro;
@@ -28,7 +23,7 @@ public class PlayerPower {
         EventBus.getDefault().register(this);
         increasePowerMikro = 0;
         decreasePowerMikro = 0;
-        this.powerPercent = new PowerPercent(0);
+        this.powerPercent = new PowerPercent();
         this.accelerator = 0;
     }
 
@@ -37,7 +32,7 @@ public class PlayerPower {
     }
 
     private void resetAccelerator() {
-        powerPercent.reset();
+        powerPercent = new PowerPercent();
         accelerator = 0;
     }
 
@@ -47,7 +42,7 @@ public class PlayerPower {
     }
 
     public void setAccelerator(double maxHeight, double oscPeriod) {//on finger released, on jump missed
-        this.powerPercent = calculatePowerPercent(oscPeriod).cap();
+        this.powerPercent = calculateUncappedPowerPercent(oscPeriod).cap();
         double minPower = minPowerFor(maxHeight);
         maxPowerFor(maxHeight);
 
@@ -60,11 +55,9 @@ public class PlayerPower {
     public void activateAccelaration(Player player) {//on left trampolin
         if (accelerator != 0) {
             player.activateAccelaration(accelerator, maxPower);
-            //System.out.println("accel activated: "+ accelerator);
             resetAccelerator();
         } else if (increasePowerMikro != 0) {
             resetPower();
-//            player.missedJump();
             EventBus.getDefault().post(new JumpMissedEvent());
         }
     }
@@ -92,9 +85,9 @@ public class PlayerPower {
         return 100 - 90 * Math.pow(2, -maxHeight / 50000);
     }
 
-    private PowerPercent calculatePowerPercent(double oscPeriod) {//uncapped
+    private PowerPercent calculateUncappedPowerPercent(double oscPeriod) {
         long elapsed = calculateElapsedTime();
-        return new PowerPercent((elapsed / (oscPeriod * 2000000)) * 100);
+        return new PowerPercent((elapsed/(oscPeriod*2000000))*100);
     }
 
     private long calculateElapsedTime() {

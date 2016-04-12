@@ -29,7 +29,7 @@ public class PowerDisplay {
     Paint powerLoaderPaint;
 
     public PowerDisplay() {
-        EventBus.getDefault().register(this);//@// TODO: 4/12/2016 belongs elsewhere
+        EventBus.getDefault().register(this);
         time = System.nanoTime();
         border = new Rect(LEFT, TOP, RIGHT, BOTTOM);
         powerLoader = new Rect(LEFT, TOP, LEFT, BOTTOM);

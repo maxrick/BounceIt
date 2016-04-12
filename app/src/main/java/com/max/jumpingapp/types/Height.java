@@ -9,7 +9,7 @@ import com.max.jumpingapp.objects.visuals.PlayerObject;
  * Created by max on 4/11/2016.
  */
 public class Height {
-    private int height;
+    private final int height;
 
     public Height(int height){
         this.height = height;
@@ -41,8 +41,8 @@ public class Height {
         return "Height: "+height;
     }
 
-    public void setNewMaximum(Height currentHeight) {//@// TODO: 4/11/2016 needs better name
-        height = currentHeight.maximumOf(height);
+    public Height setNewMaximum(Height currentHeight) {//@// TODO: 4/11/2016 needs better name
+        return new Height(currentHeight.maximumOf(height));
     }
 
     private int maximumOf(int height) {
@@ -53,4 +53,7 @@ public class Height {
         return (GamePanel.HEIGHT_NILL - height -moveBy - PlayerObject.normalHeightRect);
     }
 
+    public int maxOf(int score) {
+        return Math.max(height, score);
+    }
 }
