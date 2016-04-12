@@ -1,6 +1,7 @@
 package com.max.jumpingapp.objects.visuals;
 
 import android.graphics.Color;
+import android.graphics.LightingColorFilter;
 import android.graphics.Paint;
 
 import com.max.jumpingapp.game.GamePanel;
@@ -20,59 +21,50 @@ public class Animator {
         this.currentPaint = new Paint(defaultPaint);
     }
 
-    public void animate(double accelPercentage, PlayerObject playerObject) {
+    public void animate(double accelPercentage) {
         time = System.nanoTime();
-        setAnimatedColor(accelPercentage, playerObject);
+        setAnimatedColor(accelPercentage);
         if(accelPercentage < 0){//@// TODO: 4/5/2016  does not belong here 
             Wind.moreWind();
         }
     }
 
-    private void setAnimatedColor(double accelerator, PlayerObject playerObject) {
+    private void setAnimatedColor(double accelerator) {
         if (accelerator < -150) {
-            currentPaint.setColor(GamePanel.RED5);
-            playerObject.setPlayerColor(GamePanel.RED5);
+            currentColor(GamePanel.RED5);
         } else if (accelerator < -80) {
-            currentPaint.setColor(GamePanel.RED4);
-            playerObject.setPlayerColor(GamePanel.RED4);
+            currentColor(GamePanel.RED4);
         } else if (accelerator < -50) {
-            currentPaint.setColor(GamePanel.RED3);
-            playerObject.setPlayerColor(GamePanel.RED3);
+            currentColor(GamePanel.RED3);
         } else if (accelerator < -20) {
-            currentPaint.setColor(GamePanel.RED2);
-            playerObject.setPlayerColor(GamePanel.RED2);
+            currentColor(GamePanel.RED2);
         } else if (accelerator < 0) {
-            currentPaint.setColor(GamePanel.RED1);
-            playerObject.setPlayerColor(GamePanel.RED1);
+            currentColor(GamePanel.RED1);
         }else if(accelerator ==0){
-            currentPaint.setColor(defaultPaint.getColor());
-            playerObject.setPlayerColor(Color.DKGRAY);
+            currentColor(Color.DKGRAY);
         }else if (accelerator < 20) {
-            currentPaint.setColor(GamePanel.GREEN1);
-            playerObject.setPlayerColor(GamePanel.GREEN1);
+            currentColor(GamePanel.GREEN1);
         } else if (accelerator < 40) {
-            currentPaint.setColor(GamePanel.GREEN2);
-            playerObject.setPlayerColor(GamePanel.GREEN2);
+            currentColor(GamePanel.GREEN2);
         } else if (accelerator < 60) {
-            currentPaint.setColor(GamePanel.GREEN3);
-            playerObject.setPlayerColor(GamePanel.GREEN3);
+            currentColor(GamePanel.GREEN3);
         } else if (accelerator < 80) {
-            currentPaint.setColor(GamePanel.GREEN4);
-            playerObject.setPlayerColor(GamePanel.GREEN4);
+            currentColor(GamePanel.GREEN4);
         } else {
-            currentPaint.setColor(GamePanel.GREEN5);
-            playerObject.setPlayerColor(GamePanel.GREEN5);
+            currentColor(GamePanel.GREEN5);
         }
 
     }
 
+    private void currentColor(int color) {
+        currentPaint.setColorFilter(new LightingColorFilter(Color.rgb(0, 0, 0), color));
+    }
+
     public Paint adjustedPaint() {
         long elapsed = System.nanoTime()-time;
-        if(elapsed < timeToDisplayAnimation){
-            return currentPaint;
-        }else {
-            return defaultPaint;
+        if(elapsed > timeToDisplayAnimation){
+            currentPaint = new Paint(defaultPaint);
         }
-
+        return currentPaint;
     }
 }

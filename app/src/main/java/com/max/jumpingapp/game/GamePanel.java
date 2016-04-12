@@ -18,6 +18,8 @@ import com.max.jumpingapp.types.Width;
 import com.max.jumpingapp.types.XCenter;
 import com.max.jumpingapp.views.MainActivity;
 
+import de.greenrobot.event.EventBus;
+
 /**
  * Created by normal on 29.08.2015.
  */
@@ -159,6 +161,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
             if (elapsed < 1000 && Math.abs(xSwipedToRight) > 100) {
                 game.swiped(xSwipedToRight);
             }
+            EventBus.getDefault().post(new FingerReleasedEvent());
             this.touching = false;
         }
     }

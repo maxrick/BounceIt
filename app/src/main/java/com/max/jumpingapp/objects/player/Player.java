@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
 
+import com.max.jumpingapp.game.FingerReleasedEvent;
 import com.max.jumpingapp.game.JumpMissedEvent;
 import com.max.jumpingapp.game.JumpMissedException;
 import com.max.jumpingapp.objects.visuals.Animator;
@@ -35,10 +36,9 @@ public class Player {
     private Score score;
     private PlayerObject playerObject;
     protected XPosition xPosition;
-    private Animator animator;
 
     public Player(XCenter playerXCenter, Width playerWidth, Bitmap playerImage) {
-        EventBus.getDefault().register(this);
+        EventBus.getDefault().register(this);//@// TODO: 4/12/2016 dont register yourself
         maxHeight = Math.abs(com.max.jumpingapp.game.GamePanel.HEIGHT_POS);
         score = new Score(maxHeight);
         this.playerObject = new PlayerObject(playerXCenter, playerWidth, com.max.jumpingapp.game.GamePanel.HEIGHT_POS, playerImage);
@@ -47,7 +47,6 @@ public class Player {
 
         Paint defaultPaint = new Paint();
         defaultPaint.setColor(Color.CYAN);
-        animator = new Animator(defaultPaint);
 
         playerStatus = new PlayerStatusFreeFalling(maxHeight);
         xPosition = new XPosition();
@@ -76,7 +75,6 @@ public class Player {
     public int draw(Canvas canvas, Background shape) {
         int moveBy = playerObject.draw(canvas, shape);
 
-        playerPower.draw(canvas);
         return moveBy;
     }
 
@@ -87,7 +85,7 @@ public class Player {
     public void activateAccelaration(int accelerator, double maxPower) {
         System.out.println("maxh: "+ maxHeight + " accel: " + accelerator);
         maxHeight += accelerator;
-        animator.animate(playerPower.percentage(), playerObject);
+        playerObject.setPaint(playerPower.accelerationPercentage());
         if(maxHeight <0){
             maxHeight=0;}
         playerStatus.updateFallperiod(maxHeight);
@@ -100,7 +98,7 @@ public class Player {
 
     public float getLeft() {
         return (float) (getRect().left + 0.3*getRect().width());
-    }
+    }//@// TODO: 4/12/2016 belongs to playerobject
 
     public float getRight() {
         return (float) (getRect().right - 0.2*getRect().width());
@@ -115,14 +113,14 @@ public class Player {
     }
 
     public void onEvent(JumpMissedEvent event){
-//    public void missedJump() {//throws JumpMissedException { @// TODO: 4/11/2016 use event bus
         System.out.println("jump missed");
-        playerStatus.accelerateOnce(maxHeight, playerPower);
-        playerPower.activateAccelarationNoCheck(this);
+        playerStatus.accelerate(maxHeight, playerPower);
+        playerPower.activateAccelaration(this);
         playerObject.setMissedJump(true);
-//        throw new JumpMissedException();
-//        animator.animate(0, playerObject);
-//        playerStatus.updatePowerDisplay(playerPower);
+    }
+
+    public void onEvent(FingerReleasedEvent event){
+        playerStatus.onFingerReleased(playerPower, maxHeight);
     }
 
 }

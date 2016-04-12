@@ -14,12 +14,14 @@ public class DrawObjects {
     private LastHeightDisplay lastHeightDisplay;
     private HighscoreDisplay highscoreDisplay;
     private ScoreBoardDisplay scoreBoardDisplay;
+    private PowerDisplay powerDisplay;
 
     public DrawObjects(int[] highScores){
         this.messageDisplayer = new MessageDisplayer();
         this.lastHeightDisplay = new LastHeightDisplay();
         this.highscoreDisplay = new HighscoreDisplay(highScores);
         this.scoreBoardDisplay = new ScoreBoardDisplay(new ScoreBoardData(new Height(0), new Score(0)));
+        this.powerDisplay = new PowerDisplay();
     }
 
     public void draw(Canvas canvas, int moveBy){
@@ -27,6 +29,7 @@ public class DrawObjects {
         lastHeightDisplay.draw(canvas, moveBy);
         highscoreDisplay.draw(canvas, moveBy);
         scoreBoardDisplay.draw(canvas);
+        powerDisplay.draw(canvas);
     }
 
     public void update(ScoreBoardData data) {

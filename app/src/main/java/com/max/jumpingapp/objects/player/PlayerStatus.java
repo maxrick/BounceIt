@@ -43,8 +43,9 @@ public abstract class PlayerStatus {
 
     public abstract void updatePower(PlayerPower playerPower, boolean fingerTouching, Player player, double maxHeight, Trampolin trampolin, long timeMikro) throws JumpMissedException;//@// TODO: 4/11/2016 does this belong here?
 
-    public void accelerateOnce(double maxHeight, PlayerPower playerPower) {
-        playerPower.accelerateOnce(maxHeight, oscPeriod);
+    public void accelerate(double maxHeight, PlayerPower playerPower) {
+        playerPower.setAccelerator(maxHeight, oscPeriod);
     }
 
+    public abstract void onFingerReleased(PlayerPower playerPower, int maxHeight);
 }

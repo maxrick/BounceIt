@@ -6,6 +6,10 @@ import android.graphics.Paint;
 import android.graphics.Rect;
 
 import com.max.jumpingapp.game.GamePanel;
+import com.max.jumpingapp.game.LivePowerEvent;
+import com.max.jumpingapp.game.MinPowerEvent;
+
+import de.greenrobot.event.EventBus;
 
 /**
  * Created by max on 4/6/2016.
@@ -25,6 +29,7 @@ public class PowerDisplay {
     Paint powerLoaderPaint;
 
     public PowerDisplay() {
+        EventBus.getDefault().register(this);//@// TODO: 4/12/2016 belongs elsewhere
         time = System.nanoTime();
         border = new Rect(LEFT, TOP, RIGHT, BOTTOM);
         powerLoader = new Rect(LEFT, TOP, LEFT, BOTTOM);
@@ -41,8 +46,8 @@ public class PowerDisplay {
         minPowerPaint.setStyle(Paint.Style.STROKE);
     }
 
-    public void setPowerPercentage(double percentage) {
-        powerLoader.right = (int) (percentage / 100 * (RIGHT - LEFT) + LEFT);
+    public void onEvent(LivePowerEvent event) {
+        powerLoader.right = (int) (event.value() / 100 * (RIGHT - LEFT) + LEFT);
         time = System.nanoTime();
     }
 
@@ -53,9 +58,9 @@ public class PowerDisplay {
         }
     }
 
-    public void setMinPower(double minPercentage) {
-        minPower.left = (int) (minPercentage / 100 * (RIGHT - LEFT) + LEFT);
-        minPower.right = (int) (minPercentage / 100 * (RIGHT - LEFT) + LEFT);
+    public void onEvent(MinPowerEvent event) {
+        minPower.left = (int) (event.value() / 100 * (RIGHT - LEFT) + LEFT);
+        minPower.right = (int) (event.value() / 100 * (RIGHT - LEFT) + LEFT);
     }
 
     public void draw(Canvas canvas) {

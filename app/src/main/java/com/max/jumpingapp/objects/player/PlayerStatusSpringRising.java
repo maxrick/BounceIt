@@ -40,10 +40,12 @@ public class PlayerStatusSpringRising extends PlayerStatus {
     public void updatePower(PlayerPower playerPower, boolean fingerTouching, Player player, double maxHeight, Trampolin trampolin, long timeMikro) {
         if(fingerTouching){
             playerPower.increasePower(oscPeriod);
-        }else {
-            playerPower.accelerateOnce(maxHeight, oscPeriod);
-            playerPower.resetPower();
         }
+    }
+
+    @Override
+    public void onFingerReleased(PlayerPower playerPower, int maxHeight) {
+        playerPower.setAccelerator(maxHeight, oscPeriod);
     }
 
 

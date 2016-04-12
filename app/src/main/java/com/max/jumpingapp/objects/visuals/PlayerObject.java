@@ -25,10 +25,10 @@ public class PlayerObject {
     private final Paint paint;
     private boolean animateStrech;
     public Bitmap image;
-    private Paint imagePaint;
     private static final long timeToDisplayAnimation = 1000000000; //1 Second
     private long time;
     private boolean missedJump;
+    private Animator animator;
 
     public PlayerObject(XCenter xCenter, Width width, int yPositionBottom, Bitmap res) {
         this.rect = new Rect(width.getLeftWithCenter(xCenter), GamePanel.HEIGHT_NILL - yPositionBottom - FORM_HEIGHT, width.getRighWithCenter(xCenter), GamePanel.HEIGHT_NILL - yPositionBottom);
@@ -38,7 +38,7 @@ public class PlayerObject {
         maxHeightRect = 3*normalHeightRect/2;
         paint = new Paint();
         paint.setColor(Color.RED);
-        imagePaint = new Paint();
+        animator = new Animator(new Paint());
         //image = Bitmap.createScaledBitmap(res, rect.width(), rect.height(), false);
         image = Bitmap.createBitmap(res);
     }
@@ -89,7 +89,6 @@ public class PlayerObject {
     }
 
     public int draw(Canvas canvas, Background shape) {
-        resetImageAfterTime();
         int moveBy = 0;
         int GAPTOP = 200;
         if (rect.top - GAPTOP < 0) {
@@ -114,24 +113,13 @@ public class PlayerObject {
                 secondRect = new Rect(r);
                 secondRect.offset(GamePanel.screenWidth, 0);
             }
-            canvas.drawBitmap(image, null, secondRect, imagePaint);
+            canvas.drawBitmap(image, null, secondRect, animator.adjustedPaint());
         }
         //canvas.drawRect(r, paint);
 
-        canvas.drawBitmap(image, null, r, imagePaint);
+        canvas.drawBitmap(image, null, r, animator.adjustedPaint());
 
         return moveBy;
-    }
-
-    public void setPlayerColor(int color){
-        imagePaint.setColorFilter(new LightingColorFilter(Color.rgb(0, 0, 0), color));
-        time = System.nanoTime();
-    }
-    private void resetImageAfterTime() {
-        long elapsed = System.nanoTime()-time;
-        if(elapsed > timeToDisplayAnimation){
-            imagePaint = new Paint();
-        }
     }
 
     public double getHeight() {
@@ -140,5 +128,9 @@ public class PlayerObject {
 
     public void setMissedJump(boolean missedJump) {
         this.missedJump = missedJump;
+    }
+
+    public void setPaint(double percentage) {
+        animator.animate(percentage);
     }
 }
