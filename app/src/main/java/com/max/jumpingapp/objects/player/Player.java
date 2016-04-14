@@ -80,7 +80,7 @@ public class Player {
     }
 
     private void animate(boolean touching) {
-        playerObject.animate(touching);
+        playerStatus.animate(playerObject, touching);
 
     }
 

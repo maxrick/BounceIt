@@ -112,7 +112,7 @@ public class PlayerPower {
     }
 
     public double accelerationPercentage() {
-        return accelerator/maxPower;
+        return accelerator/maxPower*100;
     }
 }
 

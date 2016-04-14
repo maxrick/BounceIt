@@ -2,6 +2,7 @@ package com.max.jumpingapp.objects.player;
 
 import com.max.jumpingapp.game.GamePanel;
 import com.max.jumpingapp.game.JumpMissedException;
+import com.max.jumpingapp.objects.visuals.PlayerObject;
 import com.max.jumpingapp.types.Height;
 import com.max.jumpingapp.game.PlayerDiedException;
 import com.max.jumpingapp.objects.Trampolin;
@@ -47,4 +48,6 @@ public abstract class PlayerStatus {
     }
 
     public abstract void onFingerReleased(PlayerPower playerPower, int maxHeight);
+
+    public abstract void animate(PlayerObject playerObject, boolean touching);
 }

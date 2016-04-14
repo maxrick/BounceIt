@@ -2,6 +2,7 @@ package com.max.jumpingapp.objects.player;
 
 import com.max.jumpingapp.game.GamePanel;
 import com.max.jumpingapp.game.LeftTrampolinEvent;
+import com.max.jumpingapp.objects.visuals.PlayerObject;
 import com.max.jumpingapp.types.Height;
 import com.max.jumpingapp.game.PlayerDiedException;
 import com.max.jumpingapp.objects.Trampolin;
@@ -46,6 +47,11 @@ public class PlayerStatusSpringRising extends PlayerStatus {
     @Override
     public void onFingerReleased(PlayerPower playerPower, int maxHeight) {
         playerPower.setAccelerator(maxHeight, oscPeriod);
+    }
+
+    @Override
+    public void animate(PlayerObject playerObject, boolean touching) {
+        playerObject.animate(touching);
     }
 
 

@@ -31,6 +31,7 @@ public class PlayerObject {
     private Animator animator;
 
     public PlayerObject(XCenter xCenter, Width width, int yPositionBottom, Bitmap res) {
+        image = Bitmap.createBitmap(res);
         this.rect = new Rect(width.getLeftWithCenter(xCenter), GamePanel.HEIGHT_NILL - yPositionBottom - FORM_HEIGHT, width.getRighWithCenter(xCenter), GamePanel.HEIGHT_NILL - yPositionBottom);
         normalHeightRect = rect.height();
         missedJump = false;
@@ -39,8 +40,7 @@ public class PlayerObject {
         paint = new Paint();
         paint.setColor(Color.RED);
         animator = new Animator(new Paint());
-        //image = Bitmap.createScaledBitmap(res, rect.width(), rect.height(), false);
-        image = Bitmap.createBitmap(res);
+//        image = Bitmap.createScaledBitmap(res, rect.width(), rect.height()/2, false);
     }
 
     public void animate(boolean touching) {
@@ -73,8 +73,10 @@ public class PlayerObject {
                 animateStrech = false;
             }
         }
-        if (!touching && !animateStrech && rect.height() - 15 > normalHeightRect) {
+        if (!touching && !animateStrech && rect.height()  > normalHeightRect+10) {
             rect.top += 10;
+        } else if (!touching && !animateStrech && rect.height()  > normalHeightRect) {
+            rect.top += rect.height()-normalHeightRect;
         }
     }
 
