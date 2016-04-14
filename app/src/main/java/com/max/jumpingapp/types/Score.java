@@ -1,13 +1,42 @@
 package com.max.jumpingapp.types;
 
+import com.max.jumpingapp.views.NoScoresException;
+
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
+
 /**
  * Created by max on 4/11/2016.
  */
-public class Score {
+public class Score implements Comparable<Score>{
     private final int score;
+    private final String name;
 
-    public Score(int score) {
+    public Score(int score){
+        this(score, null);
+    }
+    public Score(String scoreAndName){
+        String[] values = scoreAndName.split("\\|");
+        this.name = values[0];
+        this.score = Integer.valueOf(values[1]);
+    }
+
+    public Score(int score, String name) {
         this.score = score;
+        this.name = name;
+    }
+
+    public static ArrayList<Score> toArrayList(Set<String> stringSet) throws NoScoresException {
+        if(null == stringSet){
+            throw new NoScoresException();
+        }
+        Object[] objectArray = stringSet.toArray();
+        ArrayList arrayList= new ArrayList<Score>();
+        for(Object object : objectArray){
+            arrayList.add(new Score(object.toString()));
+        }
+        return arrayList;
     }
 
     public Score update(Height height) {
@@ -30,4 +59,38 @@ public class Score {
     public String valueAsString() {
         return "" + score;
     }
+
+    @Override
+    public int compareTo(Score another) {
+        if(this.toInt() > another.toInt()){
+            return  1;
+        }
+        if(this.toInt() < another.toInt()){
+            return -1;
+        }
+        return 0;
+    }
+
+    public static Set<String> toSet(ArrayList<Score> scoreList){
+        if(null == scoreList){
+            return null;
+        }
+        Set<String> set = new HashSet<String>();
+        for(int i=0; i<scoreList.size(); i++){
+            set.add(scoreList.get(i).storeString());
+        }
+        return set;
+    }
+
+    private String storeString() {
+        return this.name + "|"+this.score;
+    }
+
+    public static ArrayList firstTenOf(ArrayList<Score> scoreList) {
+        for(int i=scoreList.size(); i>=10; i--){
+            scoreList.remove(i);
+        }
+        return scoreList;
+    }
+
 }
