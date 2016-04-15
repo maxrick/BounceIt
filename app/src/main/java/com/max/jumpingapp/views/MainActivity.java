@@ -59,7 +59,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void changeToDiedScreen(Score score){
-        setHighScore(score);
         Runtime.getRuntime().gc();
         System.out.print("died");
         Intent intent = new Intent(this, DiedScreen.class);
@@ -93,50 +92,4 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private void setHighScore(Score score) {
-        SharedPreferences gameprefs = getSharedPreferences(HIGH_SCORE_PREFS, 0);
-        SharedPreferences.Editor scoreEdit = gameprefs.edit();
-        Set<String> scores = gameprefs.getStringSet(HIGH_SCORES, null);
-        ArrayList scoreList = new ArrayList();
-        try {
-            scoreList = Score.toArrayList(scores);
-        }catch (NoScoresException e){
-        }
-
-        scoreList.add(score);
-        Collections.sort(scoreList);
-        scoreList = Score.firstTenOf(scoreList);
-        scores = Score.toSet(scoreList);
-        scoreEdit.putStringSet(HIGH_SCORES, scores);
-        scoreEdit.apply();
-//
-//        scores.add(score.valueAsString());
-//        String[] newScores;
-//        if(scores.length()>0){
-//            String[] exScores = scores.split("\\|");
-//            newScores = new String[Math.min(exScores.length+1, 10)];
-//            int move = 0;
-//            for(int i = 0; i<exScores.length; i++){
-//                int scoreNum = Integer.valueOf(exScores[i]);//@// TODO: 4/9/2016 check if cast works
-//                if(score.betterThan(scoreNum)){
-//                    newScores[i] = score.valueAsString();
-//                    move = 1;
-//                    score = new Score(0);
-//                }
-//                if(i+move < 10){
-//                    newScores[i+move] = String.valueOf(scoreNum);
-//                }
-//            }
-//            if(exScores.length < newScores.length && move == 0){
-//                newScores[newScores.length-1] = score.valueAsString();
-//            }
-//        }else{
-//            newScores = new String[1];
-//            newScores[0] = score.valueAsString();
-//        }
-//        String scoreString = TextUtils.join("|", newScores);
-//        System.out.println("highscores: "+scoreString);
-//        scoreEdit.putString(HIGH_SCORES, scoreString);
-//        scoreEdit.apply();
-    }
 }

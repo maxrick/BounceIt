@@ -10,6 +10,7 @@ import com.max.jumpingapp.R;
 import com.max.jumpingapp.types.Score;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Set;
 
 public class Highscores extends AppCompatActivity {
@@ -30,9 +31,10 @@ public class Highscores extends AppCompatActivity {
         Set<String> scoreSet =gameprefs.getStringSet(MainActivity.HIGH_SCORES, null);
         try {
             ArrayList<Score> scoreList = Score.toArrayList(scoreSet);
+            Collections.sort(scoreList);
             StringBuilder scoreBuild = new StringBuilder("");
             for(int i = 0; i<scoreList.size(); i++){
-                scoreBuild.append(scoreList.get(i).toInt()+"\n");
+                scoreBuild.append(scoreList.get(i).nameAndValue()+"\n");
             }
             scoreView.setText(scoreBuild.toString());
         }catch (NoScoresException e){

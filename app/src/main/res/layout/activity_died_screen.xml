@@ -23,7 +23,7 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="@string/diedMessage"
-        android:id="@+id/textView"
+        android:id="@+id/diedMessageTextView"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="46dp" />
@@ -34,7 +34,7 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="@string/scoreMessage"
         android:id="@+id/textView2"
-        android:layout_below="@+id/textView"
+        android:layout_below="@+id/diedMessageTextView"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="46dp" />
 
@@ -46,5 +46,23 @@
         android:id="@+id/scoreView"
         android:layout_below="@+id/textView2"
         android:layout_centerHorizontal="true" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:text="Name"
+        android:ems="10"
+        android:id="@+id/nameEdit"
+        android:layout_below="@+id/textView"
+        android:layout_centerHorizontal="true" />
+
+    <GridView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/gridView"
+        android:layout_above="@+id/nameEdit"
+        android:layout_alignLeft="@+id/scoreView"
+        android:layout_alignStart="@+id/scoreView" />
 
 </RelativeLayout>
