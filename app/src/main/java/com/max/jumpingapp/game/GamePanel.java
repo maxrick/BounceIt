@@ -130,6 +130,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
     @Override
     public void surfaceDestroyed(SurfaceHolder holder) {
         thread.stopRunning();
+        game.unregisterEventlisteners();
     }
 
     public void update(long timeMikro) {

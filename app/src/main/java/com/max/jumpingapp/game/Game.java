@@ -10,6 +10,8 @@ import com.max.jumpingapp.objects.visuals.DrawObjects;
 import com.max.jumpingapp.types.Height;
 import com.max.jumpingapp.types.Score;
 
+import de.greenrobot.event.EventBus;
+
 /**
  * Created by max on 4/2/2016.
  */
@@ -26,6 +28,7 @@ public class Game {
         score = new Score(0);
         this.trampolin = trampolin;
         this.player = player;
+        EventBus.getDefault().register(player);
         wind = new Wind();
         objects = new DrawObjects(highScores);
     }
@@ -50,4 +53,10 @@ public class Game {
         player.xAccel(xSwipedToRight);
     }
 
+    public void unregisterEventlisteners() {
+        EventBus.getDefault().unregister(player);
+        player.unregisterPlayerPower();
+        objects.unregisterEventlisteners();
+
+    }
 }

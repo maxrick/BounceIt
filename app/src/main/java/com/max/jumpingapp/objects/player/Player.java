@@ -32,10 +32,10 @@ public class Player {
     protected XPosition xPosition;
 
     public Player(XCenter playerXCenter, Width playerWidth, Bitmap playerImage) {
-        EventBus.getDefault().register(this);
         maxHeight = Math.abs(com.max.jumpingapp.game.GamePanel.HEIGHT_POS);
         this.playerObject = new PlayerObject(playerXCenter, playerWidth, com.max.jumpingapp.game.GamePanel.HEIGHT_POS, playerImage);
         playerPower = new PlayerPower();
+        EventBus.getDefault().register(playerPower);
         curHeight = new Height();
 
         Paint defaultPaint = new Paint();
@@ -111,4 +111,7 @@ public class Player {
         playerStatus.onFingerReleased(playerPower, maxHeight);
     }
 
+    public void unregisterPlayerPower() {
+        EventBus.getDefault().unregister(playerPower);
+    }
 }

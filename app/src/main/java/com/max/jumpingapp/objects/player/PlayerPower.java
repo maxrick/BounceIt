@@ -20,7 +20,6 @@ public class PlayerPower {
     private int accelerator;
 
     public PlayerPower() {
-        EventBus.getDefault().register(this);
         increasePowerMikro = 0;
         decreasePowerMikro = 0;
         this.powerPercent = new PowerPercent();
@@ -28,6 +27,7 @@ public class PlayerPower {
     }
 
     public void onEvent(LeftTrampolinEvent event) {
+        System.out.println("playerpower left trampolin");
         activateAccelaration(event.getPlayer());
     }
 
@@ -54,6 +54,7 @@ public class PlayerPower {
 
     public void activateAccelaration(Player player) {//on left trampolin
         if (accelerator != 0) {
+            System.out.println("accelerator: "+ accelerator);
             player.activateAccelaration(accelerator, maxPower);
             resetAccelerator();
         } else if (increasePowerMikro != 0) {

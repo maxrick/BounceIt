@@ -22,7 +22,6 @@ public class MessageDisplayer {
     private float yPos;//@// TODO: 4/10/2016 create a type
 
     public MessageDisplayer(){
-        EventBus.getDefault().register(this);
         paint = new Paint();
         paint.setColor(Color.BLACK);
         paint.setTextSize(50);

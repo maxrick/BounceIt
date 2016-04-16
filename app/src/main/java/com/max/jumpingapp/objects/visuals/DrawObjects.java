@@ -5,6 +5,8 @@ import android.graphics.Canvas;
 import com.max.jumpingapp.types.Height;
 import com.max.jumpingapp.types.Score;
 
+import de.greenrobot.event.EventBus;
+
 /**
  * Created by max on 4/11/2016.
  */
@@ -21,6 +23,8 @@ public class DrawObjects {
         this.highscoreDisplay = new HighscoreDisplay(highScores);
         this.scoreBoardDisplay = new ScoreBoardDisplay(new Height(0), new Score(0));
         this.powerDisplay = new PowerDisplay();
+        EventBus.getDefault().register(powerDisplay);
+        EventBus.getDefault().register(messageDisplayer);
     }
 
     public void draw(Canvas canvas, int moveBy){
@@ -34,6 +38,11 @@ public class DrawObjects {
     public void update(Height height, Score score) {
         scoreBoardDisplay.update(height, score);
         lastHeightDisplay.update(height);
+    }
+
+    public void unregisterEventlisteners(){
+        EventBus.getDefault().unregister(powerDisplay);
+        EventBus.getDefault().unregister(messageDisplayer);
     }
 
 }
