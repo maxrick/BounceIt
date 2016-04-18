@@ -54,7 +54,6 @@
         android:text="Name"
         android:ems="10"
         android:id="@+id/nameEdit"
-        android:layout_below="@+id/textView"
         android:layout_centerHorizontal="true" />
 
     <GridView

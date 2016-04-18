@@ -113,4 +113,8 @@ public class Score implements Comparable<Score>{
         Collections.sort(scoreList);
         return (Score) scoreList.get(scoreList.size()-1);
     }
+
+    public String getName() {
+        return name;
+    }
 }

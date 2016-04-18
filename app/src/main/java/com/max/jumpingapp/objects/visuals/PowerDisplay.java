@@ -8,6 +8,7 @@ import android.graphics.Rect;
 import com.max.jumpingapp.game.GamePanel;
 import com.max.jumpingapp.game.LivePowerEvent;
 import com.max.jumpingapp.game.MinPowerEvent;
+import com.max.jumpingapp.game.ResetPowerDisplayEvent;
 
 import de.greenrobot.event.EventBus;
 
@@ -17,9 +18,9 @@ import de.greenrobot.event.EventBus;
 public class PowerDisplay {
     private static final long timeToDisplayPower = 1000000000; //1 Second
     public static final int LEFT = 500;
-    public static final int TOP = 50;
+    public static final int TOP = 100;
     public static final int RIGHT = 700;
-    public static final int BOTTOM = 100;
+    public static final int BOTTOM = 150;
     private long time;
     Rect border;
     Rect powerLoader;
@@ -48,6 +49,11 @@ public class PowerDisplay {
     public void onEvent(LivePowerEvent event) {
         powerLoader.right = (int) (event.value() / 100 * (RIGHT - LEFT) + LEFT);
         time = System.nanoTime();
+    }
+
+    public void onEvent(ResetPowerDisplayEvent event){
+        powerLoader.right = LEFT;
+        System.out.println("reseting display");
     }
 
     public void resetAfterTime() {

@@ -2,6 +2,8 @@ package com.max.jumpingapp.views;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Build;
+import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -27,6 +29,10 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
+
+        String id = Settings.Secure.getString(getContentResolver(), Settings.Secure.ANDROID_ID);
+        String serialNumber = Build.SERIAL != Build.UNKNOWN ? Build.SERIAL : id;
+        System.out.println("id: "+id+"\nserial number: "+serialNumber);
 
 //        requestWindowFeature(Window.FEATURE_NO_TITLE);
         getSupportActionBar().hide();
@@ -69,6 +75,7 @@ public class MainActivity extends AppCompatActivity {
 
     public int[] getHighScores(){
         try {
+            System.out.println("highscores are read");
             SharedPreferences gameprefs = getSharedPreferences(HIGH_SCORE_PREFS, 0);
             Set<String> scoreSet = gameprefs.getStringSet(HIGH_SCORES, null);
             ArrayList<Score> scoreList = Score.toArrayList(scoreSet);

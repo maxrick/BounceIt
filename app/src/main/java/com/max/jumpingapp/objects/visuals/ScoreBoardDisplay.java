@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
 
+import com.max.jumpingapp.game.GamePanel;
 import com.max.jumpingapp.types.Height;
 import com.max.jumpingapp.types.Score;
 
@@ -24,12 +25,13 @@ public class ScoreBoardDisplay {
         backgroundPaint.setColor(Color.CYAN);
         dataPaint = new Paint();
         dataPaint.setColor(Color.BLACK);
+        dataPaint.setTextSize(50);
     }
 
     public void draw(Canvas canvas) {
 
-        canvas.drawRect(new Rect(0, 0, 150, 120), backgroundPaint);
-        canvas.drawText(score.toString(), 20, 40, dataPaint);
+//        canvas.drawRect(new Rect(0, 0, 150, 120), backgroundPaint);
+        canvas.drawText(score.toString(), GamePanel.screenWidth-300, 60, dataPaint);
         canvas.drawText(height.toString(), 20, 60, dataPaint);
     }
 

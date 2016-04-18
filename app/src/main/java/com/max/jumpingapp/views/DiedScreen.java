@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.ActionMode;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.EditText;
@@ -59,6 +60,7 @@ public class DiedScreen extends AppCompatActivity {
     public void buttonPlayClicked(View view){
         System.out.println("StartScreen -- buttonPlayClicked()");
         Runtime.getRuntime().gc();
+        onStop();//@// TODO: 4/18/2016 nicht schön
         finish();
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
@@ -69,7 +71,6 @@ public class DiedScreen extends AppCompatActivity {
         super.onStop();
         EditText nameEditText = (EditText) findViewById(R.id.nameEdit);
         setHighScore(new Score(score.toInt(), nameEditText.getText().toString()));
-        setPlayerName(nameEditText.getText().toString());
     }
 
     private void setPlayerName(String name) {
@@ -77,9 +78,10 @@ public class DiedScreen extends AppCompatActivity {
         SharedPreferences.Editor scoreEdit = gameprefs.edit();
         scoreEdit.putString(PLAYER_NAME, name);
         scoreEdit.apply();
+        int s = 3;
     }
 
-    private void setHighScore(Score score) {
+    private synchronized void setHighScore(Score score) {
         SharedPreferences gameprefs = getSharedPreferences(MainActivity.HIGH_SCORE_PREFS, 0);
         SharedPreferences.Editor scoreEdit = gameprefs.edit();
         Set<String> scores = gameprefs.getStringSet(MainActivity.HIGH_SCORES, null);
@@ -88,12 +90,15 @@ public class DiedScreen extends AppCompatActivity {
             scoreList = Score.toArrayList(scores);
         }catch (NoScoresException e){
         }
-
+        if(score.isHighscore(scoreList)){
+            setPlayerName(score.getName());
+        }
         scoreList.add(score);
         Collections.sort(scoreList);
         scoreList = Score.firstTenOf(scoreList);
         scores = Score.toSet(scoreList);
         scoreEdit.putStringSet(MainActivity.HIGH_SCORES, scores);
         scoreEdit.apply();
+        System.out.println("highscores set");
     }
 }

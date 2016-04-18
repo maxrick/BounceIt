@@ -108,7 +108,7 @@ public class Player {
     }
 
     public void onEvent(FingerReleasedEvent event){
-        playerStatus.onFingerReleased(playerPower, maxHeight);
+         playerStatus.onFingerReleased(playerPower, maxHeight);
     }
 
     public void unregisterPlayerPower() {
