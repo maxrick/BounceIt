@@ -12,6 +12,7 @@ import android.view.MenuItem;
 import android.view.WindowManager;
 
 import com.max.jumpingapp.game.GamePanel;
+import com.max.jumpingapp.tutorial.TutorialGamePanel;
 import com.max.jumpingapp.types.Score;
 
 import java.util.ArrayList;
@@ -38,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().hide();
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
-        setContentView(GamePanel.create(this, getHighScores()));
+        setContentView(TutorialGamePanel.create(this, getHighScores()));
 
     }
 

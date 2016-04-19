@@ -1,25 +1,18 @@
-package com.max.jumpingapp.game;
+package com.max.jumpingapp.tutorial;
 
 import android.graphics.Canvas;
 import android.view.SurfaceHolder;
 
 import com.max.jumpingapp.game.GamePanel;
+import com.max.jumpingapp.game.MainThread;
 
 /**
- * Created by normal on 29.08.2015.
+ * Created by max on 4/19/2016.
  */
-public class MainThread extends Thread {
-    public static int FPS = 30;
-    protected final SurfaceHolder surfaceholder;
-    protected GamePanel gamepanel;
-    protected boolean running;
-
-    public MainThread(SurfaceHolder surfaceHolder, GamePanel gamePanel) {
-        super();
-        this.surfaceholder = surfaceHolder;
-        this.gamepanel = gamePanel;
+public class TutorialMainThread extends MainThread {
+    public TutorialMainThread(SurfaceHolder surfaceHolder, GamePanel gamePanel) {
+        super(surfaceHolder, gamePanel);
     }
-
     @Override
     public void run() {
         long startTime;
@@ -74,7 +67,8 @@ public class MainThread extends Thread {
         this.setRunning(false);
     }
 
-    public boolean isRunning() {
-        return running;
+    public void onEvent(StopPlayerTouchingTrampolinEvent event){
+        stopRunning();
     }
+
 }

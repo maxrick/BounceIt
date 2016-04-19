@@ -25,10 +25,10 @@ import de.greenrobot.event.EventBus;
  * Created by normal on 29.10.2015.
  */
 public class Player {
-    private PlayerStatus playerStatus;
+    protected PlayerStatus playerStatus;
     private Height curHeight;//this should be the bottom of the player
     protected PlayerPower playerPower;
-    private int maxHeight;
+    protected int maxHeight;
     private PlayerObject playerObject;
     protected XPosition xPosition;
 

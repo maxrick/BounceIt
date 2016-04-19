@@ -24,7 +24,7 @@ import de.greenrobot.event.EventBus;
  * Created by normal on 29.08.2015.
  */
 public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
-    private static final double TRAMPOLIN_SPAN_OF_SCREEN = 0.8;
+    protected static final double TRAMPOLIN_SPAN_OF_SCREEN = 0.8;
     public static final int SPRINGCONST = 10;
     public static final int HEIGHT_POS = 300;
     public static int GREEN1;
@@ -41,18 +41,18 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
     public static int screenHeight;
     public static int screenWidth;
     public static double secondInNanos = 1000000000.d;
-    private MainThread thread;
+    protected MainThread thread;
     private MainActivity activity;
-    private int[] highScores;
+    protected int[] highScores;
 
     public Game game;
 
-    private boolean touching = false;
-    private int xTouchBeg = 0;
-    private long timeTouchBeg;
+    protected boolean touching = false;
+    protected int xTouchBeg = 0;
+    protected long timeTouchBeg;
 
 
-    private GamePanel(Context context, int[] highScores) {
+    protected GamePanel(Context context, int[] highScores) {
         super(context);
         this.activity = (MainActivity) context;
         getHolder().addCallback(this);
@@ -89,7 +89,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
         thread.startRunning();
     }
 
-    private void createGame() {
+    protected void createGame() {
         Trampolin trampolin = new Trampolin(new XCenter(screenWidth/2), new Width(screenWidth * TRAMPOLIN_SPAN_OF_SCREEN));
 
         Player player = GamePanel.createPlayer(createPlayerImage());
@@ -97,16 +97,16 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
         this.game = new Game(createBackground(), trampolin, player, highScores);
     }
 
-    private Bitmap createPlayerImage() {
+    protected Bitmap createPlayerImage() {
         return BitmapFactory.decodeResource(getResources(), R.drawable.playerimage);
     }
 
     @NonNull
-    private Background createBackground() {
+    protected Background createBackground() {
         return new Background(BitmapFactory.decodeResource(getResources(), R.drawable.background3));
     }
 
-    private void calculateScreenDimensions() {
+    protected void calculateScreenDimensions() {
         GamePanel.screenWidth = getWidth();
         GamePanel.screenHeight = getHeight();
     }
@@ -162,7 +162,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
         }
     }
 
-    private void setTouchBeginning(MotionEvent event) {
+    protected void setTouchBeginning(MotionEvent event) {
         if (event.getAction() == MotionEvent.ACTION_DOWN) {
             xTouchBeg = (int) event.getX();
             timeTouchBeg = System.nanoTime();
