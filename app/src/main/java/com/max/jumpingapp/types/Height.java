@@ -56,4 +56,11 @@ public class Height {
     public int maxOf(int score) {
         return Math.max(height, score);
     }
+
+    public String cappedToString() {
+        if(this.isPositive()){
+            return toString();
+        }
+        return "Height: 0";
+    }
 }

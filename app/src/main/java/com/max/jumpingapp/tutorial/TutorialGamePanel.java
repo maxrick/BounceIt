@@ -21,6 +21,7 @@ import de.greenrobot.event.EventBus;
  */
 public class TutorialGamePanel extends GamePanel {
     private TutorialMainThread thread;
+
     private TutorialGamePanel(Context context, int[] highScores) {
         super(context, highScores);
     }
@@ -31,16 +32,17 @@ public class TutorialGamePanel extends GamePanel {
 
     @Override
     protected void createGame() {
-        Trampolin trampolin = new Trampolin(new XCenter(screenWidth/2), new Width(screenWidth * TRAMPOLIN_SPAN_OF_SCREEN));
+        Trampolin trampolin = new Trampolin(new XCenter(screenWidth / 2), new Width(screenWidth * TRAMPOLIN_SPAN_OF_SCREEN));
 
-        Player player = new TutorialPlayer(new XCenter(screenWidth/2), new Width(GamePanel.screenWidth * 0.2), createPlayerImage());
+        Player player = new TutorialPlayer(new XCenter(screenWidth / 2), new Width(GamePanel.screenWidth * 0.2), createPlayerImage());
 
         this.game = new Game(createBackground(), trampolin, player, highScores);
     }
 
     @Override
     public void surfaceDestroyed(SurfaceHolder holder) {
-            thread.stopRunning();
+        EventBus.getDefault().unregister(thread);
+        thread.stopRunning();
         game.unregisterEventlisteners();
     }
 
@@ -64,8 +66,10 @@ public class TutorialGamePanel extends GamePanel {
     }
 
     private void restartThreadIfNecessary() {
-        if(!thread.isRunning()) {
+        if (!thread.isRunning()) {
+            EventBus.getDefault().unregister(thread);
             thread = new TutorialMainThread(getHolder(), this);
+            EventBus.getDefault().register(thread);
             thread.startRunning();
             EventBus.getDefault().post(new GameContinuedEvent());
         }

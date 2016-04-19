@@ -55,7 +55,7 @@ public class Game {
 
     public void unregisterEventlisteners() {
         EventBus.getDefault().unregister(player);
-        player.unregisterPlayerPower();
+        player.unregisterEventlisteners();
         objects.unregisterEventlisteners();
 
     }

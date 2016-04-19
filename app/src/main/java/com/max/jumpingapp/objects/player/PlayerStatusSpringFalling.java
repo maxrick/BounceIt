@@ -17,7 +17,6 @@ public class PlayerStatusSpringFalling extends PlayerStatus {//@// TODO: 4/12/20
 
     public PlayerStatusSpringFalling(double oscPeriod, double fallPeriod) {
         super(oscPeriod, fallPeriod);
-        EventBus.getDefault().register(this);//@// TODO: 4/19/2016 not todo
     }
 
     @Override
@@ -56,10 +55,6 @@ public class PlayerStatusSpringFalling extends PlayerStatus {//@// TODO: 4/12/20
     @Override
     public void animate(PlayerObject playerObject, boolean touching) {
         playerObject.animate(touching);
-    }
-
-    public void onEvent(GameContinuedEvent event){
-        lastUpdateTime = System.nanoTime();
     }
 
 }

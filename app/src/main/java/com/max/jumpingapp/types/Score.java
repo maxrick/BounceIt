@@ -117,4 +117,5 @@ public class Score implements Comparable<Score>{
     public String getName() {
         return name;
     }
+
 }

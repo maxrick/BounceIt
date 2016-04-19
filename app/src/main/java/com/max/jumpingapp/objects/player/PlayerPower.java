@@ -27,7 +27,6 @@ public class PlayerPower {
     }
 
     public void onEvent(LeftTrampolinEvent event) {
-        System.out.println("playerpower left trampolin");
         activateAccelaration(event.getPlayer());
     }
 
@@ -54,7 +53,6 @@ public class PlayerPower {
 
     public void activateAccelaration(Player player) {//on left trampolin
         if (accelerator != 0) {
-            System.out.println("accelerator: "+ accelerator);
             player.activateAccelaration(accelerator, maxPower);
             resetAccelerator();
         } else if (increasePowerMikro != 0) {
@@ -73,7 +71,6 @@ public class PlayerPower {
     public void increasePower(double oscPeriod) {
         if (increasePowerMikro == 0) {
             increasePowerMikro = System.nanoTime() / 1000;
-            System.out.println("increasing: " + increasePowerMikro);
         }
         EventBus.getDefault().post(new LivePowerEvent((calculateElapsedTime()/(oscPeriod*2000000))*100));
     }

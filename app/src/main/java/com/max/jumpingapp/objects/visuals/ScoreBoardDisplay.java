@@ -32,7 +32,7 @@ public class ScoreBoardDisplay {
 
 //        canvas.drawRect(new Rect(0, 0, 150, 120), backgroundPaint);
         canvas.drawText(score.toString(), GamePanel.screenWidth-300, 60, dataPaint);
-        canvas.drawText(height.toString(), 20, 60, dataPaint);
+        canvas.drawText(height.cappedToString(), 20, 60, dataPaint);
     }
 
     public void update(Height height, Score score) {

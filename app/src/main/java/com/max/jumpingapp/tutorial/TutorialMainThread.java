@@ -68,6 +68,7 @@ public class TutorialMainThread extends MainThread {
     }
 
     public void onEvent(StopPlayerTouchingTrampolinEvent event){
+        System.out.println("thread stopping");
         stopRunning();
     }
 

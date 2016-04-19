@@ -30,7 +30,6 @@ public class PlayerStatusSpringRising extends PlayerStatus {
     public PlayerStatus getCurrentPlayerStatus(Player player) {
         double elapsed = (System.nanoTime() - lastUpdateTime) / GamePanel.secondInNanos;
         if(elapsed > oscPeriod){
-            System.out.println("left trampolin");
             EventBus.getDefault().post(new LeftTrampolinEvent(player));
             return new PlayerStatusFreeRising(oscPeriod, fallPeriod);
         }

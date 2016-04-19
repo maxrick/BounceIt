@@ -72,7 +72,6 @@ public class Player {
     }
 
     public void activateAccelaration(int accelerator, double maxPower) {
-        System.out.println("maxh: "+ maxHeight + " accel: " + accelerator);
         maxHeight += accelerator;
         EventBus.getDefault().post(new PlayerAcceleratedEvent(accelerator));
         playerObject.setPaint(playerPower.accelerationPercentage());
@@ -113,7 +112,7 @@ public class Player {
          playerStatus.onFingerReleased(playerPower, maxHeight);
     }
 
-    public void unregisterPlayerPower() {
+    public void unregisterEventlisteners() {
         EventBus.getDefault().unregister(playerPower);
     }
 }
