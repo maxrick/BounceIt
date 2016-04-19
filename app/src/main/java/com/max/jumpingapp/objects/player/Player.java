@@ -8,6 +8,7 @@ import android.graphics.Paint;
 import com.max.jumpingapp.game.FingerReleasedEvent;
 import com.max.jumpingapp.game.JumpMissedEvent;
 import com.max.jumpingapp.game.JumpMissedException;
+import com.max.jumpingapp.game.PlayerAcceleratedEvent;
 import com.max.jumpingapp.types.Height;
 import com.max.jumpingapp.game.PlayerDiedException;
 import com.max.jumpingapp.objects.visuals.Background;
@@ -73,6 +74,7 @@ public class Player {
     public void activateAccelaration(int accelerator, double maxPower) {
         System.out.println("maxh: "+ maxHeight + " accel: " + accelerator);
         maxHeight += accelerator;
+        EventBus.getDefault().post(new PlayerAcceleratedEvent(accelerator));
         playerObject.setPaint(playerPower.accelerationPercentage());
         if(maxHeight <0){
             maxHeight=0;}

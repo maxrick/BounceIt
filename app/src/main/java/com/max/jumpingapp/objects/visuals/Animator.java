@@ -23,40 +23,46 @@ public class Animator {
 
     public void animate(double accelPercentage) {
         time = System.nanoTime();
-        setAnimatedColor(accelPercentage);
+        setAnimatedColorThreeSteps(accelPercentage);
         if(accelPercentage < 0){//@// TODO: 4/5/2016  does not belong here 
             Wind.moreWind();
         }
     }
 
-    private void setAnimatedColor(double accelerator) {
+    private void setAnimatedColorThreeSteps(double accelerator) {
+        if (accelerator < 0) {
+            currentColor(GamePanel.RED1, currentPaint);
+        }
+    }
+
+    public static void setAnimatedColor(double accelerator, Paint currentPaint) {
         if (accelerator < -150) {
-            currentColor(GamePanel.RED5);
+            currentColor(GamePanel.RED5, currentPaint);
         } else if (accelerator < -80) {
-            currentColor(GamePanel.RED4);
+            currentColor(GamePanel.RED4, currentPaint);
         } else if (accelerator < -50) {
-            currentColor(GamePanel.RED3);
+            currentColor(GamePanel.RED3, currentPaint);
         } else if (accelerator < -20) {
-            currentColor(GamePanel.RED2);
+            currentColor(GamePanel.RED2, currentPaint);
         } else if (accelerator < 0) {
-            currentColor(GamePanel.RED1);
+            currentColor(GamePanel.RED1, currentPaint);
         }else if(accelerator ==0){
-            currentColor(Color.DKGRAY);
+            currentColor(Color.DKGRAY, currentPaint);
         }else if (accelerator < 20) {
-            currentColor(GamePanel.GREEN1);
+            currentColor(GamePanel.GREEN1, currentPaint);
         } else if (accelerator < 40) {
-            currentColor(GamePanel.GREEN2);
+            currentColor(GamePanel.GREEN2, currentPaint);
         } else if (accelerator < 60) {
-            currentColor(GamePanel.GREEN3);
+            currentColor(GamePanel.GREEN3, currentPaint);
         } else if (accelerator < 80) {
-            currentColor(GamePanel.GREEN4);
+            currentColor(GamePanel.GREEN4, currentPaint);
         } else {
-            currentColor(GamePanel.GREEN5);
+            currentColor(GamePanel.GREEN5, currentPaint);
         }
 
     }
 
-    private void currentColor(int color) {
+    public static void currentColor(int color, Paint currentPaint) {
         currentPaint.setColorFilter(new LightingColorFilter(Color.rgb(0, 0, 0), color));
     }
 

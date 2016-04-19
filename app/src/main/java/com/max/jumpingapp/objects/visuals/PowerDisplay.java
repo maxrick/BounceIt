@@ -8,6 +8,7 @@ import android.graphics.Rect;
 import com.max.jumpingapp.game.GamePanel;
 import com.max.jumpingapp.game.LivePowerEvent;
 import com.max.jumpingapp.game.MinPowerEvent;
+import com.max.jumpingapp.game.PlayerAcceleratedEvent;
 import com.max.jumpingapp.game.ResetPowerDisplayEvent;
 
 import de.greenrobot.event.EventBus;
@@ -47,19 +48,36 @@ public class PowerDisplay {
     }
 
     public void onEvent(LivePowerEvent event) {
+        resetColor();
         powerLoader.right = (int) (event.value() / 100 * (RIGHT - LEFT) + LEFT);
+        if(powerLoader.right < powerLoader.left){
+            powerLoaderPaint.setColor(GamePanel.RED1);
+        }
         time = System.nanoTime();
     }
 
     public void onEvent(ResetPowerDisplayEvent event){
+        reset();
+    }
+
+    public void onEvent(PlayerAcceleratedEvent event){
+        Animator.setAnimatedColor(event.getAccelerator(), powerLoaderPaint);
+    }
+
+    private void reset() {
         powerLoader.right = LEFT;
-        System.out.println("reseting display");
+        resetColor();
+    }
+
+    private void resetColor() {
+        powerLoaderPaint.setColorFilter(null);
+        powerLoaderPaint.setColor(GamePanel.GREEN1);
     }
 
     public void resetAfterTime() {
         long elapsed = System.nanoTime() - time;
         if (elapsed > timeToDisplayPower) {
-            powerLoader.right = LEFT;
+            reset();
         }
     }
 
