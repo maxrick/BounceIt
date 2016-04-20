@@ -2,13 +2,10 @@ package com.max.jumpingapp.objects.player;
 
 import com.max.jumpingapp.game.GamePanel;
 import com.max.jumpingapp.objects.visuals.PlayerObject;
-import com.max.jumpingapp.tutorial.GameContinuedEvent;
 import com.max.jumpingapp.types.Height;
 import com.max.jumpingapp.game.PlayerDiedException;
 import com.max.jumpingapp.objects.Trampolin;
 import com.max.jumpingapp.types.XPosition;
-
-import de.greenrobot.event.EventBus;
 
 /**
  * Created by normal on 25.10.2015.

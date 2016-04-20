@@ -149,7 +149,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
         return true;
     }
 
-    private void actOnRelease(MotionEvent event) {
+    protected void actOnRelease(MotionEvent event) {
         if (event.getAction() == MotionEvent.ACTION_UP) {
             long elapsed = (System.nanoTime() - timeTouchBeg);
             float xTouchEnd = event.getX();

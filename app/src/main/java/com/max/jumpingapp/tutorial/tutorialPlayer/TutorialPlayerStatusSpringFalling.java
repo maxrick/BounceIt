@@ -5,8 +5,7 @@ import com.max.jumpingapp.game.GamePanel;
 import com.max.jumpingapp.objects.player.Player;
 import com.max.jumpingapp.objects.player.PlayerStatus;
 import com.max.jumpingapp.objects.player.PlayerStatusSpringFalling;
-import com.max.jumpingapp.objects.player.PlayerStatusSpringRising;
-import com.max.jumpingapp.tutorial.GameContinuedEvent;
+import com.max.jumpingapp.tutorial.FingerTouchingEvent;
 import com.max.jumpingapp.tutorial.StopPlayerTouchingTrampolinEvent;
 
 import de.greenrobot.event.EventBus;
@@ -31,7 +30,7 @@ public class TutorialPlayerStatusSpringFalling extends PlayerStatusSpringFalling
         return this;
     }
 
-    public void onEvent(GameContinuedEvent event){
+    public void onEvent(FingerTouchingEvent event){
         long minusFaktor = (long) (percentagePassedBeforeStop*oscPeriod);
         lastUpdateTime = System.nanoTime() - minusFaktor;// - 0);
         System.out.println("spring falling time reset");

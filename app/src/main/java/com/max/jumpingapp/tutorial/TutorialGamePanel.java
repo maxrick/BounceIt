@@ -4,9 +4,9 @@ import android.content.Context;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 
+import com.max.jumpingapp.game.FingerReleasedEvent;
 import com.max.jumpingapp.game.Game;
 import com.max.jumpingapp.game.GamePanel;
-import com.max.jumpingapp.game.MainThread;
 import com.max.jumpingapp.objects.Trampolin;
 import com.max.jumpingapp.objects.player.Player;
 import com.max.jumpingapp.tutorial.tutorialPlayer.TutorialPlayer;
@@ -21,6 +21,8 @@ import de.greenrobot.event.EventBus;
  */
 public class TutorialGamePanel extends GamePanel {
     private TutorialMainThread thread;
+    public static boolean eventPleaseReleasePosted= false;
+    public static boolean gamePaused = false;
 
     private TutorialGamePanel(Context context, int[] highScores) {
         super(context, highScores);
@@ -56,6 +58,22 @@ public class TutorialGamePanel extends GamePanel {
         thread.startRunning();
     }
 
+    protected void actOnRelease(MotionEvent event) {
+        if (event.getAction() == MotionEvent.ACTION_UP) {
+            if(TutorialGamePanel.eventPleaseReleasePosted){
+                restartThreadIfNecessary();
+            }
+            long elapsed = (System.nanoTime() - timeTouchBeg);
+            float xTouchEnd = event.getX();
+            int xSwipedToRight = (int) xTouchEnd - xTouchBeg;
+            if (elapsed < secondInNanos && Math.abs(xSwipedToRight) > 100) {
+                game.swiped(xSwipedToRight);
+            }
+            EventBus.getDefault().post(new FingerReleasedEvent());
+            this.touching = false;
+        }
+    }
+
     protected void setTouchBeginning(MotionEvent event) {
         if (event.getAction() == MotionEvent.ACTION_DOWN) {
             restartThreadIfNecessary();
@@ -71,7 +89,7 @@ public class TutorialGamePanel extends GamePanel {
             thread = new TutorialMainThread(getHolder(), this);
             EventBus.getDefault().register(thread);
             thread.startRunning();
-            EventBus.getDefault().post(new GameContinuedEvent());
+            EventBus.getDefault().post(new FingerTouchingEvent());
         }
     }
 }
