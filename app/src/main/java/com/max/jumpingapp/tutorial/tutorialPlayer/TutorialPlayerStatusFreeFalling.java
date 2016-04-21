@@ -13,6 +13,8 @@ import de.greenrobot.event.EventBus;
  * Created by max on 4/19/2016.
  */
 public class TutorialPlayerStatusFreeFalling extends PlayerStatusFreeFalling {
+    private TutorialPlayerPower power;
+
     public TutorialPlayerStatusFreeFalling(double maxHeight) {
         super(maxHeight);
     }
@@ -26,4 +28,5 @@ public class TutorialPlayerStatusFreeFalling extends PlayerStatusFreeFalling {
         }
         return this;
     }
+
 }

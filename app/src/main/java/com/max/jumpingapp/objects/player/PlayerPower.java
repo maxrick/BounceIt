@@ -14,8 +14,8 @@ import de.greenrobot.event.EventBus;
 public class PlayerPower {
     private PowerPercent powerPercent;
     private int minAccelerator = 10;
-    private long increasePowerMikro;
-    private long decreasePowerMikro;
+    protected long increasePowerMikro;//@// TODO: 4/21/2016 change to nano
+    protected long decreasePowerMikro;
     private double maxPower;
     private int accelerator;
 
@@ -33,6 +33,7 @@ public class PlayerPower {
     private void resetAccelerator() {
         powerPercent = new PowerPercent();
         accelerator = 0;
+        System.out.println("accelarator reset");
     }
 
     public void resetPower() {
@@ -48,10 +49,12 @@ public class PlayerPower {
         EventBus.getDefault().post(new MinPowerEvent(minPower));
 
         accelerator = (int) ((powerPercent.value() - minPower) / (100 - minPower) * maxPower);
+        System.out.println("accelarator set: "+accelerator);
         resetPower();
     }
 
     public void activateAccelaration(Player player) {//on left trampolin
+        System.out.println("acctivate acceleration: "+accelerator);
         if (accelerator != 0) {
             player.activateAccelaration(accelerator, maxPower);
             resetAccelerator();
@@ -111,6 +114,14 @@ public class PlayerPower {
 
     public double accelerationPercentage() {
         return accelerator/maxPower*100;
+    }
+
+    public void unPause(double oscPeriod) {
+        //@// TODO: 4/21/2016 needed for tutorial
+    }
+
+    public void pause() {
+        //@// TODO: 4/21/2016 needed for tutorial
     }
 }
 

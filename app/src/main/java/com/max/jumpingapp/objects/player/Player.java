@@ -26,10 +26,10 @@ import de.greenrobot.event.EventBus;
  */
 public class Player {
     protected PlayerStatus playerStatus;
-    private Height curHeight;//this should be the bottom of the player
+    protected Height curHeight;//this should be the bottom of the player
     protected PlayerPower playerPower;
     protected int maxHeight;
-    private PlayerObject playerObject;
+    protected PlayerObject playerObject;
     protected XPosition xPosition;
 
     public Player(XCenter playerXCenter, Width playerWidth, Bitmap playerImage) {
@@ -45,6 +45,9 @@ public class Player {
         playerStatus = new PlayerStatusFreeFalling(maxHeight);
         xPosition = new XPosition();
 
+    }
+
+    public Player() {
     }
 
     public Height updatePosition(Trampolin trampolin, Wind wind) throws PlayerDiedException {

@@ -36,7 +36,7 @@ public class TutorialGamePanel extends GamePanel {
     protected void createGame() {
         Trampolin trampolin = new Trampolin(new XCenter(screenWidth / 2), new Width(screenWidth * TRAMPOLIN_SPAN_OF_SCREEN));
 
-        Player player = new TutorialPlayer(new XCenter(screenWidth / 2), new Width(GamePanel.screenWidth * 0.2), createPlayerImage());
+        Player player = TutorialPlayer.createTutorialPlayer(new XCenter(screenWidth / 2), new Width(GamePanel.screenWidth * 0.2), createPlayerImage());
 
         this.game = new Game(createBackground(), trampolin, player, highScores);
     }

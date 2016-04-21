@@ -4,6 +4,7 @@ import com.max.jumpingapp.game.FingerReleasedEvent;
 import com.max.jumpingapp.game.GamePanel;
 import com.max.jumpingapp.game.LeftTrampolinEvent;
 import com.max.jumpingapp.objects.player.Player;
+import com.max.jumpingapp.objects.player.PlayerPower;
 import com.max.jumpingapp.objects.player.PlayerStatus;
 import com.max.jumpingapp.objects.player.PlayerStatusSpringRising;
 import com.max.jumpingapp.tutorial.FingerTouchingEvent;
@@ -46,6 +47,7 @@ public class TutorialPlayerStatusSpringRising extends PlayerStatusSpringRising {
     private void continueGame() {
         long minusFaktor = (long) (percentagePassedBeforeStop*oscPeriod);
         lastUpdateTime = System.nanoTime() - minusFaktor;
+        TutorialPlayer.getTutorialPlayer().unPause(oscPeriod);
 //        lastUpdateTime = (long) (System.nanoTime() - oscPeriod* GamePanel.secondInNanos + STOP_BEFORE_TIME*GamePanel.secondInNanos);
     }
 
@@ -60,6 +62,13 @@ public class TutorialPlayerStatusSpringRising extends PlayerStatusSpringRising {
     private void stopGame() {
         double elapsedNanos = System.nanoTime() - lastUpdateTime;
         percentagePassedBeforeStop = elapsedNanos / oscPeriod;
+        TutorialPlayer.getTutorialPlayer().pause();
         EventBus.getDefault().post(new StopPlayerTouchingTrampolinEvent());
+    }
+
+    public void onFingerReleased(PlayerPower playerPower, int maxHeight) {
+        if(!TutorialGamePanel.gamePaused || TutorialGamePanel.eventPleaseReleasePosted){
+            playerPower.setAccelerator(maxHeight, oscPeriod);
+        }
     }
 }
