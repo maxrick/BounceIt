@@ -54,7 +54,6 @@ public class PlayerPower {
     }
 
     public void activateAccelaration(Player player) {//on left trampolin
-        System.out.println("acctivate acceleration: "+accelerator);
         if (accelerator != 0) {
             player.activateAccelaration(accelerator, maxPower);
             resetAccelerator();
@@ -65,6 +64,7 @@ public class PlayerPower {
     }
 
     public void decreasePower(double oscPeriod) {
+        System.out.println("decreasing power");
         if (decreasePowerMikro == 0) {
             decreasePowerMikro = System.nanoTime() / 1000;
         }

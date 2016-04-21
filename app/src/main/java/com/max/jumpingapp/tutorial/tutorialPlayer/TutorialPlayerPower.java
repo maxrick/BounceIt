@@ -18,11 +18,12 @@ public class TutorialPlayerPower extends PlayerPower {
         long elapsedMikro = (System.nanoTime() - this.pauseBeginning) / 1000;
         this.pauseBeginning = System.nanoTime();//@// TODO: 4/21/2016 temporary, event is caught to often
         if (this.increasePowerMikro != 0) {
-            this.increasePower(oscPeriod);
             this.increasePowerMikro += elapsedMikro;
+            System.out.println("power unpaused");
         }
-        if (this.decreasePowerMikro != 0) {
-            this.decreasePowerMikro += elapsedMikro;
-        }
+//        if (this.decreasePowerMikro != 0) {
+//            this.decreasePowerMikro += elapsedMikro;
+//        }
+        this.decreasePowerMikro = 0;
     }
 }
