@@ -52,6 +52,7 @@ public class TutorialPlayerStatusSpringRising extends PlayerStatusSpringRising {
     }
 
     public void onEvent(FingerReleasedEvent event) {
+        System.out.print("finger released caught i rising");
         if (!TutorialGamePanel.eventPleaseReleasePosted) {
             stopGame();
         }else {

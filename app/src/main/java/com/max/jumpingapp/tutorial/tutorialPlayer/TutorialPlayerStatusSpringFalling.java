@@ -21,6 +21,7 @@ public class TutorialPlayerStatusSpringFalling extends PlayerStatusSpringFalling
     public TutorialPlayerStatusSpringFalling(double oscPeriod, double fallPeriod) {
         super(oscPeriod, fallPeriod);
         EventBus.getDefault().register(this);//@// TODO: 4/19/2016 not todo
+        System.out.println("status spring falling created");
     }
 
     @Override

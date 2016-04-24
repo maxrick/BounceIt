@@ -77,13 +77,14 @@ public class TutorialGamePanel extends GamePanel {
     protected void setTouchBeginning(MotionEvent event) {
         if (event.getAction() == MotionEvent.ACTION_DOWN) {
             restartThreadIfNecessary();
+
             xTouchBeg = (int) event.getX();
             timeTouchBeg = System.nanoTime();
             this.touching = true;
         }
     }
 
-    private void restartThreadIfNecessary() {
+    private synchronized void restartThreadIfNecessary() {
         if (!thread.isRunning()) {
             EventBus.getDefault().unregister(thread);
             thread = new TutorialMainThread(getHolder(), this);

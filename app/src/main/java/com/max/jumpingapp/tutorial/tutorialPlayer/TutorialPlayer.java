@@ -48,10 +48,6 @@ public class TutorialPlayer extends Player {
         return mePlayer;
     }
 
-    @Override
-    public void onEvent(FingerReleasedEvent event) {
-        super.onEvent(event);
-    }
 
     public void unPause(double oscPeriod) {
         playerPower.unPause(oscPeriod);
@@ -59,5 +55,11 @@ public class TutorialPlayer extends Player {
 
     public void pause() {
         playerPower.pause();
+    }
+
+    @Override
+    public void unregisterEventlisteners() {
+        super.unregisterEventlisteners();
+        EventBus.getDefault().unregister(playerStatus);
     }
 }

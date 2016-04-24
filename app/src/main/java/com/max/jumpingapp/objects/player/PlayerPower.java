@@ -39,9 +39,11 @@ public class PlayerPower {
     public void resetPower() {
         increasePowerMikro = 0;
         decreasePowerMikro = 0;
+        System.out.println("power reset");
     }
 
     public void setAccelerator(double maxHeight, double oscPeriod) {//on finger released, on jump missed
+        System.out.println("setting accelerator with incMikro: "+increasePowerMikro);
         this.powerPercent = calculateUncappedPowerPercent(oscPeriod).cap();
         double minPower = minPowerFor(maxHeight);
         maxPowerFor(maxHeight);
@@ -64,7 +66,6 @@ public class PlayerPower {
     }
 
     public void decreasePower(double oscPeriod) {
-        System.out.println("decreasing power");
         if (decreasePowerMikro == 0) {
             decreasePowerMikro = System.nanoTime() / 1000;
         }
@@ -75,7 +76,8 @@ public class PlayerPower {
         if (increasePowerMikro == 0) {
             increasePowerMikro = System.nanoTime() / 1000;
         }
-        EventBus.getDefault().post(new LivePowerEvent((calculateElapsedTime()/(oscPeriod*2000000))*100));
+        long elapsed = calculateElapsedTime();
+        EventBus.getDefault().post(new LivePowerEvent((elapsed/(oscPeriod*2000000))*100));
     }
 
     private void maxPowerFor(double maxHeight) {

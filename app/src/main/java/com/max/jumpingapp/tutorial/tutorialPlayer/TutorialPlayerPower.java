@@ -21,9 +21,8 @@ public class TutorialPlayerPower extends PlayerPower {
             this.increasePowerMikro += elapsedMikro;
             System.out.println("power unpaused");
         }
-//        if (this.decreasePowerMikro != 0) {
-//            this.decreasePowerMikro += elapsedMikro;
-//        }
-        this.decreasePowerMikro = 0;
+        if(this.decreasePowerMikro != 0){
+            this.decreasePowerMikro += elapsedMikro;
+        }
     }
 }
