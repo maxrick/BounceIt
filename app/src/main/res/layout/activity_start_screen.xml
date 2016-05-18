@@ -1,7 +1,7 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent" android:background="#0099cc"
-    tools:context="max.jumping.StartScreen">
+    tools:context=".views.StartScreen"><!--context was: max.jumping.StartScreen-->
 
    <RelativeLayout
        android:layout_width="match_parent"
@@ -41,6 +41,16 @@
            android:layout_centerVertical="true"
            android:layout_centerHorizontal="true"
            android:onClick="buttonRecommendAppClicked"/>
+
+       <CheckBox
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:text="Tutorial"
+           android:id="@+id/tutorial"
+           android:layout_alignTop="@+id/buttonPlay"
+           android:layout_alignLeft="@+id/buttonPlay"
+           android:layout_alignStart="@+id/buttonPlay"
+           android:layout_marginTop="52dp" />
 
    </RelativeLayout>
     <!-- This FrameLayout insets its children based on system windows using

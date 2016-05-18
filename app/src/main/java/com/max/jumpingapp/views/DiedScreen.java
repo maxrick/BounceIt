@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.ActionMode;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.EditText;
@@ -12,7 +11,6 @@ import android.widget.TextView;
 
 import com.max.jumpingapp.R;
 import com.max.jumpingapp.types.Score;
-import com.max.jumpingapp.views.MainActivity;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -29,7 +27,7 @@ public class DiedScreen extends AppCompatActivity {
         setContentView(R.layout.activity_died_screen);
         TextView scoreTextView = (TextView) findViewById(R.id.scoreView);
         EditText nameEditText = (EditText) findViewById(R.id.nameEdit);
-        SharedPreferences sharedPreferences = getSharedPreferences(MainActivity.HIGH_SCORE_PREFS, 0);
+        SharedPreferences sharedPreferences = getSharedPreferences(MainActivity.GANME_PREFS, 0);
 
         Intent myIntent = getIntent();
         score = new Score(Integer.valueOf(myIntent.getIntExtra("score", 0)));
@@ -74,7 +72,7 @@ public class DiedScreen extends AppCompatActivity {
     }
 
     private void setPlayerName(String name) {
-        SharedPreferences gameprefs = getSharedPreferences(MainActivity.HIGH_SCORE_PREFS, 0);
+        SharedPreferences gameprefs = getSharedPreferences(MainActivity.GANME_PREFS, 0);
         SharedPreferences.Editor scoreEdit = gameprefs.edit();
         scoreEdit.putString(PLAYER_NAME, name);
         scoreEdit.apply();
@@ -82,7 +80,7 @@ public class DiedScreen extends AppCompatActivity {
     }
 
     private synchronized void setHighScore(Score score) {
-        SharedPreferences gameprefs = getSharedPreferences(MainActivity.HIGH_SCORE_PREFS, 0);
+        SharedPreferences gameprefs = getSharedPreferences(MainActivity.GANME_PREFS, 0);
         SharedPreferences.Editor scoreEdit = gameprefs.edit();
         Set<String> scores = gameprefs.getStringSet(MainActivity.HIGH_SCORES, null);
         ArrayList scoreList = new ArrayList();

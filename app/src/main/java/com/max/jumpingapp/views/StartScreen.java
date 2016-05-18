@@ -1,6 +1,7 @@
 package com.max.jumpingapp.views;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -8,6 +9,7 @@ import android.support.v7.widget.ShareActionProvider;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.CheckBox;
 
 import com.max.jumpingapp.R;
 
@@ -33,6 +35,8 @@ public class StartScreen extends AppCompatActivity {
      * and a change of the status and navigation bar.
      */
     private static final int UI_ANIMATION_DELAY = 300;
+    public static final String TUTORIAL_EXTRA = "tutorial";
+    public static final String TUTORIAL_MODE = "tutorialMode";
 
     private View mContentView;
     private View mControlsView;
@@ -42,7 +46,16 @@ public class StartScreen extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+
         setContentView(R.layout.activity_start_screen);
+        CheckBox checkBox = (CheckBox) findViewById(R.id.tutorial);
+        checkBox.setChecked(tutorialSharedPref());
+    }
+
+    private boolean tutorialSharedPref() {
+        SharedPreferences sharedPreferences = getSharedPreferences(MainActivity.GANME_PREFS,0);
+        boolean tutorialMode = sharedPreferences.getBoolean(TUTORIAL_MODE, true);
+        return tutorialMode;
     }
 
     @Override
@@ -75,7 +88,18 @@ public class StartScreen extends AppCompatActivity {
     public void buttonPlayClicked(View view){
         System.out.println("StartScreen -- buttonPlayClicked()");
         Intent intent = new Intent(this, MainActivity.class);
+        intent.putExtra(TUTORIAL_EXTRA, tutorialSelected());
         startActivity(intent);
+    }
+
+    private boolean tutorialSelected() {
+        CheckBox checkBox =(CheckBox)findViewById(R.id.tutorial);
+        boolean tutorialMode = checkBox.isChecked();
+        SharedPreferences sharedPreferences = getSharedPreferences(MainActivity.GANME_PREFS, 0);
+        SharedPreferences.Editor prefEdit = sharedPreferences.edit();
+        prefEdit.putBoolean(TUTORIAL_MODE, tutorialMode);
+        prefEdit.apply();
+        return tutorialMode;
     }
 
     public void buttonHighScoresClicked(View view){

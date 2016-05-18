@@ -21,13 +21,13 @@ public class Highscores extends AppCompatActivity {
         setContentView(R.layout.activity_highscores);
 
         TextView scoreView = (TextView) findViewById(R.id.high_scores_list);
-//        SharedPreferences scorePrefs = getSharedPreferences(MainActivity.HIGH_SCORE_PREFS, 0);
+//        SharedPreferences scorePrefs = getSharedPreferences(MainActivity.GANME_PREFS, 0);
 //        String[] savedScores = scorePrefs.getString(MainActivity.HIGH_SCORES, "").split("\\|");
 //        StringBuilder scoreBuild = new StringBuilder("");
 //        for(String score : savedScores){
 //            scoreBuild.append(score+"\n");
 //        }
-        SharedPreferences gameprefs = getSharedPreferences(MainActivity.HIGH_SCORE_PREFS, 0);
+        SharedPreferences gameprefs = getSharedPreferences(MainActivity.GANME_PREFS, 0);
         Set<String> scoreSet =gameprefs.getStringSet(MainActivity.HIGH_SCORES, null);
         try {
             ArrayList<Score> scoreList = Score.toArrayList(scoreSet);
@@ -44,7 +44,7 @@ public class Highscores extends AppCompatActivity {
     }
 
     public void buttonDeleteScoresClicked(View view){
-        SharedPreferences gameprefs = getSharedPreferences(MainActivity.HIGH_SCORE_PREFS, 0);
+        SharedPreferences gameprefs = getSharedPreferences(MainActivity.GANME_PREFS, 0);
         SharedPreferences.Editor scoreEdit = gameprefs.edit();
         scoreEdit.clear();
 //        scoreEdit.putString(MainActivity.HIGH_SCORES, "");

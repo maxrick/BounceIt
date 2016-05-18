@@ -1,5 +1,6 @@
 package com.max.jumpingapp.tutorial.tutorialPlayer;
 
+import com.max.jumpingapp.R;
 import com.max.jumpingapp.game.FingerReleasedEvent;
 import com.max.jumpingapp.game.GamePanel;
 import com.max.jumpingapp.objects.player.Player;
@@ -30,7 +31,7 @@ public class TutorialPlayerStatusFreeFalling extends PlayerStatusFreeFalling {
             if(!fingerTouching){
                 System.out.println("pause after free falling");
                 TutorialPlayer.getTutorialPlayer().pause();
-                EventBus.getDefault().post(new StopPlayerTouchingTrampolinEvent());
+                EventBus.getDefault().post(new StopPlayerTouchingTrampolinEvent(StopPlayerTouchingTrampolinEvent.HOLD_DOWN_FULL));
             }
             return new TutorialPlayerStatusSpringFalling(oscPeriod, fallPeriod);
         }
