@@ -35,7 +35,7 @@ public class TutorialPlayerStatusSpringRising extends PlayerStatusSpringRising {
             return new TutorialPlayerStatusFreeRising(oscPeriod, fallPeriod);
         }else if(oscPeriod - elapsed < STOP_BEFORE_TIME && !TutorialGamePanel.eventPleaseReleasePosted){
             TutorialGamePanel.eventPleaseReleasePosted = true;
-            stopGame();
+            stopGame(StopPlayerTouchingTrampolinEvent.RELEASE);
         }
         return this;
     }
@@ -54,17 +54,17 @@ public class TutorialPlayerStatusSpringRising extends PlayerStatusSpringRising {
     public void onEvent(FingerReleasedEvent event) {
         System.out.print("finger released caught i rising");
         if (!TutorialGamePanel.eventPleaseReleasePosted) {
-            stopGame();
+            stopGame(StopPlayerTouchingTrampolinEvent.HOLD_DOWN_FULL);
         }else {
             continueGame();
         }
     }
 
-    private void stopGame() {
+    private void stopGame(String message) {
         double elapsedNanos = System.nanoTime() - lastUpdateTime;
         percentagePassedBeforeStop = elapsedNanos / oscPeriod;
         TutorialPlayer.getTutorialPlayer().pause();
-        EventBus.getDefault().post(new StopPlayerTouchingTrampolinEvent());
+        EventBus.getDefault().post(new StopPlayerTouchingTrampolinEvent(message));
     }
 
     public void onFingerReleased(PlayerPower playerPower, int maxHeight) {

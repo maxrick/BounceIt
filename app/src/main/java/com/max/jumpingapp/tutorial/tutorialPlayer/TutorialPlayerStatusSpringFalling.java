@@ -46,7 +46,7 @@ public class TutorialPlayerStatusSpringFalling extends PlayerStatusSpringFalling
         percentagePassedBeforeStop = elapsedNanos/oscPeriod;
         System.out.println("spring falling would have stopped thread");
         TutorialPlayer.getTutorialPlayer().pause();
-        EventBus.getDefault().post(new StopPlayerTouchingTrampolinEvent());
+        EventBus.getDefault().post(new StopPlayerTouchingTrampolinEvent(StopPlayerTouchingTrampolinEvent.HOLD_DOWN_FULL));
     }
 
     public void onFingerReleased(PlayerPower playerPower, int maxHeight) {

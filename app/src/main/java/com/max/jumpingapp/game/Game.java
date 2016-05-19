@@ -19,7 +19,6 @@ public class Game {
     private Background bg;
     private Trampolin trampolin;
     private Player player;
-    private Wind wind;
     private Score score;
     private DrawObjects objects;
 
@@ -29,7 +28,6 @@ public class Game {
         this.trampolin = trampolin;
         this.player = player;
         EventBus.getDefault().register(player);
-        wind = new Wind();
         objects = new DrawObjects(highScores);
     }
 
@@ -40,7 +38,7 @@ public class Game {
 
     public void update(long timeMikro, boolean touching) throws PlayerDiedException {
         try {
-            Height currentHeight = player.updatePosition(trampolin, wind);
+            Height currentHeight = player.updatePosition(trampolin);
             score = score.update(currentHeight);
             objects.update(currentHeight, score);
             player.updatePower(touching, trampolin, timeMikro);

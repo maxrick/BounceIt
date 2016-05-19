@@ -31,6 +31,7 @@ public class Player {
     protected int maxHeight;
     protected PlayerObject playerObject;
     protected XPosition xPosition;
+    protected Wind wind;
 
     public Player(XCenter playerXCenter, Width playerWidth, Bitmap playerImage) {
         maxHeight = Math.abs(com.max.jumpingapp.game.GamePanel.HEIGHT_POS);
@@ -38,7 +39,7 @@ public class Player {
         playerPower = new PlayerPower();
         EventBus.getDefault().register(playerPower);
         curHeight = new Height();
-
+        wind = new Wind();
         Paint defaultPaint = new Paint();
         defaultPaint.setColor(Color.CYAN);
 
@@ -50,7 +51,7 @@ public class Player {
     public Player() {
     }
 
-    public Height updatePosition(Trampolin trampolin, Wind wind) throws PlayerDiedException {
+    public Height updatePosition(Trampolin trampolin) throws PlayerDiedException {
         playerStatus = playerStatus.getCurrentPlayerStatus(this);
         try{
             curHeight = playerStatus.calculatePos(playerPower, maxHeight, xPosition, this, trampolin);

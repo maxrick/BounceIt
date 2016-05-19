@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 
 import com.max.jumpingapp.game.FingerReleasedEvent;
+import com.max.jumpingapp.objects.Wind;
 import com.max.jumpingapp.objects.player.Player;
 import com.max.jumpingapp.objects.player.PlayerPower;
 import com.max.jumpingapp.objects.player.PlayerStatusFreeFalling;
@@ -28,6 +29,7 @@ public class TutorialPlayer extends Player {
         this.playerObject = new PlayerObject(playerXCenter, playerWidth, com.max.jumpingapp.game.GamePanel.HEIGHT_POS, playerImage);
 
         this.curHeight = new Height();
+        this.wind = new Wind();
 
         Paint defaultPaint = new Paint();
         defaultPaint.setColor(Color.CYAN);

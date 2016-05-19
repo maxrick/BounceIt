@@ -8,14 +8,15 @@ import com.max.jumpingapp.tutorial.tutorialPlayer.TutorialPlayerPower;
 public class StopPlayerTouchingTrampolinEvent {
 
     public static final String HOLD_DOWN_FULL = "Hold down to increase power";
+    public static final String RELEASE = "Release to activate power";
     private final String message;
 
     public StopPlayerTouchingTrampolinEvent(){
         this("");
     }
 
-    public StopPlayerTouchingTrampolinEvent(String holdDownFull) {
-        this.message = holdDownFull;
+    public StopPlayerTouchingTrampolinEvent(String message) {
+        this.message = message;
         TutorialGamePanel.gamePaused = true;
     }
 
