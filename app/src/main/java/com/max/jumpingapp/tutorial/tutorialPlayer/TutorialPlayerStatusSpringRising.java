@@ -28,7 +28,7 @@ public class TutorialPlayerStatusSpringRising extends PlayerStatusSpringRising {
 
     @Override
     public PlayerStatus getCurrentPlayerStatus(Player player) {
-        double elapsed = (System.nanoTime() - lastUpdateTime) / GamePanel.secondInNanos;
+        double elapsed = (System.nanoTime() - GamePanel.lastUpdateTime) / GamePanel.secondInNanos;
         if(elapsed > oscPeriod){
             EventBus.getDefault().post(new LeftTrampolinEvent(player));
             EventBus.getDefault().unregister(this);
@@ -46,7 +46,7 @@ public class TutorialPlayerStatusSpringRising extends PlayerStatusSpringRising {
 
     private void continueGame() {
         long minusFaktor = (long) (percentagePassedBeforeStop*oscPeriod);
-        lastUpdateTime = System.nanoTime() - minusFaktor;
+        GamePanel.lastUpdateTime = System.nanoTime() - minusFaktor;
         TutorialPlayer.getTutorialPlayer().unPause(oscPeriod);
 //        lastUpdateTime = (long) (System.nanoTime() - oscPeriod* GamePanel.secondInNanos + STOP_BEFORE_TIME*GamePanel.secondInNanos);
     }
@@ -61,7 +61,7 @@ public class TutorialPlayerStatusSpringRising extends PlayerStatusSpringRising {
     }
 
     private void stopGame(String message) {
-        double elapsedNanos = System.nanoTime() - lastUpdateTime;
+        double elapsedNanos = System.nanoTime() - GamePanel.lastUpdateTime;
         percentagePassedBeforeStop = elapsedNanos / oscPeriod;
         TutorialPlayer.getTutorialPlayer().pause();
         EventBus.getDefault().post(new StopPlayerTouchingTrampolinEvent(message));

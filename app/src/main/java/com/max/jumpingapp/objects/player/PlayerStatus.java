@@ -19,15 +19,15 @@ public abstract class PlayerStatus {
 
     protected double oscPeriod;
     protected double fallPeriod;
-    protected long lastUpdateTime = System.nanoTime();
 
     public PlayerStatus(double maxHeight) {
+        GamePanel.refreshUpdateTime();
         oscPeriod = 0.5* Math.PI * Math.sqrt(mass / GamePanel.SPRINGCONST);
         fallPeriod = Math.sqrt((2 * maxHeight) / PlayerStatus.gravitaion);
     }
 
     protected PlayerStatus(double oscPeriod, double fallperiod){
-        this.lastUpdateTime = System.nanoTime();
+        GamePanel.refreshUpdateTime();
         this.oscPeriod = oscPeriod;
         this.fallPeriod = fallperiod;
     }

@@ -27,6 +27,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
     protected static final double TRAMPOLIN_SPAN_OF_SCREEN = 0.8;
     public static final int SPRINGCONST = 10;
     public static final int HEIGHT_POS = 300;
+    public static long lastUpdateTime=System.nanoTime();
     public static int GREEN1;
     public static int GREEN2;
     public static int GREEN3;
@@ -134,6 +135,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
     }
 
     public void update(long timeMikro) {
+//        lastUpdateTime = System.nanoTime();
         try {
             game.update(timeMikro, touching);
         } catch (PlayerDiedException e) {
@@ -170,4 +172,8 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
         }
     }
 
+    public static void refreshUpdateTime() {
+        lastUpdateTime = System.nanoTime();
+        System.out.println("refreshed time");
+    }
 }

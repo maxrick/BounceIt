@@ -29,7 +29,7 @@ public class TutorialPlayerStatusFreeFalling extends PlayerStatusFreeFalling {
 
     @Override
     public PlayerStatus getCurrentPlayerStatus(Player player) {
-        double elapsed = (System.nanoTime() - lastUpdateTime) / GamePanel.secondInNanos;
+        double elapsed = (System.nanoTime() - GamePanel.lastUpdateTime) / GamePanel.secondInNanos;
         if(elapsed > fallPeriod){
             EventBus.getDefault().unregister(this);
             if(!fingerTouching){
@@ -63,14 +63,14 @@ public class TutorialPlayerStatusFreeFalling extends PlayerStatusFreeFalling {
     }
     private void continueGame() {
         long minusFaktor = (long) (percentagePassedBeforeStop*oscPeriod);
-        lastUpdateTime = System.nanoTime() - minusFaktor;
+        GamePanel.lastUpdateTime = System.nanoTime() - minusFaktor;
         TutorialPlayer.getTutorialPlayer().unPause(oscPeriod);
 //        lastUpdateTime = (long) (System.nanoTime() - oscPeriod* GamePanel.secondInNanos + STOP_BEFORE_TIME*GamePanel.secondInNanos);
     }
 
     private void stopGame(String message, XPosition xPosition) {
         this.tempXPosition = xPosition;
-        double elapsedNanos = System.nanoTime() - lastUpdateTime;
+        double elapsedNanos = System.nanoTime() - GamePanel.lastUpdateTime;
         percentagePassedBeforeStop = elapsedNanos / oscPeriod;
         TutorialPlayer.getTutorialPlayer().pause();
         EventBus.getDefault().post(new StopPlayerTouchingTrampolinEvent(message));

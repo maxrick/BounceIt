@@ -20,7 +20,7 @@ public class PlayerStatusSpringRising extends PlayerStatus {
 
     @Override
     public Height calculatePos(PlayerPower playerPower, int maxHeight, XPosition xPosition, Player player, Trampolin trampolin) throws PlayerDiedException {
-        double elapsedSeconds = (System.nanoTime() - lastUpdateTime) / GamePanel.secondInNanos;
+        double elapsedSeconds = (System.nanoTime() - GamePanel.lastUpdateTime) / GamePanel.secondInNanos;
         xPosition.dontMove();
         return new Height((int) (-(Math.sqrt(2 * mass * PlayerStatus.gravitaion * maxHeight / GamePanel.SPRINGCONST)
                 * Math.sin((elapsedSeconds+this.oscPeriod) / Math.sqrt(mass / GamePanel.SPRINGCONST)))));
@@ -28,7 +28,7 @@ public class PlayerStatusSpringRising extends PlayerStatus {
 
     @Override
     public PlayerStatus getCurrentPlayerStatus(Player player) {
-        double elapsed = (System.nanoTime() - lastUpdateTime) / GamePanel.secondInNanos;
+        double elapsed = (System.nanoTime() - GamePanel.lastUpdateTime) / GamePanel.secondInNanos;
         if(elapsed > oscPeriod){
             EventBus.getDefault().post(new LeftTrampolinEvent(player));
             return new PlayerStatusFreeRising(oscPeriod, fallPeriod);

@@ -7,14 +7,13 @@ import com.max.jumpingapp.game.MainThread;
  * Created by max on 3/29/2016.
  */
 public class XPosition {
+    public static final int TIME_IN_MILI = 30;
     protected final double maxVelocity;
     protected double xVelocity;
     protected int value;
-    protected long lastUpdateTime;
     public XPosition(){
         this.xVelocity = 10;
         this.value = 0;
-        this.lastUpdateTime = System.nanoTime();
         maxVelocity = MainThread.FPS * 0.1*GamePanel.screenWidth;
     }
 
@@ -23,10 +22,8 @@ public class XPosition {
     }
 
     public void move(){
-        long newTime = System.nanoTime();
-        double elapsedSeconds = (newTime - lastUpdateTime)/GamePanel.secondInNanos;
-        lastUpdateTime = newTime;
-        value = (int) (elapsedSeconds*xVelocity);
+        value = (int) (xVelocity/ TIME_IN_MILI);
+        System.out.println("xpos: "+value);
     }
 
     public void adjustVelocity(int xSwipedToRight) {
@@ -42,7 +39,6 @@ public class XPosition {
     }
 
     public void dontMove() {
-        lastUpdateTime = System.nanoTime();
         value = 0;
     }
 

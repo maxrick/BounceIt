@@ -26,8 +26,6 @@ public class PlayerObject {
     private final Paint paint;
     private boolean animateStrech;
     public Bitmap image;
-    private static final long timeToDisplayAnimation = 1000000000; //1 Second
-    private long time;
     private boolean missedJump;
     private Animator animator;
 

@@ -15,7 +15,7 @@ public class TutorialXPosition extends com.max.jumpingapp.types.XPosition {
 
     public void onEvent(FingerReleasedEvent event){
         if(TutorialGamePanel.gamePaused){
-            this.lastUpdateTime = System.nanoTime();
+//            this.lastUpdateTime = System.nanoTime();
         }
     }
 
