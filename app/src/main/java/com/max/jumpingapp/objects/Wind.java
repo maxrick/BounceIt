@@ -9,16 +9,16 @@ import java.util.Random;
  * Created by max on 3/30/2016.
  */
 public class Wind {
-    private static int CHANCE = 20;
-    private Random random;
+    protected int chance = 20;
+    protected Random random;
 
     public Wind(){
         random = new Random();
     }
 
     public void blow(XPosition xPosition, Height curHeight) {
-        if(curHeight.isPositive()){
-            double chance = random.nextInt(CHANCE);
+        if(curHeight.isPositive()&&chance>0){
+            double chance = random.nextInt(this.chance);
             if(chance == 1){
                 int windPower = random.nextInt(curHeight.devideBy(15));
                 windPower = random.nextBoolean()? windPower : -windPower;
@@ -27,10 +27,10 @@ public class Wind {
         }
 
     }
-    public static void moreWind(){
-        CHANCE -= 5;
-        if(CHANCE <3){
-            CHANCE = 3;
+    public void moreWind(){
+        chance -= 5;
+        if(chance <3){
+            chance = 3;
         }
     }
 }

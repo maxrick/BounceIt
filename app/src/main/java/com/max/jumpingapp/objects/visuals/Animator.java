@@ -21,11 +21,11 @@ public class Animator {
         this.currentPaint = new Paint(defaultPaint);
     }
 
-    public void animate(double accelPercentage) {
+    public void animate(double accelPercentage, Wind wind) {
         time = System.nanoTime();
         setAnimatedColorThreeSteps(accelPercentage);
         if(accelPercentage < 0){//@// TODO: 4/5/2016  does not belong here 
-            Wind.moreWind();
+            wind.moreWind();
         }
     }
 

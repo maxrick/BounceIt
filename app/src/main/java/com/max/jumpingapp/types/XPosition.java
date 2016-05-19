@@ -7,10 +7,10 @@ import com.max.jumpingapp.game.MainThread;
  * Created by max on 3/29/2016.
  */
 public class XPosition {
-    private final double maxVelocity;
-    private double xVelocity;
-    private int value;
-    private long lastUpdateTime;
+    protected final double maxVelocity;
+    protected double xVelocity;
+    protected int value;
+    protected long lastUpdateTime;
     public XPosition(){
         this.xVelocity = 10;
         this.value = 0;
@@ -50,4 +50,5 @@ public class XPosition {
         xVelocity += windPower;
         capVelocity();
     }
+
 }

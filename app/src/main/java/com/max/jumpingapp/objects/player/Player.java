@@ -78,7 +78,7 @@ public class Player {
     public void activateAccelaration(int accelerator, double maxPower) {
         maxHeight += accelerator;
         EventBus.getDefault().post(new PlayerAcceleratedEvent(accelerator));
-        playerObject.setPaint(playerPower.accelerationPercentage());
+        playerObject.setPaint(playerPower.accelerationPercentage(), wind);
         if(maxHeight <0){
             maxHeight=0;}
         playerStatus.updateFallperiod(maxHeight);

@@ -63,4 +63,8 @@ public class Height {
         }
         return "Height: 0";
     }
+
+    public boolean isGreaterThan(int i) {
+        return this.height>i;
+    }
 }

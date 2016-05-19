@@ -8,6 +8,7 @@ import android.graphics.Paint;
 import android.graphics.Rect;
 
 import com.max.jumpingapp.game.GamePanel;
+import com.max.jumpingapp.objects.Wind;
 import com.max.jumpingapp.types.Height;
 import com.max.jumpingapp.types.Width;
 import com.max.jumpingapp.types.XCenter;
@@ -127,8 +128,8 @@ public class PlayerObject {
         this.missedJump = missedJump;
     }
 
-    public void setPaint(double percentage) {
-        animator.animate(percentage);
+    public void setPaint(double percentage, Wind wind) {
+        animator.animate(percentage, wind);
     }
 
     public float getLeft() {

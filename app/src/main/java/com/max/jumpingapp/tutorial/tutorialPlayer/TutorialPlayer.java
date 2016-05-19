@@ -11,6 +11,8 @@ import com.max.jumpingapp.objects.player.PlayerPower;
 import com.max.jumpingapp.objects.player.PlayerStatusFreeFalling;
 import com.max.jumpingapp.objects.visuals.PlayerObject;
 import com.max.jumpingapp.tutorial.TutorialGamePanel;
+import com.max.jumpingapp.tutorial.TutorialWind;
+import com.max.jumpingapp.tutorial.TutorialXPosition;
 import com.max.jumpingapp.types.Height;
 import com.max.jumpingapp.types.Width;
 import com.max.jumpingapp.types.XCenter;
@@ -29,12 +31,12 @@ public class TutorialPlayer extends Player {
         this.playerObject = new PlayerObject(playerXCenter, playerWidth, com.max.jumpingapp.game.GamePanel.HEIGHT_POS, playerImage);
 
         this.curHeight = new Height();
-        this.wind = new Wind();
+        this.wind = new TutorialWind();
 
         Paint defaultPaint = new Paint();
         defaultPaint.setColor(Color.CYAN);
 
-        xPosition = new XPosition();
+        xPosition = new TutorialXPosition();
 
         this.playerPower = new TutorialPlayerPower();
         this.playerStatus = new TutorialPlayerStatusFreeFalling(maxHeight);
@@ -63,5 +65,8 @@ public class TutorialPlayer extends Player {
     public void unregisterEventlisteners() {
         super.unregisterEventlisteners();
         EventBus.getDefault().unregister(playerStatus);
+        if(xPosition instanceof TutorialXPosition){
+            EventBus.getDefault().unregister(xPosition);
+        }
     }
 }
