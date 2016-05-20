@@ -2,6 +2,7 @@ package com.max.jumpingapp.tutorial;
 
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.os.Message;
 import android.view.SurfaceHolder;
 
 import com.max.jumpingapp.game.GamePanel;
@@ -11,7 +12,7 @@ import com.max.jumpingapp.game.MainThread;
  * Created by max on 4/19/2016.
  */
 public class TutorialMainThread extends MainThread {
-    protected String message;
+    protected ScreenMessage message;
     protected boolean undrawnMessage = false;
 
     public TutorialMainThread(SurfaceHolder surfaceHolder, GamePanel gamePanel) {
@@ -74,10 +75,10 @@ public class TutorialMainThread extends MainThread {
 
     public void onEvent(StopPlayerTouchingTrampolinEvent event) {
         stopRunning();
-        setMessageToDraw(event.getMessage());
+        setMessageToDraw(new ScreenMessage(event.getMessage(), event.getxPos(), event.getyPos()));
     }
 
-    private void setMessageToDraw(String message) {
+    private void setMessageToDraw(ScreenMessage message) {
         this.message = message;
         undrawnMessage = true;
     }
@@ -88,7 +89,17 @@ public class TutorialMainThread extends MainThread {
             Paint paint = new Paint();
             paint.setTextSize(40);
             System.out.println("printed: " + message);
-            canvas.drawText(message, 100, GamePanel.screenHeight / 5, paint);
+//            canvas.drawText(message, 100, GamePanel.screenHeight / 5, paint);
+            drawMultiline(message.getMessage(), message.getxPos(), message.getyPos(), paint, canvas);
+        }
+    }
+
+    public void drawMultiline(String str, int x, int y, Paint paint, Canvas canvas)
+    {
+        for (String line: str.split("\n"))
+        {
+            canvas.drawText(line, x, y, paint);
+            y += -paint.ascent() + paint.descent();
         }
     }
 

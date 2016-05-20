@@ -20,7 +20,6 @@ import de.greenrobot.event.EventBus;
 public class TutorialPlayerStatusFreeFalling extends PlayerStatusFreeFalling {
     private boolean fingerTouching = false;
     private double percentagePassedBeforeStop=0;
-    private XPosition tempXPosition;
 
     public TutorialPlayerStatusFreeFalling(double maxHeight) {
         super(maxHeight);
@@ -59,7 +58,7 @@ public class TutorialPlayerStatusFreeFalling extends PlayerStatusFreeFalling {
     }
 
     public void onEvent(StopPlayerStatusInAir event){
-        stopGame(StopPlayerTouchingTrampolinEvent.WIND, event.getXPosition());
+        stopGame(StopPlayerTouchingTrampolinEvent.WIND);
     }
     private void continueGame() {
         long minusFaktor = (long) (percentagePassedBeforeStop*oscPeriod);
@@ -68,12 +67,11 @@ public class TutorialPlayerStatusFreeFalling extends PlayerStatusFreeFalling {
 //        lastUpdateTime = (long) (System.nanoTime() - oscPeriod* GamePanel.secondInNanos + STOP_BEFORE_TIME*GamePanel.secondInNanos);
     }
 
-    private void stopGame(String message, XPosition xPosition) {
-        this.tempXPosition = xPosition;
+    private void stopGame(String message) {
         double elapsedNanos = System.nanoTime() - GamePanel.lastUpdateTime;
         percentagePassedBeforeStop = elapsedNanos / oscPeriod;
         TutorialPlayer.getTutorialPlayer().pause();
-        EventBus.getDefault().post(new StopPlayerTouchingTrampolinEvent(message));
+        EventBus.getDefault().post(new StopPlayerTouchingTrampolinEvent(message, 50, GamePanel.screenHeight/2));
     }
 
 }

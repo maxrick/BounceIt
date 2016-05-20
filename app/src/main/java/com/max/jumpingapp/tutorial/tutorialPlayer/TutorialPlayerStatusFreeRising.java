@@ -44,6 +44,6 @@ public class TutorialPlayerStatusFreeRising extends PlayerStatusFreeRising {
         double elapsedNanos = System.nanoTime() - GamePanel.lastUpdateTime;
         percentagePassedBeforeStop = elapsedNanos / oscPeriod;
         TutorialPlayer.getTutorialPlayer().pause();
-        EventBus.getDefault().post(new StopPlayerTouchingTrampolinEvent(message));
+        EventBus.getDefault().post(new StopPlayerTouchingTrampolinEvent(message, 50, GamePanel.screenHeight/2));
     }
 }

@@ -36,7 +36,7 @@ public class TutorialPlayer extends Player {
         Paint defaultPaint = new Paint();
         defaultPaint.setColor(Color.CYAN);
 
-        xPosition = new TutorialXPosition();
+        xPosition = new XPosition();
 
         this.playerPower = new TutorialPlayerPower();
         this.playerStatus = new TutorialPlayerStatusFreeFalling(maxHeight);
@@ -65,8 +65,5 @@ public class TutorialPlayer extends Player {
     public void unregisterEventlisteners() {
         super.unregisterEventlisteners();
         EventBus.getDefault().unregister(playerStatus);
-        if(xPosition instanceof TutorialXPosition){
-            EventBus.getDefault().unregister(xPosition);
-        }
     }
 }

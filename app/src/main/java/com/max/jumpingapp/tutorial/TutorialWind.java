@@ -23,10 +23,10 @@ public class TutorialWind extends Wind {
 
     @Override
     public void blow(XPosition xPosition, Height curHeight) {
-        if(tutorialMode && curHeight.isGreaterThan(2000)){
+        if(tutorialMode && curHeight.isGreaterThan(1000)){
             tutorialMode = false;
             tutorialBlow(xPosition);
-            pause(xPosition);
+            pause();
         }
         if(!tutorialMode){
             super.blow(xPosition, curHeight);
@@ -37,8 +37,8 @@ public class TutorialWind extends Wind {
         xPosition.velocityByWind(TUTORIAL_WIND_POWER);
     }
 
-    private void pause(XPosition xPosition) {
-        EventBus.getDefault().post(new StopPlayerStatusInAir(xPosition));
+    private void pause() {
+        EventBus.getDefault().post(new StopPlayerStatusInAir());
     }
 
     @Override
