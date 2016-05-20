@@ -22,7 +22,6 @@ public class PowerDisplay {
     public static final int TOP = 100;
     public static final int RIGHT = 700;
     public static final int BOTTOM = 150;
-    private long time;
     Rect border;
     Rect powerLoader;
     Rect minPower;
@@ -31,7 +30,6 @@ public class PowerDisplay {
     Paint powerLoaderPaint;
 
     public PowerDisplay() {
-        time = System.nanoTime();
         border = new Rect(LEFT, TOP, RIGHT, BOTTOM);
         powerLoader = new Rect(LEFT, TOP, LEFT, BOTTOM);
         minPower = new Rect(LEFT, TOP, LEFT, BOTTOM);
@@ -53,7 +51,6 @@ public class PowerDisplay {
         if(powerLoader.right < powerLoader.left){
             powerLoaderPaint.setColor(GamePanel.RED1);
         }
-        time = System.nanoTime();
     }
 
     public void onEvent(ResetPowerDisplayEvent event){
@@ -75,7 +72,7 @@ public class PowerDisplay {
     }
 
     public void resetAfterTime() {
-        long elapsed = System.nanoTime() - time;
+        long elapsed = System.nanoTime() - GamePanel.lastUpdateTime;
         if (elapsed > timeToDisplayPower) {
             reset();
         }
