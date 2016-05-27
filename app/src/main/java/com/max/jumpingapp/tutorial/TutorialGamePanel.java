@@ -24,12 +24,12 @@ public class TutorialGamePanel extends GamePanel {
     public static boolean eventPleaseReleasePosted= false;
     public static boolean gamePaused = false;
 
-    private TutorialGamePanel(Context context, int[] highScores) {
-        super(context, highScores);
+    private TutorialGamePanel(Context context, int[] highScores, int playerImgage) {
+        super(context, highScores, playerImgage);
     }
 
-    public static GamePanel create(MainActivity mainActivity, int[] highScores) {
-        return new TutorialGamePanel(mainActivity, highScores);
+    public static GamePanel create(MainActivity mainActivity, int[] highScores, int playerImage) {
+        return new TutorialGamePanel(mainActivity, highScores, playerImage);
     }
 
     @Override

@@ -10,9 +10,11 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.WindowManager;
 
+import com.max.jumpingapp.R;
 import com.max.jumpingapp.game.GamePanel;
 import com.max.jumpingapp.tutorial.TutorialGamePanel;
 import com.max.jumpingapp.types.Score;
+import com.max.jumpingapp.util.PrefsHandler;
 
 import java.util.ArrayList;
 import java.util.Set;
@@ -20,7 +22,6 @@ import java.util.Set;
 public class MainActivity extends AppCompatActivity {
 
     public static final String GANME_PREFS = "ganmePrefs";
-    public static final String HIGH_SCORES = "highScores";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,15 +37,17 @@ public class MainActivity extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         boolean tutorial_mode = getIntent().getBooleanExtra(StartScreen.TUTORIAL_EXTRA, false);
         GamePanel gamePanel;
-        int[] highScores = getHighScores();
+        int[] highScores = PrefsHandler.getHighScores(getSharedPreferences(GANME_PREFS, 0));
+        int playerImgage = PrefsHandler.getPlayerImage(getSharedPreferences(GANME_PREFS, 0));
         if(tutorial_mode){
-            gamePanel = TutorialGamePanel.create(this,highScores);
+            gamePanel = TutorialGamePanel.create(this,highScores, playerImgage);
         }else {
-            gamePanel = GamePanel.create(this,highScores);
+            gamePanel = GamePanel.create(this,highScores, playerImgage);
         }
         setContentView(gamePanel);
 
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -77,30 +80,5 @@ public class MainActivity extends AppCompatActivity {
         finish();
     }
 
-    public int[] getHighScores(){
-        try {
-            System.out.println("highscores are read");
-            SharedPreferences gameprefs = getSharedPreferences(GANME_PREFS, 0);
-            Set<String> scoreSet = gameprefs.getStringSet(HIGH_SCORES, null);
-            ArrayList<Score> scoreList = Score.toArrayList(scoreSet);
-            int[] scoreNums = new int[scoreList.size()];
-            for (int i = 0; i < scoreList.size(); i++) {
-                scoreNums[i] = scoreList.get(i).toInt();
-            }
-
-//        int[] scoreNums = null;
-//        if(scoreString.length() > 0) {
-//            String[] scores = scoreString.split("\\|");
-//            scoreNums = new int[scores.length];
-//            for (int i = 0; i < scoreNums.length; i++) {
-//                scoreNums[i] = Integer.valueOf(scores[i]);
-//            }
-//        }
-            return scoreNums;
-        }catch(NoScoresException e){
-            return null;
-        }
-
-    }
 
 }

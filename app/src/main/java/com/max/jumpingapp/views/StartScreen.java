@@ -114,4 +114,9 @@ public class StartScreen extends AppCompatActivity {
         sendIntent.setType("text/plain");
         startActivity(Intent.createChooser(sendIntent, getResources().getText(R.string.recommend_to)));
     }
+
+    public void buttonShopClicked(View view){
+        Intent intent = new Intent(this, Shop.class);
+        startActivity(intent);
+    }
 }

@@ -29,7 +29,9 @@
             android:screenOrientation="portrait"
             android:theme="@style/FullscreenTheme" />
         <activity android:name=".views.DiedScreen" />
-        <activity android:name=".views.Highscores"/>
+        <activity android:name=".views.Highscores" />
+        <activity android:name=".views.Shop" />
+        <activity android:name=".views.DialogPlayerChooser"></activity>
     </application>
 
 </manifest>

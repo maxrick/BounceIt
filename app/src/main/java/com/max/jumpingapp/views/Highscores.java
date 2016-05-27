@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import com.max.jumpingapp.R;
 import com.max.jumpingapp.types.Score;
+import com.max.jumpingapp.util.PrefsHandler;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -28,7 +29,7 @@ public class Highscores extends AppCompatActivity {
 //            scoreBuild.append(score+"\n");
 //        }
         SharedPreferences gameprefs = getSharedPreferences(MainActivity.GANME_PREFS, 0);
-        Set<String> scoreSet =gameprefs.getStringSet(MainActivity.HIGH_SCORES, null);
+        Set<String> scoreSet =gameprefs.getStringSet(PrefsHandler.HIGH_SCORES, null);
         try {
             ArrayList<Score> scoreList = Score.toArrayList(scoreSet);
             Collections.sort(scoreList);

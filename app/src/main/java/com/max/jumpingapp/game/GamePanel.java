@@ -42,6 +42,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
     public static int screenHeight;
     public static int screenWidth;
     public static double secondInNanos = 1000000000.d;
+    protected final int playerImage;
     protected MainThread thread;
     private MainActivity activity;
     protected int[] highScores;
@@ -53,11 +54,12 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
     protected long timeTouchBeg;
 
 
-    protected GamePanel(Context context, int[] highScores) {
+    protected GamePanel(Context context, int[] highScores, int playerImgage) {
         super(context);
         this.activity = (MainActivity) context;
         getHolder().addCallback(this);
         this.highScores = highScores;
+        this.playerImage = playerImgage;
         readCustomColors(context);
 
         setFocusable(true);
@@ -77,8 +79,8 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
         RED5 = ContextCompat.getColor(context, R.color.red5);
     }
 
-    public static GamePanel create(MainActivity mainActivity, int[] highScores) {
-       return new GamePanel(mainActivity, highScores);
+    public static GamePanel create(MainActivity mainActivity, int[] highScores, int playerImgage) {
+       return new GamePanel(mainActivity, highScores, playerImgage);
     }
 
     @Override
@@ -99,7 +101,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
     }
 
     protected Bitmap createPlayerImage() {
-        return BitmapFactory.decodeResource(getResources(), R.drawable.playerimage);
+        return BitmapFactory.decodeResource(getResources(), playerImage);
     }
 
     @NonNull

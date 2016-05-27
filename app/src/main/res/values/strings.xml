@@ -12,4 +12,6 @@
     <string name="diedMessage">You FUCKING died, you piece of shit</string>
     <string name="scoreMessage">You had a lousy score of: </string>
     <string name="deleteScores">Delete Highscores</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Cancel</string>
 </resources>

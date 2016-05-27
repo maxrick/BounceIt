@@ -42,6 +42,18 @@
            android:layout_centerHorizontal="true"
            android:onClick="buttonRecommendAppClicked"/>
 
+       <Button
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:text="Shop"
+           android:padding="5dp"
+           android:id="@+id/shop"
+           android:layout_below="@+id/recommend"
+           android:layout_gravity="center_horizontal|bottom"
+           android:layout_centerVertical="true"
+           android:layout_centerHorizontal="true"
+           android:onClick="buttonShopClicked"/>
+
        <CheckBox
            android:layout_width="wrap_content"
            android:layout_height="wrap_content"

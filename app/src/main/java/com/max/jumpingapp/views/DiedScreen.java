@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.max.jumpingapp.R;
 import com.max.jumpingapp.types.Score;
+import com.max.jumpingapp.util.PrefsHandler;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -33,7 +34,7 @@ public class DiedScreen extends AppCompatActivity {
         score = new Score(Integer.valueOf(myIntent.getIntExtra("score", 0)));
         scoreTextView.setText(score.toInt()+ "");
 
-        Set<String> scores = sharedPreferences.getStringSet(MainActivity.HIGH_SCORES, null);
+        Set<String> scores = sharedPreferences.getStringSet(PrefsHandler.HIGH_SCORES, null);
         ArrayList scoreList = new ArrayList();
         try {
             scoreList = Score.toArrayList(scores);
@@ -82,7 +83,7 @@ public class DiedScreen extends AppCompatActivity {
     private synchronized void setHighScore(Score score) {
         SharedPreferences gameprefs = getSharedPreferences(MainActivity.GANME_PREFS, 0);
         SharedPreferences.Editor scoreEdit = gameprefs.edit();
-        Set<String> scores = gameprefs.getStringSet(MainActivity.HIGH_SCORES, null);
+        Set<String> scores = gameprefs.getStringSet(PrefsHandler.HIGH_SCORES, null);
         ArrayList scoreList = new ArrayList();
         try {
             scoreList = Score.toArrayList(scores);
@@ -95,7 +96,7 @@ public class DiedScreen extends AppCompatActivity {
         Collections.sort(scoreList);
         scoreList = Score.firstTenOf(scoreList);
         scores = Score.toSet(scoreList);
-        scoreEdit.putStringSet(MainActivity.HIGH_SCORES, scores);
+        scoreEdit.putStringSet(PrefsHandler.HIGH_SCORES, scores);
         scoreEdit.apply();
         System.out.println("highscores set");
     }
