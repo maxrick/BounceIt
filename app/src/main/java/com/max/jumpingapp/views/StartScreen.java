@@ -13,11 +13,13 @@ import android.widget.CheckBox;
 
 import com.max.jumpingapp.R;
 
+import layout.GemFragment;
+
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
  * status bar and navigation/system bar) with user interaction.
  */
-public class StartScreen extends AppCompatActivity {
+public class StartScreen extends AppCompatActivity implements GemFragment.OnGemFragmentInteractionListener {
     /**
      * Whether or not the system UI should be auto-hidden after
      * {@link #AUTO_HIDE_DELAY_MILLIS} milliseconds.
@@ -56,6 +58,13 @@ public class StartScreen extends AppCompatActivity {
         SharedPreferences sharedPreferences = getSharedPreferences(MainActivity.GANME_PREFS,0);
         boolean tutorialMode = sharedPreferences.getBoolean(TUTORIAL_MODE, true);
         return tutorialMode;
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        GemFragment gemFragment = (GemFragment) getSupportFragmentManager().findFragmentByTag("gemFragment");
+        gemFragment.updateGemText();
     }
 
     @Override
@@ -118,5 +127,11 @@ public class StartScreen extends AppCompatActivity {
     public void buttonShopClicked(View view){
         Intent intent = new Intent(this, Shop.class);
         startActivity(intent);
+    }
+
+    @Override
+    public void onGemFragmentInteraction(View view) {
+        GemFragment gemFragment = (GemFragment) getSupportFragmentManager().findFragmentByTag("gemFragment");
+        gemFragment.gemButtonClicked(view);
     }
 }

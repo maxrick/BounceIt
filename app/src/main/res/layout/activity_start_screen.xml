@@ -64,6 +64,38 @@
            android:layout_alignStart="@+id/buttonPlay"
            android:layout_marginTop="52dp" />
 
+       <!--<Button
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:text="0"
+           android:background="@drawable/gem_icon"
+           android:id="@+id/gemButton"
+           android:layout_alignParentTop="true"
+           android:layout_alignParentRight="true"
+           android:layout_alignParentEnd="true" />-->
+
+       <fragment
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:name="layout.GemFragment"
+           android:id="@+id/fragment"
+           android:tag="gemFragment"
+           android:layout_alignParentTop="true"
+           android:layout_alignParentRight="true"
+           android:layout_alignParentEnd="true" />
+
+       <!-- <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/imageView"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:text="0"
+            android:textAlignment="viewStart"
+            android:src="@drawable/gem"
+            android:gravity="start"/>-->
+
    </RelativeLayout>
     <!-- This FrameLayout insets its children based on system windows using
          android:fitsSystemWindows. -->
