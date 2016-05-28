@@ -2,7 +2,9 @@ package com.max.jumpingapp.views;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.ShareActionProvider;
@@ -10,10 +12,12 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.CheckBox;
+import android.widget.EditText;
 
 import com.max.jumpingapp.R;
+import com.max.jumpingapp.util.PrefsHandler;
 
-import java.util.UUID;
+import java.util.Random;
 
 import layout.GemFragment;
 
@@ -49,7 +53,6 @@ public class StartScreen extends AppCompatActivity implements GemFragment.OnGemF
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
 
         setContentView(R.layout.activity_start_screen);
         CheckBox checkBox = (CheckBox) findViewById(R.id.tutorial);
@@ -91,14 +94,15 @@ public class StartScreen extends AppCompatActivity implements GemFragment.OnGemF
 
     private void generateIdOnFirstRun() {
         SharedPreferences sharedPreferences = getSharedPreferences(MainActivity.GANME_PREFS, 0);
-//        if(null == sharedPreferences.getString("my_UUID", null)){
-            String my_id = UUID.randomUUID().toString();
+        if(0 == PrefsHandler.getId(sharedPreferences)){
+//            int seed = Settings.Secure.getString(getApplicationContext().getContentResolver(), Settings.Secure.ANDROID_ID).hashCode();
+            //new Random(seed)...
+            int my_id = new Random().nextInt(90000)+10000; //range 10000..99999
             System.out.println("my uuid: "+my_id);
-        System.out.println("my uuid hash: "+my_id.hashCode());
             SharedPreferences.Editor editor = sharedPreferences.edit();
-            editor.putString("my_UUID", my_id);
+            editor.putInt(PrefsHandler.MY_UUID, my_id);
             editor.apply();
-//        }
+        }
     }
 
     /**
@@ -142,6 +146,22 @@ public class StartScreen extends AppCompatActivity implements GemFragment.OnGemF
     public void buttonShopClicked(View view){
         Intent intent = new Intent(this, Shop.class);
         startActivity(intent);
+    }
+
+    public void buttonActivateRecommendationCodeClicked(View view){
+        String code = ((EditText) findViewById(R.id.recommendationCode)).getText().toString();
+        try {
+            String recommenderId=RecommendScreen.recommenderIdOf(code);
+//            if(Integer.valueOf(recommenderId) != PrefsHandler.getId(getSharedPreferences(MainActivity.GANME_PREFS, 0))){
+                PrefsHandler.addGem(getSharedPreferences(MainActivity.GANME_PREFS,0));
+                ((GemFragment)getSupportFragmentManager().findFragmentByTag("gemFragment")).updateGemText();
+                String thankYouCode = RecommendScreen.createThankYouCode(recommenderId);
+                //@// TODO: 5/28/2016 send code
+            //@// TODO: 5/28/2016 hide textfield 
+//            }
+        } catch (UnvalidRecommendationCode unvalidRecommendationCode) {
+            unvalidRecommendationCode.printStackTrace();
+        }
     }
 
     @Override

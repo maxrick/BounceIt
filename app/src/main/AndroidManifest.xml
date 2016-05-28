@@ -35,7 +35,7 @@
         <activity android:name=".views.Highscores" />
         <activity android:name=".views.Shop" />
         <activity android:name=".views.DialogPlayerChooser" />
-        <activity android:name=".views.RecommendScreen"></activity>
+        <activity android:name=".views.RecommendScreen" />
     </application>
 
 </manifest>

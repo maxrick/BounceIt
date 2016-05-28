@@ -14,7 +14,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Get more gems by recommending this App. Send an activation code to a friend. With this code your friend will get a free gem. \nMake sure your friend also sends you your thank you code back. Enter the thank you code below to receive your free gem."
-        android:id="@+id/textView"
+        android:id="@+id/recommendText"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
@@ -25,10 +25,22 @@
         android:layout_height="wrap_content"
         android:text="Recommend app"
         android:padding="5dp"
-        android:id="@+id/recommend"
+        android:id="@+id/recommendButton"
         android:layout_gravity="center_horizontal|bottom"
         android:onClick="buttonRecommendAppClicked"
-        android:layout_below="@+id/textView"
+        android:layout_below="@+id/recommendText"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="50dp" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Send recommendation code"
+        android:padding="5dp"
+        android:id="@+id/sendCodeButton"
+        android:layout_gravity="center_horizontal|bottom"
+        android:onClick="buttonSendCodeClicked"
+        android:layout_below="@+id/recommendButton"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="50dp" />
 
@@ -37,8 +49,9 @@
         android:layout_height="wrap_content"
         android:id="@+id/recommendationCode"
         android:text="enter thank you code"
-        android:layout_below="@+id/textView"
+        android:layout_below="@+id/recommendButton"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginTop="146dp" />
+        android:layout_marginTop="146dp"
+        android:lines="1"/>
 </RelativeLayout>

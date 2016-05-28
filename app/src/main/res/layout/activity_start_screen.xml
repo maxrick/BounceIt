@@ -1,113 +1,133 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent" android:background="#0099cc"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#0099cc"
     tools:context=".views.StartScreen"><!--context was: max.jumping.StartScreen-->
 
-   <RelativeLayout
-       android:layout_width="match_parent"
-       android:layout_height="match_parent">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Play Game"
-        android:padding="5dp"
-        android:id="@+id/buttonPlay"
-        android:layout_gravity="center"
-        android:layout_above="@+id/buttonScores"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="91dp"
-        android:onClick="buttonPlayClicked"/>
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="High Scores"
-        android:padding="5dp"
-        android:id="@+id/buttonScores"
-        android:layout_gravity="center_horizontal|bottom"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true"
-        android:onClick="buttonHighScoresClicked"/>
-
-       <Button
-           android:layout_width="wrap_content"
-           android:layout_height="wrap_content"
-           android:text="Recommend app"
-           android:padding="5dp"
-           android:id="@+id/recommend"
-           android:layout_below="@+id/buttonScores"
-           android:layout_gravity="center_horizontal|bottom"
-           android:layout_centerVertical="true"
-           android:layout_centerHorizontal="true"
-           android:onClick="buttonRecommendAppClicked"/>
-
-       <Button
-           android:layout_width="wrap_content"
-           android:layout_height="wrap_content"
-           android:text="Shop"
-           android:padding="5dp"
-           android:id="@+id/shop"
-           android:layout_below="@+id/recommend"
-           android:layout_gravity="center_horizontal|bottom"
-           android:layout_centerVertical="true"
-           android:layout_centerHorizontal="true"
-           android:onClick="buttonShopClicked"/>
-
-       <CheckBox
-           android:layout_width="wrap_content"
-           android:layout_height="wrap_content"
-           android:text="Tutorial"
-           android:id="@+id/tutorial"
-           android:layout_alignTop="@+id/buttonPlay"
-           android:layout_alignLeft="@+id/buttonPlay"
-           android:layout_alignStart="@+id/buttonPlay"
-           android:layout_marginTop="52dp" />
-
-       <!--<Button
-           android:layout_width="wrap_content"
-           android:layout_height="wrap_content"
-           android:text="0"
-           android:background="@drawable/gem_icon"
-           android:id="@+id/gemButton"
-           android:layout_alignParentTop="true"
-           android:layout_alignParentRight="true"
-           android:layout_alignParentEnd="true" />-->
-
-       <fragment
-           android:layout_width="wrap_content"
-           android:layout_height="wrap_content"
-           android:name="layout.GemFragment"
-           android:id="@+id/fragment"
-           android:tag="gemFragment"
-           android:layout_alignParentTop="true"
-           android:layout_alignParentRight="true"
-           android:layout_alignParentEnd="true" />
-
-       <EditText
-           android:layout_width="match_parent"
-           android:layout_height="wrap_content"
-           android:id="@+id/recommendationCode"
-           android:layout_marginBottom="32dp"
-           android:text="enter recommendation code"
-           android:layout_alignParentBottom="true"
-           android:layout_alignParentLeft="true"
-           android:layout_alignParentStart="true" />
-
-       <!-- <ImageView
+        <Button
+            android:id="@+id/buttonPlay"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/imageView"
+            android:layout_above="@+id/buttonScores"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center"
+            android:layout_marginBottom="91dp"
+            android:onClick="buttonPlayClicked"
+            android:padding="5dp"
+            android:text="Play Game" />
+
+        <Button
+            android:id="@+id/buttonScores"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:layout_gravity="center_horizontal|bottom"
+            android:onClick="buttonHighScoresClicked"
+            android:padding="5dp"
+            android:text="High Scores" />
+
+        <Button
+            android:id="@+id/recommend"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/buttonScores"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:layout_gravity="center_horizontal|bottom"
+            android:onClick="buttonRecommendAppClicked"
+            android:padding="5dp"
+            android:text="Recommend app" />
+
+        <Button
+            android:id="@+id/shop"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/recommend"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:layout_gravity="center_horizontal|bottom"
+            android:onClick="buttonShopClicked"
+            android:padding="5dp"
+            android:text="Shop" />
+
+        <CheckBox
+            android:id="@+id/tutorial"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/buttonPlay"
+            android:layout_alignStart="@+id/buttonPlay"
+            android:layout_alignTop="@+id/buttonPlay"
+            android:layout_marginTop="52dp"
+            android:text="Tutorial" />
+
+        <!--<Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0"
+            android:background="@drawable/gem_icon"
+            android:id="@+id/gemButton"
             android:layout_alignParentTop="true"
             android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" />-->
+
+        <fragment
+            android:id="@+id/fragment"
+            android:name="layout.GemFragment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
-            android:text="0"
-            android:textAlignment="viewStart"
-            android:src="@drawable/gem"
-            android:gravity="start"/>-->
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:tag="gemFragment" />
 
-   </RelativeLayout>
-    <!-- This FrameLayout insets its children based on system windows using
-         android:fitsSystemWindows. -->
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true">
+
+            <EditText
+                android:id="@+id/recommendationCode"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_marginBottom="32dp"
+                android:lines="1"
+                android:text="enter recommendation code" />
+
+            <Button
+                android:id="@+id/activateRecommendationCodeButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentRight="true"
+                android:layout_toRightOf="@+id/recommendationCode"
+                android:onClick="buttonActivateRecommendationCodeClicked"
+                android:text="Activate" />
+        </LinearLayout>
+
+        <!-- <ImageView
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:id="@+id/imageView"
+             android:layout_alignParentTop="true"
+             android:layout_alignParentRight="true"
+             android:layout_alignParentEnd="true"
+             android:text="0"
+             android:textAlignment="viewStart"
+             android:src="@drawable/gem"
+             android:gravity="start"/>-->
+
+    </RelativeLayout>
 </FrameLayout>

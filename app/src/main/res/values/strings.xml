@@ -20,4 +20,5 @@
     <string name="addGem">add Gem</string>
     <string name="resetGems">reset gems</string>
     <string name="title_activity_recommend_screen">RecommendScreen</string>
+    <string name="title_activity_main2">Main2Activity</string>
 </resources>

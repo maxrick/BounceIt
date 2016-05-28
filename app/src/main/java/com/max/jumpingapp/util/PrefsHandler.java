@@ -20,6 +20,7 @@ public class PrefsHandler {
     public static final String GEMS = "gems";
     public static final String PLAYER_IMAGE = "player_image";
     public static final String BOUGHT_IMAGES = "bought_images";
+    public static final String MY_UUID = "my_UUID";
 
     public static int[] getHighScores(SharedPreferences sharedPreferences){
         try {
@@ -95,5 +96,9 @@ public class PrefsHandler {
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString(BOUGHT_IMAGES, "");
         editor.apply();
+    }
+
+    public static int getId(SharedPreferences sharedPreferences) {
+        return sharedPreferences.getInt(MY_UUID, 0);
     }
 }
