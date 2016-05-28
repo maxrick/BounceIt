@@ -2,6 +2,7 @@ package layout;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -15,6 +16,7 @@ import android.widget.Button;
 import com.max.jumpingapp.R;
 import com.max.jumpingapp.util.PrefsHandler;
 import com.max.jumpingapp.views.MainActivity;
+import com.max.jumpingapp.views.RecommendScreen;
 
 /**
  * A fragment with a Google +1 button.
@@ -30,6 +32,7 @@ public class GemFragment extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+    private final GemFragment that;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -64,6 +67,7 @@ public class GemFragment extends Fragment {
     }
     public GemFragment() {
         // Required empty public constructor
+        that = this;
     }
 
     @Override
@@ -146,6 +150,13 @@ public class GemFragment extends Fragment {
             public void onClick(DialogInterface dialog, int which) {
                 PrefsHandler.resetGems(sharedPreferences);
                 updateGemText();
+            }
+        });
+        builder.setNeutralButton("get more gems", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Intent intent = new Intent(that.getContext(), RecommendScreen.class);
+                startActivity(intent);
             }
         });
         builder.create().show();

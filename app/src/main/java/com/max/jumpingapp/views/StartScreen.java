@@ -13,6 +13,8 @@ import android.widget.CheckBox;
 
 import com.max.jumpingapp.R;
 
+import java.util.UUID;
+
 import layout.GemFragment;
 
 /**
@@ -71,6 +73,7 @@ public class StartScreen extends AppCompatActivity implements GemFragment.OnGemF
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main, menu);
 
+        generateIdOnFirstRun();
         MenuItem shareItem = menu.findItem(R.id.action_share);
 
         ShareActionProvider mShare = new ShareActionProvider(this);
@@ -84,6 +87,18 @@ public class StartScreen extends AppCompatActivity implements GemFragment.OnGemF
         mShare.setShareIntent(shareIntent);
 
         return true;
+    }
+
+    private void generateIdOnFirstRun() {
+        SharedPreferences sharedPreferences = getSharedPreferences(MainActivity.GANME_PREFS, 0);
+//        if(null == sharedPreferences.getString("my_UUID", null)){
+            String my_id = UUID.randomUUID().toString();
+            System.out.println("my uuid: "+my_id);
+        System.out.println("my uuid hash: "+my_id.hashCode());
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putString("my_UUID", my_id);
+            editor.apply();
+//        }
     }
 
     /**
