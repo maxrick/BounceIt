@@ -4,6 +4,7 @@ import android.content.SharedPreferences;
 
 import com.max.jumpingapp.R;
 import com.max.jumpingapp.types.Score;//// TODO: 5/27/2016 not good
+import com.max.jumpingapp.views.Buyable;
 import com.max.jumpingapp.views.MainActivity;
 import com.max.jumpingapp.views.NoScoresException;
 import com.max.jumpingapp.views.Shop;
@@ -78,10 +79,10 @@ public class PrefsHandler {
         edit.apply();
     }
 
-    public synchronized static boolean buyPlayerImage(SharedPreferences sharedPreferences, int playerImage) {
-        if(getGems(sharedPreferences)>0){
-            reduceGemsBy(sharedPreferences, 1);
-            addBoughtPlayerImage(sharedPreferences, playerImage);
+    public synchronized static boolean buyPlayerImage(SharedPreferences sharedPreferences, Buyable buyable) {
+        if(getGems(sharedPreferences)>=buyable.getPrice()){
+            reduceGemsBy(sharedPreferences, buyable.getPrice());
+            addBoughtPlayerImage(sharedPreferences, buyable.getImage());
             return true;
         }
         return false;
