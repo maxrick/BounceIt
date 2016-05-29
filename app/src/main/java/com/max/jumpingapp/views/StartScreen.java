@@ -1,11 +1,13 @@
 package com.max.jumpingapp.views;
 
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.os.Build;
 import android.os.Bundle;
-import android.provider.Settings;
+import android.support.design.widget.Snackbar;
 import android.support.v4.view.MenuItemCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.ShareActionProvider;
 import android.view.Menu;
@@ -60,7 +62,7 @@ public class StartScreen extends AppCompatActivity implements GemFragment.OnGemF
     }
 
     private boolean tutorialSharedPref() {
-        SharedPreferences sharedPreferences = getSharedPreferences(MainActivity.GANME_PREFS,0);
+        SharedPreferences sharedPreferences = getSharedPreferences(MainActivity.GANME_PREFS, 0);
         boolean tutorialMode = sharedPreferences.getBoolean(TUTORIAL_MODE, true);
         return tutorialMode;
     }
@@ -94,11 +96,11 @@ public class StartScreen extends AppCompatActivity implements GemFragment.OnGemF
 
     private void generateIdOnFirstRun() {
         SharedPreferences sharedPreferences = getSharedPreferences(MainActivity.GANME_PREFS, 0);
-        if(0 == PrefsHandler.getId(sharedPreferences)){
+        if (0 == PrefsHandler.getId(sharedPreferences)) {
 //            int seed = Settings.Secure.getString(getApplicationContext().getContentResolver(), Settings.Secure.ANDROID_ID).hashCode();
             //new Random(seed)...
-            int my_id = new Random().nextInt(90000)+10000; //range 10000..99999
-            System.out.println("my uuid: "+my_id);
+            int my_id = new Random().nextInt(90000) + 10000; //range 10000..99999
+            System.out.println("my uuid: " + my_id);
             SharedPreferences.Editor editor = sharedPreferences.edit();
             editor.putInt(PrefsHandler.MY_UUID, my_id);
             editor.apply();
@@ -112,8 +114,7 @@ public class StartScreen extends AppCompatActivity implements GemFragment.OnGemF
      */
 
 
-
-    public void buttonPlayClicked(View view){
+    public void buttonPlayClicked(View view) {
         System.out.println("StartScreen -- buttonPlayClicked()");
         Intent intent = new Intent(this, MainActivity.class);
         intent.putExtra(TUTORIAL_EXTRA, tutorialSelected());
@@ -121,7 +122,7 @@ public class StartScreen extends AppCompatActivity implements GemFragment.OnGemF
     }
 
     private boolean tutorialSelected() {
-        CheckBox checkBox =(CheckBox)findViewById(R.id.tutorial);
+        CheckBox checkBox = (CheckBox) findViewById(R.id.tutorial);
         boolean tutorialMode = checkBox.isChecked();
         SharedPreferences sharedPreferences = getSharedPreferences(MainActivity.GANME_PREFS, 0);
         SharedPreferences.Editor prefEdit = sharedPreferences.edit();
@@ -130,38 +131,78 @@ public class StartScreen extends AppCompatActivity implements GemFragment.OnGemF
         return tutorialMode;
     }
 
-    public void buttonHighScoresClicked(View view){
+    public void buttonHighScoresClicked(View view) {
         Intent intent = new Intent(this, Highscores.class);
         startActivity(intent);
     }
 
-    public void buttonRecommendAppClicked(View view){
-        Intent sendIntent = new Intent();
-        sendIntent.setAction(Intent.ACTION_SEND);
-        sendIntent.putExtra(Intent.EXTRA_TEXT, "Hi\nThis app \"bounce it\" is amazing. You should get it");
-        sendIntent.setType("text/plain");
-        startActivity(Intent.createChooser(sendIntent, getResources().getText(R.string.recommend_to)));
+    public void buttonRecommendAppClicked(View view) {
+        send("Hi\nThis app \"bounce it\" is amazing. You should get it");
     }
 
-    public void buttonShopClicked(View view){
+    public void buttonShopClicked(View view) {
         Intent intent = new Intent(this, Shop.class);
         startActivity(intent);
     }
 
-    public void buttonActivateRecommendationCodeClicked(View view){
+    public void buttonActivateRecommendationCodeClicked(View view) {
         String code = ((EditText) findViewById(R.id.recommendationCode)).getText().toString();
         try {
-            String recommenderId=RecommendScreen.recommenderIdOf(code);
+            String recommenderId = RecommendScreen.recommenderIdOf(code);
 //            if(Integer.valueOf(recommenderId) != PrefsHandler.getId(getSharedPreferences(MainActivity.GANME_PREFS, 0))){
-                PrefsHandler.addGem(getSharedPreferences(MainActivity.GANME_PREFS,0));
-                ((GemFragment)getSupportFragmentManager().findFragmentByTag("gemFragment")).updateGemText();
-                String thankYouCode = RecommendScreen.createThankYouCode(recommenderId);
-                //@// TODO: 5/28/2016 send code
-            //@// TODO: 5/28/2016 hide textfield 
+            PrefsHandler.addGem(getSharedPreferences(MainActivity.GANME_PREFS, 0));
+            ((GemFragment) getSupportFragmentManager().findFragmentByTag("gemFragment")).updateGemText();
+            String thankYouCode = RecommendScreen.createThankYouCode(recommenderId);
+            popupThankYouCode(thankYouCode, view.getContext());
+            //@// TODO: 5/28/2016 send code
+            //@// TODO: 5/28/2016 hide textfield
 //            }
         } catch (UnvalidRecommendationCode unvalidRecommendationCode) {
-            unvalidRecommendationCode.printStackTrace();
+            Snackbar.make(view, "Sorry, this code is not valid", Snackbar.LENGTH_LONG).show();
         }
+    }
+
+    private void popupThankYouCode(final String thankYouCode, final Context context) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setMessage("Congratulations, you received a free gem. Thank your friend by giving him a code for a free gem also.\n\nThis code is only valid for the person who sent you your voucher code.");
+        builder.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                send(thankYouCode);
+            }
+        });
+        builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                popupReallyCancel(thankYouCode, context);
+            }
+        });
+        builder.create().show();
+    }
+
+    private void popupReallyCancel(final String thankYouCode, Context context) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setMessage("Are you sure you don't want to send your friend the free gem? After cancelling you won't have the possibility to send the code again.");
+        builder.setPositiveButton(R.string.send_thank_you_code_after_all, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                send(thankYouCode);
+            }
+        });
+        builder.setNegativeButton(R.string.definately_no_thank_you_code, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+            }
+        });
+        builder.create().show();
+    }
+
+    private void send(String message) {
+        Intent sendIntent = new Intent();
+        sendIntent.setAction(Intent.ACTION_SEND);
+        sendIntent.putExtra(Intent.EXTRA_TEXT, message);
+        sendIntent.setType("text/plain");
+        startActivity(Intent.createChooser(sendIntent, getResources().getText(R.string.send_via)));
     }
 
     @Override

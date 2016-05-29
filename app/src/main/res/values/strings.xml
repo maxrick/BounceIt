@@ -7,7 +7,7 @@
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
     <string name="title_activity_highscores">Highscores</string>
-    <string name="recommend_to">Recommend to</string>
+    <string name="send_via">Send via</string>
     <string name="retry">Try again</string>
     <string name="diedMessage">You FUCKING died, you piece of shit</string>
     <string name="scoreMessage">You had a lousy score of: </string>
@@ -21,4 +21,6 @@
     <string name="resetGems">reset gems</string>
     <string name="title_activity_recommend_screen">RecommendScreen</string>
     <string name="title_activity_main2">Main2Activity</string>
+    <string name="send_thank_you_code_after_all">Ok, thank my friend and send the code</string>
+    <string name="definately_no_thank_you_code">Nope, no free gem for my friend</string>
 </resources>

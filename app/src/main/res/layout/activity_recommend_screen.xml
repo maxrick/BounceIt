@@ -10,12 +10,22 @@
     tools:context=".views.RecommendScreen"
     >
 
+    <fragment
+        android:id="@+id/fragment3"
+        android:name="layout.GemFragment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:tag="gemFragment" />
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Get more gems by recommending this App. Send an activation code to a friend. With this code your friend will get a free gem. \nMake sure your friend also sends you your thank you code back. Enter the thank you code below to receive your free gem."
         android:id="@+id/recommendText"
-        android:layout_alignParentTop="true"
+        android:layout_below="@+id/fragment3"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:textSize="20dp"/>
@@ -30,7 +40,7 @@
         android:onClick="buttonRecommendAppClicked"
         android:layout_below="@+id/recommendText"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="50dp" />
+        android:layout_marginTop="30dp" />
 
     <Button
         android:layout_width="wrap_content"
@@ -44,14 +54,34 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="50dp" />
 
-    <EditText
+    <LinearLayout
+        android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/recommendationCode"
-        android:text="enter thank you code"
-        android:layout_below="@+id/recommendButton"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginTop="146dp"
-        android:lines="1"/>
+        android:layout_height="match_parent"
+        android:layout_below="@+id/sendCodeButton"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="21dp"
+        android:weightSum="1">
+
+        <EditText
+            android:layout_width="208dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/thankYouCode"
+            android:text="enter thank you code"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:lines="1"
+            android:layout_weight="0.46" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Activate"
+            android:id="@+id/thankYouCodeActivate"
+            android:onClick="buttonActivateThankYouCodeClicked"
+            android:layout_alignBottom="@+id/recommendationCode"
+            android:layout_toRightOf="@+id/recommendationCode"
+            android:layout_toEndOf="@+id/recommendationCode" />
+    </LinearLayout>
 </RelativeLayout>
