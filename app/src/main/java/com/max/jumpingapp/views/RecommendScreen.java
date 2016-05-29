@@ -1,6 +1,7 @@
 package com.max.jumpingapp.views;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -71,7 +72,7 @@ public class RecommendScreen extends AppCompatActivity implements GemFragment.On
         String mergedValues = my_id.substring(0, 1) + date.substring(0, 2) + my_id.substring(1, 2) + date.substring(2, 4) + my_id.substring(2, 3) +
                 date.substring(4, 6) + my_id.substring(3, 4) + date.substring(6, 8) + my_id.substring(4, 5);
         long code = (Long.valueOf(mergedValues) * FIRST_MULTIPLICATOR + ADD) * SECOND_MULTIPLICATOR;
-        int r = new Random().nextInt(9) + 1;
+        int r = new Random().nextInt(10) + 1;
         code *= r;
         return code + "" + r;
     }
@@ -129,11 +130,16 @@ public class RecommendScreen extends AppCompatActivity implements GemFragment.On
         String code = ((EditText) findViewById(R.id.thankYouCode)).getText().toString();
         try {
             String recommenderId = RecommendScreen.recommenderIdOfThankYou(code);
-            if (Integer.valueOf(recommenderId) == PrefsHandler.getId(getSharedPreferences(MainActivity.GANME_PREFS, 0))) {
-                PrefsHandler.addGem(getSharedPreferences(MainActivity.GANME_PREFS, 0));
-                ((GemFragment) getSupportFragmentManager().findFragmentByTag("gemFragment")).updateGemText();
-                Snackbar.make(view, "Congratulations, you received a free gem.", Snackbar.LENGTH_LONG).show();
-                return;
+            SharedPreferences sharedPreferences = getSharedPreferences(MainActivity.GANME_PREFS, 0);
+            if (Integer.valueOf(recommenderId) == PrefsHandler.getId(sharedPreferences)) {
+                if(!PrefsHandler.alreadyUsed(sharedPreferences, code)){
+                    PrefsHandler.addGem(sharedPreferences);
+                    PrefsHandler.invalidate(sharedPreferences, code);
+                    ((GemFragment) getSupportFragmentManager().findFragmentByTag("gemFragment")).updateGemText();
+                    Snackbar.make(view, "Congratulations, you received a free gem.", Snackbar.LENGTH_LONG).show();
+                    return;
+                }
+                Snackbar.make(view, "Sorry, this code has already been used", Snackbar.LENGTH_LONG).show();
             }
         } catch (UnvalidRecommendationCode unvalidRecommendationCode) {
 

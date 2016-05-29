@@ -21,6 +21,7 @@ public class PrefsHandler {
     public static final String PLAYER_IMAGE = "player_image";
     public static final String BOUGHT_IMAGES = "bought_images";
     public static final String MY_UUID = "my_UUID";
+    public static final String USED_RECOMMENDATION_CODES = "used_recommendation_codes";
 
     public static int[] getHighScores(SharedPreferences sharedPreferences){
         try {
@@ -88,7 +89,7 @@ public class PrefsHandler {
 
     private static void reduceGemsBy(SharedPreferences sharedPreferences, int i) {
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putInt(GEMS, getGems(sharedPreferences) - 1);
+        editor.putInt(GEMS, getGems(sharedPreferences) - i);
         editor.apply();
     }
 
@@ -100,5 +101,18 @@ public class PrefsHandler {
 
     public static int getId(SharedPreferences sharedPreferences) {
         return sharedPreferences.getInt(MY_UUID, 0);
+    }
+
+    public static void invalidate(SharedPreferences sharedPrefs, String code) {
+        SharedPreferences.Editor editor = sharedPrefs.edit();
+        String oldCodes = sharedPrefs.getString(USED_RECOMMENDATION_CODES, "");
+        String updatedCodes = oldCodes + code + ";";
+        editor.putString(USED_RECOMMENDATION_CODES, updatedCodes);
+        editor.apply();
+    }
+
+    public static boolean alreadyUsed(SharedPreferences sharedPrefs, String code) {
+        String oldCodes = sharedPrefs.getString(USED_RECOMMENDATION_CODES, "");
+        return  oldCodes.contains(code);
     }
 }

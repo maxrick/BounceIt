@@ -150,10 +150,18 @@ public class StartScreen extends AppCompatActivity implements GemFragment.OnGemF
         try {
             String recommenderId = RecommendScreen.recommenderIdOf(code);
 //            if(Integer.valueOf(recommenderId) != PrefsHandler.getId(getSharedPreferences(MainActivity.GANME_PREFS, 0))){
-            PrefsHandler.addGem(getSharedPreferences(MainActivity.GANME_PREFS, 0));
-            ((GemFragment) getSupportFragmentManager().findFragmentByTag("gemFragment")).updateGemText();
-            String thankYouCode = RecommendScreen.createThankYouCode(recommenderId);
-            popupThankYouCode(thankYouCode, view.getContext());
+            SharedPreferences sharedPrefs = getSharedPreferences(MainActivity.GANME_PREFS, 0);
+            if(!PrefsHandler.alreadyUsed(sharedPrefs, code)){
+                PrefsHandler.addGem(sharedPrefs);
+                ((GemFragment) getSupportFragmentManager().findFragmentByTag("gemFragment")).updateGemText();
+                PrefsHandler.invalidate(sharedPrefs, code);
+                String thankYouCode = RecommendScreen.createThankYouCode(recommenderId);
+                popupThankYouCode(thankYouCode, view.getContext());
+            }else {
+                Snackbar.make(view, "Sorry, this code has already been used", Snackbar.LENGTH_LONG).show();
+            }
+
+
             //@// TODO: 5/28/2016 send code
             //@// TODO: 5/28/2016 hide textfield
 //            }
