@@ -42,7 +42,7 @@
             android:layout_gravity="center_horizontal|bottom"
             android:onClick="buttonRecommendAppClicked"
             android:padding="5dp"
-            android:text="Recommend app" />
+            android:text="Get more gems" />
 
         <Button
             android:id="@+id/shop"
@@ -104,7 +104,7 @@
                 android:layout_alignParentStart="true"
                 android:layout_marginBottom="32dp"
                 android:lines="1"
-                android:text="enter recommendation code" />
+                android:hint="enter recommendation code" />
 
             <Button
                 android:id="@+id/activateRecommendationCodeButton"

@@ -136,8 +136,10 @@ public class StartScreen extends AppCompatActivity implements GemFragment.OnGemF
         startActivity(intent);
     }
 
-    public void buttonRecommendAppClicked(View view) {
-        send("Hi\nThis app \"bounce it\" is amazing. You should get it");
+    public void buttonRecommendAppClicked(View view) {//@// TODO: 6/2/2016 rename
+//        send("Hi\nThis app \"bounce it\" is amazing. You should get it");
+        Intent intent = new Intent(this, RecommendScreen.class);
+        startActivity(intent);
     }
 
     public void buttonShopClicked(View view) {

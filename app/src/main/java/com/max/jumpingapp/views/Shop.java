@@ -1,6 +1,7 @@
 package com.max.jumpingapp.views;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -22,10 +23,12 @@ public class Shop extends AppCompatActivity implements GemFragment.OnGemFragment
     public static final int PLAYERIMAGE_DEFAULT = R.drawable.playerimage;
     public static final String SELECT_THIS_PLAYER = "Select this Player?";
     public static final String BUY_THIS_PLAYER = "Do you want to buy this player for 1 gem?";
+    private static final String MORE_GEMS_NEEDED_DO_YOU_WANT = "You need more gems for this. Do you want to";
     public TextSliderView[] textSliders;
     public Buyable[] buyables = {new Buyable(PLAYERIMAGE_DEFAULT, "classic player", 0),
             new Buyable(PLAYERIMAGE_HAT_AND_SHOES, "shoes and hat", 1),
             new Buyable(PLAXERIMAGE_STICK, "stick figure", 1)};
+    public final Shop that=this;
 
     private SliderLayout slideShow;
 
@@ -34,6 +37,7 @@ public class Shop extends AppCompatActivity implements GemFragment.OnGemFragment
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shop);
+
 
         slideShow = (SliderLayout) findViewById(R.id.slider);
         slideShow.stopAutoCycle();
@@ -143,6 +147,7 @@ public class Shop extends AppCompatActivity implements GemFragment.OnGemFragment
                     Snackbar.make(findViewById(R.id.slider), "Player bought and set", Snackbar.LENGTH_LONG).show();
                 } else {
                     Snackbar.make(findViewById(R.id.slider), "Sorry, not enough gems", Snackbar.LENGTH_LONG).show();
+                    getMoreGemsPopup();
                 }
             }
         });
@@ -153,6 +158,25 @@ public class Shop extends AppCompatActivity implements GemFragment.OnGemFragment
             }
         });
         builder.setMessage(BUY_THIS_PLAYER);
+        builder.create().show();
+    }
+
+    private void getMoreGemsPopup() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setPositiveButton("get more gems", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Intent intent = new Intent(that, RecommendScreen.class);
+                startActivity(intent);
+            }
+        });
+        builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+            }
+        });
+        builder.setMessage(MORE_GEMS_NEEDED_DO_YOU_WANT);
         builder.create().show();
     }
 

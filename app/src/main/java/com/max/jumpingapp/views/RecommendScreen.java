@@ -131,7 +131,7 @@ public class RecommendScreen extends AppCompatActivity implements GemFragment.On
         try {
             String recommenderId = RecommendScreen.recommenderIdOfThankYou(code);
             SharedPreferences sharedPreferences = getSharedPreferences(MainActivity.GANME_PREFS, 0);
-            if (Integer.valueOf(recommenderId) == PrefsHandler.getId(sharedPreferences)) {
+            if (Integer.valueOf(recommenderId) != PrefsHandler.getId(sharedPreferences)) {
                 if(!PrefsHandler.alreadyUsed(sharedPreferences, code)){
                     PrefsHandler.addGem(sharedPreferences);
                     PrefsHandler.invalidate(sharedPreferences, code);
