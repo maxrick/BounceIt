@@ -9,13 +9,13 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".views.DiedScreen">
 
-    <Button
+    <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/retry"
-        android:id="@+id/button"
-        android:onClick="buttonPlayClicked"
-        android:layout_centerVertical="true"
+        android:inputType="textPersonName"
+        android:text="Name"
+        android:ems="10"
+        android:id="@+id/nameEdit"
         android:layout_centerHorizontal="true" />
 
     <TextView
@@ -36,7 +36,7 @@
         android:id="@+id/textView2"
         android:layout_below="@+id/diedMessageTextView"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="46dp" />
+        android:layout_marginTop="50dp" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -47,21 +47,15 @@
         android:layout_below="@+id/textView2"
         android:layout_centerHorizontal="true" />
 
-    <EditText
+    <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:inputType="textPersonName"
-        android:text="Name"
-        android:ems="10"
-        android:id="@+id/nameEdit"
+        android:text="@string/retry"
+        android:id="@+id/button"
+        android:layout_margin="30dp"
+        android:layout_below="@id/scoreView"
+        android:onClick="buttonPlayClicked"
+        android:layout_centerVertical="true"
         android:layout_centerHorizontal="true" />
-
-    <GridView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/gridView"
-        android:layout_above="@+id/nameEdit"
-        android:layout_alignLeft="@+id/scoreView"
-        android:layout_alignStart="@+id/scoreView" />
 
 </RelativeLayout>
