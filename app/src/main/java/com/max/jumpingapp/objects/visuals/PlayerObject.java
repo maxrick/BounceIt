@@ -59,24 +59,36 @@ public class PlayerObject {
     }
 
     private void animateStrech(boolean touching) {
-        if (touching && (rect.height() ) >= minHeightRect) {
+        if (crouch(touching)) {
             rect.top += 5;
         }
-        if (!touching && ((rect.height() +10< normalHeightRect) || animateStrech)) {
+        if (strech(touching)) {
             if (!animateStrech) {
                 animateStrech = true;
                 maxHeightRect = (2 * normalHeightRect - rect.height());
             }
-            rect.top -= 15;
+            rect.top -= 25;
             if (rect.height() > maxHeightRect) {
                 animateStrech = false;
             }
         }
-        if (!touching && !animateStrech && rect.height()  > normalHeightRect+10) {
-            rect.top += 10;
+        if (backToNormalSize(touching)) {
+            rect.top += 20;
         } else if (!touching && !animateStrech && rect.height()  > normalHeightRect) {
             rect.top += rect.height()-normalHeightRect;
         }
+    }
+
+    private boolean backToNormalSize(boolean touching) {
+        return !touching && !animateStrech && rect.height()  > normalHeightRect+10;
+    }
+
+    private boolean strech(boolean touching) {
+        return !touching && ((rect.height() +10< normalHeightRect) || animateStrech);
+    }
+
+    private boolean crouch(boolean touching) {
+        return touching && (rect.height() ) >= minHeightRect;
     }
 
     public void setColor(int color) {

@@ -3,7 +3,6 @@ package com.max.jumpingapp.objects.player;
 import com.max.jumpingapp.game.JumpMissedEvent;
 import com.max.jumpingapp.game.LeftTrampolinEvent;
 import com.max.jumpingapp.game.LivePowerEvent;
-import com.max.jumpingapp.game.MinPowerEvent;
 import com.max.jumpingapp.types.PowerPercent;
 
 import de.greenrobot.event.EventBus;
@@ -45,10 +44,11 @@ public class PlayerPower {
     public void setAccelerator(double maxHeight, double oscPeriod) {//on finger released, on jump missed
         System.out.println("setting accelerator with incMikro: "+increasePowerMikro);
         this.powerPercent = calculateUncappedPowerPercent(oscPeriod).cap();
-        double minPower = minPowerFor(maxHeight);
+        double minPower = minPowerFor(maxHeight);//only necessary for when jump missed;
         maxPowerFor(maxHeight);
-
-        EventBus.getDefault().post(new MinPowerEvent(minPower));
+        if(powerPercent.value() > 0){
+            minPower = 0;
+        }
 
         accelerator = (int) ((powerPercent.value() - minPower) / (100 - minPower) * maxPower);
         System.out.println("accelarator set: "+accelerator);
