@@ -92,16 +92,12 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:layout_alignParentBottom="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true">
+            android:gravity="center_horizontal">
 
             <EditText
                 android:id="@+id/recommendationCode"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
                 android:layout_marginBottom="32dp"
                 android:lines="1"
                 android:hint="enter recommendation code" />
@@ -110,9 +106,6 @@
                 android:id="@+id/activateRecommendationCodeButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_alignParentRight="true"
-                android:layout_toRightOf="@+id/recommendationCode"
                 android:onClick="buttonActivateRecommendationCodeClicked"
                 android:text="Activate" />
         </LinearLayout>

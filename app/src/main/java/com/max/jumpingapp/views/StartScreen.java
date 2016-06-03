@@ -13,6 +13,7 @@ import android.support.v7.widget.ShareActionProvider;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 
@@ -59,6 +60,20 @@ public class StartScreen extends AppCompatActivity implements GemFragment.OnGemF
         setContentView(R.layout.activity_start_screen);
         CheckBox checkBox = (CheckBox) findViewById(R.id.tutorial);
         checkBox.setChecked(tutorialSharedPref());
+        if (PrefsHandler.activationCodeUsed(getSharedPreferences(MainActivity.GANME_PREFS, 0))) {
+            EditText activationEditText = (EditText) findViewById(R.id.recommendationCode);
+            Button activationButton = (Button) findViewById(R.id.activateRecommendationCodeButton);
+            activationEditText.setVisibility(View.GONE);
+            activationButton.setVisibility(View.GONE);
+        }
+
+    }
+
+    @Override
+    protected void onRestart() {
+        CheckBox checkBox = (CheckBox) findViewById(R.id.tutorial);
+        checkBox.setChecked(tutorialSharedPref());
+        super.onRestart();
     }
 
     private boolean tutorialSharedPref() {
@@ -126,7 +141,7 @@ public class StartScreen extends AppCompatActivity implements GemFragment.OnGemF
         boolean tutorialMode = checkBox.isChecked();
         SharedPreferences sharedPreferences = getSharedPreferences(MainActivity.GANME_PREFS, 0);
         SharedPreferences.Editor prefEdit = sharedPreferences.edit();
-        prefEdit.putBoolean(TUTORIAL_MODE, tutorialMode);
+        prefEdit.putBoolean(TUTORIAL_MODE, false);
         prefEdit.apply();
         return tutorialMode;
     }
@@ -155,6 +170,7 @@ public class StartScreen extends AppCompatActivity implements GemFragment.OnGemF
             SharedPreferences sharedPrefs = getSharedPreferences(MainActivity.GANME_PREFS, 0);
             if(!PrefsHandler.alreadyUsed(sharedPrefs, code)){
                 PrefsHandler.addGem(sharedPrefs);
+                PrefsHandler.activationUsed(sharedPrefs);
                 ((GemFragment) getSupportFragmentManager().findFragmentByTag("gemFragment")).updateGemText();
                 PrefsHandler.invalidate(sharedPrefs, code);
                 String thankYouCode = RecommendScreen.createThankYouCode(recommenderId);

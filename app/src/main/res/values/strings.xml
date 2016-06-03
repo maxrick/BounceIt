@@ -23,4 +23,6 @@
     <string name="title_activity_main2">Main2Activity</string>
     <string name="send_thank_you_code_after_all">Ok, thank my friend and send the code</string>
     <string name="definately_no_thank_you_code">Nope, no free gem for my friend</string>
+    <string name="enter_thank_you_code">enter thank you code</string>
+    <string name="activate">Activate</string>
 </resources>

@@ -24,6 +24,7 @@ public class PrefsHandler {
     public static final String BOUGHT_IMAGES = "bought_images";
     public static final String MY_UUID = "my_UUID";
     public static final String USED_RECOMMENDATION_CODES = "used_recommendation_codes";
+    public static final String ACTIVATION_USED = "activation_used";
 
     private static int[] getHighScores(SharedPreferences sharedPreferences){
         try {
@@ -127,5 +128,15 @@ public class PrefsHandler {
     public static boolean alreadyUsed(SharedPreferences sharedPrefs, String code) {
         String oldCodes = sharedPrefs.getString(USED_RECOMMENDATION_CODES, "");
         return  oldCodes.contains(code);
+    }
+
+    public static boolean activationCodeUsed(SharedPreferences sharedPreferences) {
+        return sharedPreferences.getBoolean(ACTIVATION_USED, false);
+    }
+
+    public static void activationUsed(SharedPreferences sharedPrefs) {
+        SharedPreferences.Editor editor = sharedPrefs.edit();
+        editor.putBoolean(ACTIVATION_USED, true);
+        editor.apply();
     }
 }
