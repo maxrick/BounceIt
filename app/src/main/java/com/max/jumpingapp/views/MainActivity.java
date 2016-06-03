@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         boolean tutorial_mode = getIntent().getBooleanExtra(StartScreen.TUTORIAL_EXTRA, false);
         GamePanel gamePanel;
-        int[] highScores = PrefsHandler.getHighScores(getSharedPreferences(GANME_PREFS, 0));
+        int[] highScores = PrefsHandler.getThreeHighScores(getSharedPreferences(GANME_PREFS, 0));
         int playerImgage = PrefsHandler.getPlayerImage(getSharedPreferences(GANME_PREFS, 0));
         if(tutorial_mode){
             gamePanel = TutorialGamePanel.create(this,highScores, playerImgage);

@@ -10,6 +10,7 @@ import com.max.jumpingapp.views.NoScoresException;
 import com.max.jumpingapp.views.Shop;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Set;
 
 /**
@@ -24,11 +25,12 @@ public class PrefsHandler {
     public static final String MY_UUID = "my_UUID";
     public static final String USED_RECOMMENDATION_CODES = "used_recommendation_codes";
 
-    public static int[] getHighScores(SharedPreferences sharedPreferences){
+    private static int[] getHighScores(SharedPreferences sharedPreferences){
         try {
             System.out.println("highscores are read");
             Set<String> scoreSet = sharedPreferences.getStringSet(HIGH_SCORES, null);
             ArrayList<Score> scoreList = Score.toArrayList(scoreSet);
+            Collections.sort(scoreList);
             int[] scoreNums = new int[scoreList.size()];
             for (int i = 0; i < scoreList.size(); i++) {
                 scoreNums[i] = scoreList.get(i).toInt();
@@ -37,6 +39,16 @@ public class PrefsHandler {
         }catch(NoScoresException e){
             return null;
         }
+    }
+
+    public static int[] getThreeHighScores(SharedPreferences sharedPreferences){
+        int[] allScores = getHighScores(sharedPreferences);
+        int resultSize = allScores.length<3 ? allScores.length : 3;
+        int[] scoreList = new int[resultSize];
+        for(int i=0; i < allScores.length && i<3; i++){
+            scoreList[i] = allScores[i];
+        }
+        return scoreList;
     }
 
     public static int getPlayerImage(SharedPreferences sharedPreferences) {
