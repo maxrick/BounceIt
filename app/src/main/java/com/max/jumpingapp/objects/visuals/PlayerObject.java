@@ -28,8 +28,10 @@ public class PlayerObject {
     public Bitmap image;
     private boolean missedJump;
     private Animator animator;
+    private float footFromLeft;
+    private float footFromRight;
 
-    public PlayerObject(XCenter xCenter, Width width, int yPositionBottom, Bitmap res) {
+    public PlayerObject(XCenter xCenter, Width width, int yPositionBottom, Bitmap res, float footFromLeft, float footFromRight) {
         image = Bitmap.createBitmap(res);
         this.rect = new Rect(width.getLeftWithCenter(xCenter), GamePanel.HEIGHT_NILL - yPositionBottom - FORM_HEIGHT, width.getRighWithCenter(xCenter), GamePanel.HEIGHT_NILL - yPositionBottom);
         normalHeightRect = rect.height();
@@ -39,6 +41,9 @@ public class PlayerObject {
         paint = new Paint();
         paint.setColor(Color.RED);
         animator = new Animator(new Paint());
+
+        this.footFromLeft = footFromLeft;
+        this.footFromRight = footFromRight;
 //        image = Bitmap.createScaledBitmap(res, rect.width(), rect.height()/2, false);
     }
 
@@ -143,11 +148,11 @@ public class PlayerObject {
     }
 
     public float getLeft() {
-        return  (rect.left + 0.3F*rect.width());
+        return  (rect.left + footFromLeft *rect.width());
     }
 
     public float getRight() {
-        return (rect.right - 0.2F*rect.width());
+        return (rect.right - footFromRight *rect.width());
     }
 
     public float getBottom() {

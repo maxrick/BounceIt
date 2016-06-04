@@ -33,9 +33,9 @@ public class Player {
     protected XPosition xPosition;
     protected Wind wind;
 
-    public Player(XCenter playerXCenter, Width playerWidth, Bitmap playerImage) {
+    public Player(XCenter playerXCenter, Width playerWidth, Bitmap playerImage, float footFromLeft, float footFromRight) {
         maxHeight = Math.abs(com.max.jumpingapp.game.GamePanel.HEIGHT_POS);
-        this.playerObject = new PlayerObject(playerXCenter, playerWidth, com.max.jumpingapp.game.GamePanel.HEIGHT_POS, playerImage);
+        this.playerObject = new PlayerObject(playerXCenter, playerWidth, com.max.jumpingapp.game.GamePanel.HEIGHT_POS, playerImage, footFromLeft, footFromRight);
         playerPower = new PlayerPower();
         EventBus.getDefault().register(playerPower);
         curHeight = new Height();

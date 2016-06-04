@@ -43,6 +43,8 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
     public static int screenWidth;
     public static double secondInNanos = 1000000000.d;
     protected final int playerImage;
+    protected final float leftOfImage;
+    protected final float rightOfImage;
     protected MainThread thread;
     private MainActivity activity;
     protected int[] highScores;
@@ -54,12 +56,14 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
     protected long timeTouchBeg;
 
 
-    protected GamePanel(Context context, int[] highScores, int playerImgage) {
+    protected GamePanel(Context context, int[] highScores, int playerImgage, float leftOfImage, float rightOfImage) {
         super(context);
         this.activity = (MainActivity) context;
         getHolder().addCallback(this);
         this.highScores = highScores;
         this.playerImage = playerImgage;
+        this.leftOfImage = leftOfImage;
+        this.rightOfImage=rightOfImage;
         readCustomColors(context);
 
         setFocusable(true);
@@ -79,8 +83,8 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
         RED5 = ContextCompat.getColor(context, R.color.red5);
     }
 
-    public static GamePanel create(MainActivity mainActivity, int[] highScores, int playerImgage) {
-       return new GamePanel(mainActivity, highScores, playerImgage);
+    public static GamePanel create(MainActivity mainActivity, int[] highScores, int playerImgage, float leftOfImage, float rightOfImage) {
+       return new GamePanel(mainActivity, highScores, playerImgage, leftOfImage, rightOfImage);
     }
 
     @Override
@@ -95,7 +99,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
     protected void createGame() {
         Trampolin trampolin = new Trampolin(new XCenter(screenWidth/2), new Width(screenWidth * TRAMPOLIN_SPAN_OF_SCREEN));
 
-        Player player = GamePanel.createPlayer(createPlayerImage());
+        Player player = GamePanel.createPlayer(createPlayerImage(), leftOfImage, rightOfImage);
 
         this.game = new Game(createBackground(), trampolin, player, highScores);
     }
@@ -115,8 +119,8 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
     }
 
     @NonNull
-    public static Player createPlayer(Bitmap playerImage) {
-        return new Player(new XCenter(screenWidth/2), new Width(GamePanel.screenWidth * 0.2), playerImage);
+    public static Player createPlayer(Bitmap playerImage, float leftOfImage, float rightOfImage) {
+        return new Player(new XCenter(screenWidth/2), new Width(GamePanel.screenWidth * 0.2), playerImage, leftOfImage, rightOfImage);
     }
 
     @Override

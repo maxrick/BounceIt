@@ -24,19 +24,19 @@ public class TutorialGamePanel extends GamePanel {
     public static boolean eventPleaseReleasePosted= false;
     public static boolean gamePaused = false;
 
-    private TutorialGamePanel(Context context, int[] highScores, int playerImgage) {
-        super(context, highScores, playerImgage);
+    private TutorialGamePanel(Context context, int[] highScores, int playerImgage,  float leftOfImage, float rightOfImage) {
+        super(context, highScores, playerImgage, leftOfImage, rightOfImage);
     }
 
-    public static GamePanel create(MainActivity mainActivity, int[] highScores, int playerImage) {
-        return new TutorialGamePanel(mainActivity, highScores, playerImage);
+    public static GamePanel create(MainActivity mainActivity, int[] highScores, int playerImage, float leftOfImage, float rightOfImage) {
+        return new TutorialGamePanel(mainActivity, highScores, playerImage,leftOfImage, rightOfImage);
     }
 
     @Override
     protected void createGame() {
         Trampolin trampolin = new Trampolin(new XCenter(screenWidth / 2), new Width(screenWidth * TRAMPOLIN_SPAN_OF_SCREEN));
 
-        Player player = TutorialPlayer.createTutorialPlayer(new XCenter(screenWidth / 2), new Width(GamePanel.screenWidth * 0.2), createPlayerImage());
+        Player player = TutorialPlayer.createTutorialPlayer(new XCenter(screenWidth / 2), new Width(GamePanel.screenWidth * 0.2), createPlayerImage(), leftOfImage, rightOfImage);
 
         this.game = new Game(createBackground(), trampolin, player, highScores);
     }

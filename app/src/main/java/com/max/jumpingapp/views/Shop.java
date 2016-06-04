@@ -21,13 +21,16 @@ public class Shop extends AppCompatActivity implements GemFragment.OnGemFragment
     public static final int PLAYERIMAGE_HAT_AND_SHOES = R.drawable.playerimage_hat_and_shoes;
     public static final int PLAXERIMAGE_STICK = R.drawable.playerimage_stickfigure;
     public static final int PLAYERIMAGE_DEFAULT = R.drawable.playerimage;
+    public static final int PLAYERIMAGE_EGGMAN  = R.drawable.eggman;
     public static final String SELECT_THIS_PLAYER = "Select this Player?";
     public static final String BUY_THIS_PLAYER = "Do you want to buy this player for 1 gem?";
     private static final String MORE_GEMS_NEEDED_DO_YOU_WANT = "You need more gems for this. Do you want to";
     public TextSliderView[] textSliders;
-    public Buyable[] buyables = {new Buyable(PLAYERIMAGE_DEFAULT, "classic player", 0),
+    public Buyable[] buyables = {
+            new Buyable(PLAYERIMAGE_DEFAULT, "classic player", 0),
             new Buyable(PLAYERIMAGE_HAT_AND_SHOES, "shoes and hat", 1),
-            new Buyable(PLAXERIMAGE_STICK, "stick figure", 1)};
+            new Buyable(PLAXERIMAGE_STICK, "stick figure", 1),
+            new Buyable(PLAYERIMAGE_EGGMAN, "egg man", 2)};
     public final Shop that=this;
 
     private SliderLayout slideShow;
@@ -212,5 +215,21 @@ public class Shop extends AppCompatActivity implements GemFragment.OnGemFragment
 //        CustomSliderLayout sliderView = (CustomSliderLayout) findViewById(R.id.slider);
 //        sliderView.invalidate(0, 0,sliderView.getWidth(), sliderView.getHeight() );
 //        System.out.println("slider descr: "+sliderView.getCurrentSlider().getDescription());
+    }
+
+    public static float leftOfImage(int playerImgage) {
+        if(playerImgage == PLAYERIMAGE_EGGMAN){
+            return 0.05F;
+        }
+        //default
+        return 0.3F;
+    }
+
+    public static float rightOfImage(int playerImgage) {
+        if(playerImgage == PLAYERIMAGE_EGGMAN){
+            return 0.05F;
+        }
+        //default
+        return 0.2F;
     }
 }

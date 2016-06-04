@@ -26,9 +26,9 @@ import de.greenrobot.event.EventBus;
 public class TutorialPlayer extends Player {
     private static TutorialPlayer mePlayer;
 
-    private TutorialPlayer(XCenter playerXCenter, Width playerWidth, Bitmap playerImage) {
+    private TutorialPlayer(XCenter playerXCenter, Width playerWidth, Bitmap playerImage, float footFromLeft, float footFromRight) {
         maxHeight = Math.abs(com.max.jumpingapp.game.GamePanel.HEIGHT_POS);
-        this.playerObject = new PlayerObject(playerXCenter, playerWidth, com.max.jumpingapp.game.GamePanel.HEIGHT_POS, playerImage);
+        this.playerObject = new PlayerObject(playerXCenter, playerWidth, com.max.jumpingapp.game.GamePanel.HEIGHT_POS, playerImage, footFromLeft, footFromRight);
 
         this.curHeight = new Height();
         this.wind = new TutorialWind();
@@ -43,8 +43,8 @@ public class TutorialPlayer extends Player {
         EventBus.getDefault().register(playerPower);
     }
 
-    public static TutorialPlayer createTutorialPlayer(XCenter playerXCenter, Width playerWidth, Bitmap playerImage) {
-        mePlayer = new TutorialPlayer(playerXCenter, playerWidth, playerImage);
+    public static TutorialPlayer createTutorialPlayer(XCenter playerXCenter, Width playerWidth, Bitmap playerImage, float footFromLeft, float footFromRight) {
+        mePlayer = new TutorialPlayer(playerXCenter, playerWidth, playerImage, footFromLeft, footFromRight);
         return mePlayer;
     }
 

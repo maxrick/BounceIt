@@ -40,9 +40,9 @@ public class MainActivity extends AppCompatActivity {
         int[] highScores = PrefsHandler.getThreeHighScores(getSharedPreferences(GANME_PREFS, 0));
         int playerImgage = PrefsHandler.getPlayerImage(getSharedPreferences(GANME_PREFS, 0));
         if(tutorial_mode){
-            gamePanel = TutorialGamePanel.create(this,highScores, playerImgage);
+            gamePanel = TutorialGamePanel.create(this,highScores, playerImgage, Shop.leftOfImage(playerImgage), Shop.rightOfImage(playerImgage));
         }else {
-            gamePanel = GamePanel.create(this,highScores, playerImgage);
+            gamePanel = GamePanel.create(this,highScores, playerImgage, Shop.leftOfImage(playerImgage), Shop.rightOfImage(playerImgage));
         }
         setContentView(gamePanel);
 
