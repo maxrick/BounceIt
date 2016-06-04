@@ -110,7 +110,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
 
     @NonNull
     protected Background createBackground() {
-        return new Background(BitmapFactory.decodeResource(getResources(), R.drawable.background3));
+        return new Background(BitmapFactory.decodeResource(getResources(), R.drawable.background4));
     }
 
     protected void calculateScreenDimensions() {
