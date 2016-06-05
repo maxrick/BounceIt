@@ -56,7 +56,7 @@ public class StartScreen extends AppCompatActivity implements GemFragment.OnGemF
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        generateIdOnFirstRun();
         setContentView(R.layout.activity_start_screen);
         CheckBox checkBox = (CheckBox) findViewById(R.id.tutorial);
         checkBox.setChecked(tutorialSharedPref());
@@ -89,25 +89,24 @@ public class StartScreen extends AppCompatActivity implements GemFragment.OnGemF
         gemFragment.updateGemText();
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.main, menu);
-
-        generateIdOnFirstRun();
-        MenuItem shareItem = menu.findItem(R.id.action_share);
-
-        ShareActionProvider mShare = new ShareActionProvider(this);
-        MenuItemCompat.setActionProvider(shareItem, mShare);
-
-        Intent shareIntent = new Intent(Intent.ACTION_SEND);
-        shareIntent.setAction(Intent.ACTION_SEND);
-        shareIntent.setType("text/plain");
-        shareIntent.putExtra(Intent.EXTRA_TEXT, "bounce it is awesome");
-
-        mShare.setShareIntent(shareIntent);
-
-        return true;
-    }
+//    @Override
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//        getMenuInflater().inflate(R.menu.main, menu);
+//
+////        MenuItem shareItem = menu.findItem(R.id.action_share);
+////
+////        ShareActionProvider mShare = new ShareActionProvider(this);
+////        MenuItemCompat.setActionProvider(shareItem, mShare);
+////
+////        Intent shareIntent = new Intent(Intent.ACTION_SEND);
+////        shareIntent.setAction(Intent.ACTION_SEND);
+////        shareIntent.setType("text/plain");
+////        shareIntent.putExtra(Intent.EXTRA_TEXT, "bounce it is awesome");
+////
+////        mShare.setShareIntent(shareIntent);
+//
+//        return true;
+//    }
 
     private void generateIdOnFirstRun() {
         SharedPreferences sharedPreferences = getSharedPreferences(MainActivity.GANME_PREFS, 0);

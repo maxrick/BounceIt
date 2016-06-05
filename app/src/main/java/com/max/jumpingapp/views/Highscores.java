@@ -28,6 +28,11 @@ public class Highscores extends AppCompatActivity {
 //        for(String score : savedScores){
 //            scoreBuild.append(score+"\n");
 //        }
+        placeHighscoresOn(scoreView);
+
+    }
+
+    private void placeHighscoresOn(TextView scoreView) {
         SharedPreferences gameprefs = getSharedPreferences(MainActivity.GANME_PREFS, 0);
         Set<String> scoreSet =gameprefs.getStringSet(PrefsHandler.HIGH_SCORES, null);
         try {
@@ -39,9 +44,8 @@ public class Highscores extends AppCompatActivity {
             }
             scoreView.setText(scoreBuild.toString());
         }catch (NoScoresException e){
-
+            scoreView.setText("");
         }
-
     }
 
     public void buttonDeleteScoresClicked(View view){
@@ -50,5 +54,8 @@ public class Highscores extends AppCompatActivity {
         scoreEdit.clear();
 //        scoreEdit.putString(MainActivity.HIGH_SCORES, "");
         scoreEdit.apply();
+        TextView scoreList = (TextView) findViewById(R.id.high_scores_list);
+        placeHighscoresOn(scoreList);
+        scoreList.invalidate();
     }
 }

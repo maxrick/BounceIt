@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
         boolean tutorial_mode = getIntent().getBooleanExtra(StartScreen.TUTORIAL_EXTRA, false);
         GamePanel gamePanel;
         int[] highScores = PrefsHandler.getThreeHighScores(getSharedPreferences(GANME_PREFS, 0));
-        int playerImgage = PrefsHandler.getPlayerImage(getSharedPreferences(GANME_PREFS, 0));
+        int playerImgage = PrefsHandler.getPlayerImage(getSharedPreferences(GANME_PREFS, Shop.PLAYERIMAGE_HAT_AND_SHOES));
         if(tutorial_mode){
             gamePanel = TutorialGamePanel.create(this,highScores, playerImgage, Shop.leftOfImage(playerImgage), Shop.rightOfImage(playerImgage));
         }else {

@@ -31,11 +31,14 @@
             android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:theme="@style/FullscreenTheme" />
-        <activity android:name=".views.DiedScreen" />
-        <activity android:name=".views.Highscores" />
-        <activity android:name=".views.Shop" />
-        <activity android:name=".views.DialogPlayerChooser" />
-        <activity android:name=".views.RecommendScreen" />
+        <activity android:name=".views.DiedScreen"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".views.Highscores"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".views.Shop"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".views.RecommendScreen"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

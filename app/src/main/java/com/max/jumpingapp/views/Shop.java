@@ -27,7 +27,7 @@ public class Shop extends AppCompatActivity implements GemFragment.OnGemFragment
     private static final String MORE_GEMS_NEEDED_DO_YOU_WANT = "You need more gems for this. Do you want to";
     public TextSliderView[] textSliders;
     public Buyable[] buyables = {
-            new Buyable(PLAYERIMAGE_DEFAULT, "classic player", 0),
+            new Buyable(PLAYERIMAGE_DEFAULT, "classic", 0),
             new Buyable(PLAYERIMAGE_HAT_AND_SHOES, "shoes and hat", 1),
             new Buyable(PLAXERIMAGE_STICK, "stick figure", 1),
             new Buyable(PLAYERIMAGE_EGGMAN, "egg man", 2)};
@@ -98,7 +98,7 @@ public class Shop extends AppCompatActivity implements GemFragment.OnGemFragment
             if (alreadyOwns(buyables[i].getImage())) {
                 description = buyables[i].getDescription();
             } else {
-                description = "unlock for " + buyables[i].getPrice() + " gems";
+                description = "unlock for " + buyables[i].getPrice() + " gem" +((buyables[i].getPrice()>1) ? "s": "");
             }
             System.out.println(description);
             textSliders[i].description(description);

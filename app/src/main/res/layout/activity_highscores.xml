@@ -8,7 +8,7 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#0099cc"
+        android:background="@drawable/app_background"
         android:padding="10dp">
 
         <RelativeLayout
@@ -23,7 +23,6 @@
                 android:layout_centerHorizontal="true"
                 android:padding="20dp"
                 android:text="@string/title_activity_highscores"
-                android:textColor="#ffffffff"
                 android:textSize="24sp"
                 android:textStyle="bold" />
 
@@ -35,7 +34,6 @@
                 android:layout_centerHorizontal="true"
                 android:gravity="center"
                 android:padding="10dp"
-                android:textColor="#ffffffff"
                 android:textSize="22sp"
                 android:textStyle="bold" />
 

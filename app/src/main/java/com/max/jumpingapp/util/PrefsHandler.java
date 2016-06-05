@@ -45,6 +45,9 @@ public class PrefsHandler {
     public static int[] getThreeHighScores(SharedPreferences sharedPreferences){
         int[] allScores = getHighScores(sharedPreferences);
         int resultSize = allScores !=null  ? allScores.length : 0;
+        if (resultSize > 3) {
+            resultSize=3;
+        }
         int[] scoreList = new int[resultSize];
         for(int i=0; i < resultSize && i<3; i++){
             scoreList[i] = allScores[i];

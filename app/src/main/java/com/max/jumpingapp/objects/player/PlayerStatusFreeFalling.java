@@ -55,7 +55,7 @@ public class PlayerStatusFreeFalling extends PlayerStatus {
 
     @Override
     public void animate(PlayerObject playerObject, boolean touching) {
-        playerObject.animate(touching);
+        playerObject.animate(false);
     }
 
 
