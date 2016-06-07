@@ -1,5 +1,6 @@
 package com.max.jumpingapp.tutorial.tutorialPlayer;
 
+import com.max.jumpingapp.Constants;
 import com.max.jumpingapp.game.FingerReleasedEvent;
 import com.max.jumpingapp.game.GamePanel;
 import com.max.jumpingapp.objects.player.Player;
@@ -21,7 +22,6 @@ public class TutorialPlayerStatusSpringFalling extends PlayerStatusSpringFalling
     public TutorialPlayerStatusSpringFalling(double oscPeriod, double fallPeriod) {
         super(oscPeriod, fallPeriod);
         EventBus.getDefault().register(this);//@// TODO: 4/19/2016 not todo
-        System.out.println("status spring falling created");
     }
 
     @Override
@@ -35,18 +35,16 @@ public class TutorialPlayerStatusSpringFalling extends PlayerStatusSpringFalling
     }
 
     public void onEvent(FingerTouchingEvent event){
-        long minusFaktor = (long) (percentagePassedBeforeStop*oscPeriod);
-        GamePanel.lastUpdateTime = System.nanoTime() - minusFaktor;// - 0);
+        long minusFactor = (long) (percentagePassedBeforeStop*oscPeriod);
+        GamePanel.lastUpdateTime = System.nanoTime() - minusFactor;// - 0);
         TutorialPlayer.getTutorialPlayer().unPause(oscPeriod);
-        System.out.println("spring falling time reset");
     }
 
     public void onEvent(FingerReleasedEvent event){
         double elapsedNanos = System.nanoTime() - GamePanel.lastUpdateTime;
         percentagePassedBeforeStop = elapsedNanos/oscPeriod;
-        System.out.println("spring falling would have stopped thread");
         TutorialPlayer.getTutorialPlayer().pause();
-        EventBus.getDefault().post(new StopPlayerTouchingTrampolinEvent(StopPlayerTouchingTrampolinEvent.HOLD_DOWN_FULL));
+        EventBus.getDefault().post(new StopPlayerTouchingTrampolinEvent(Constants.HOLD_DOWN_FULL));
     }
 
     public void onFingerReleased(PlayerPower playerPower, int maxHeight) {

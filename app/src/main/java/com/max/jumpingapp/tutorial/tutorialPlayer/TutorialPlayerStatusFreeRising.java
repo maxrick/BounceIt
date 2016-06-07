@@ -1,6 +1,6 @@
 package com.max.jumpingapp.tutorial.tutorialPlayer;
 
-import com.max.jumpingapp.game.FingerReleasedEvent;
+import com.max.jumpingapp.Constants;
 import com.max.jumpingapp.game.GamePanel;
 import com.max.jumpingapp.objects.player.PlayerStatusFreeRising;
 import com.max.jumpingapp.tutorial.FingerTouchingEvent;
@@ -31,13 +31,12 @@ public class TutorialPlayerStatusFreeRising extends PlayerStatusFreeRising {
     }
 
     public void onEvent(StopPlayerStatusInAir event){
-        stopGame(StopPlayerTouchingTrampolinEvent.WIND);
+        stopGame(Constants.WIND);
     }
     private void continueGame() {
         long minusFaktor = (long) (percentagePassedBeforeStop*oscPeriod);
         GamePanel.lastUpdateTime = System.nanoTime() - minusFaktor;
         TutorialPlayer.getTutorialPlayer().unPause(oscPeriod);
-//        lastUpdateTime = (long) (System.nanoTime() - oscPeriod* GamePanel.secondInNanos + STOP_BEFORE_TIME*GamePanel.secondInNanos);
     }
 
     private void stopGame(String message) {

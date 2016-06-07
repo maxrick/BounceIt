@@ -180,6 +180,5 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
 
     public static void refreshUpdateTime() {
         lastUpdateTime = System.nanoTime();
-        System.out.println("refreshed time");
     }
 }

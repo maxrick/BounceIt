@@ -27,7 +27,6 @@ public class PlayerStatusFreeFalling extends PlayerStatus {
         double elapsedSeconds = (System.nanoTime() - GamePanel.lastUpdateTime) / GamePanel.secondInNanos;
         xPosition.move();
         testDieSet = false;
-        System.out.println("elapsed free falling: "+elapsedSeconds);
         return new Height((int) (-0.5 * PlayerStatus.gravitaion * Math.pow(elapsedSeconds, 2) + maxHeight));
     }
 

@@ -47,7 +47,6 @@ public class PlayerStatusFreeRising extends PlayerStatus {
     public void onFingerReleased(PlayerPower playerPower, int maxHeight) {
         playerPower.resetPower();
         EventBus.getDefault().post(new ResetPowerDisplayEvent());
-        System.out.println("sent finger released");
     }
 
     @Override

@@ -2,6 +2,7 @@ package com.max.jumpingapp.types;
 
 import android.graphics.Rect;
 
+import com.max.jumpingapp.Constants;
 import com.max.jumpingapp.game.GamePanel;
 import com.max.jumpingapp.objects.visuals.PlayerObject;
 
@@ -38,7 +39,7 @@ public class Height {
 
     @Override
     public String toString() {
-        return "Height: "+height;
+        return Constants.HEIGHT +height;
     }
 
     public Height setNewMaximum(Height currentHeight) {//@// TODO: 4/11/2016 needs better name
@@ -61,7 +62,7 @@ public class Height {
         if(this.isPositive()){
             return toString();
         }
-        return "Height: 0";
+        return Constants.HEIGHT_0;
     }
 
     public boolean isGreaterThan(int i) {

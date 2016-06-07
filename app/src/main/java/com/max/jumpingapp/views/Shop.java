@@ -11,6 +11,7 @@ import android.view.View;
 import com.daimajia.slider.library.SliderLayout;
 import com.daimajia.slider.library.SliderTypes.BaseSliderView;
 import com.daimajia.slider.library.SliderTypes.TextSliderView;
+import com.max.jumpingapp.Constants;
 import com.max.jumpingapp.R;
 import com.max.jumpingapp.util.PrefsHandler;
 
@@ -22,15 +23,12 @@ public class Shop extends AppCompatActivity implements GemFragment.OnGemFragment
     public static final int PLAXERIMAGE_STICK = R.drawable.playerimage_stickfigure;
     public static final int PLAYERIMAGE_DEFAULT = R.drawable.playerimage;
     public static final int PLAYERIMAGE_EGGMAN  = R.drawable.eggman;
-    public static final String SELECT_THIS_PLAYER = "Select this Player?";
-    public static final String BUY_THIS_PLAYER = "Do you want to buy this player for 1 gem?";
-    private static final String MORE_GEMS_NEEDED_DO_YOU_WANT = "You need more gems for this. Do you want to";
     public TextSliderView[] textSliders;
     public Buyable[] buyables = {
-            new Buyable(PLAYERIMAGE_DEFAULT, "classic", 0),
-            new Buyable(PLAYERIMAGE_HAT_AND_SHOES, "shoes and hat", 1),
-            new Buyable(PLAXERIMAGE_STICK, "stick figure", 1),
-            new Buyable(PLAYERIMAGE_EGGMAN, "egg man", 2)};
+            new Buyable(PLAYERIMAGE_DEFAULT, Constants.PLAYERNAME_CLASSIC, 0),
+            new Buyable(PLAYERIMAGE_HAT_AND_SHOES, Constants.PLAYERNAME_SHOES_AND_HAT, 1),
+            new Buyable(PLAXERIMAGE_STICK, Constants.PLAYERNAME_STICK_FIGURE, 1),
+            new Buyable(PLAYERIMAGE_EGGMAN, Constants.PLAYERNAME_EGGMAN, 2)};
     public final Shop that=this;
 
     private SliderLayout slideShow;
@@ -60,36 +58,6 @@ public class Shop extends AppCompatActivity implements GemFragment.OnGemFragment
             slideShow.addSlider(textSliders[i]);
         }
         setImageSubtitles();
-//        TextSliderView textSliderView = new TextSliderView(this);
-//        textSliderView.description("player image").image(PLAYERIMAGE_DEFAULT);
-//        textSliderView.setOnSliderClickListener(new BaseSliderView.OnSliderClickListener() {
-//            @Override
-//            public void onSliderClick(BaseSliderView slider) {
-//                popup(PLAYERIMAGE_DEFAULT);
-//            }
-//        });
-//
-//        TextSliderView textSliderView1 = new TextSliderView(this);
-//        textSliderView1.description("shoes and hat").image(PLAYERIMAGE_HAT_AND_SHOES);
-//        textSliderView1.setOnSliderClickListener(new BaseSliderView.OnSliderClickListener() {
-//            @Override
-//            public void onSliderClick(BaseSliderView slider) {
-//               popup(PLAYERIMAGE_HAT_AND_SHOES);
-//            }
-//        });
-//
-//        TextSliderView textSliderView2 = new TextSliderView(this);
-//        textSliderView2.description("stick figure").image(PLAXERIMAGE_STICK);
-//        textSliderView2.setOnSliderClickListener(new BaseSliderView.OnSliderClickListener() {
-//            @Override
-//            public void onSliderClick(BaseSliderView slider) {
-//                popup(PLAXERIMAGE_STICK);
-//            }
-//        });
-//
-//        slideShow.addSlider(textSliderView);
-//        slideShow.addSlider(textSliderView1);
-//        slideShow.addSlider(textSliderView2);
     }
 
     private void setImageSubtitles() {
@@ -98,7 +66,7 @@ public class Shop extends AppCompatActivity implements GemFragment.OnGemFragment
             if (alreadyOwns(buyables[i].getImage())) {
                 description = buyables[i].getDescription();
             } else {
-                description = "unlock for " + buyables[i].getPrice() + " gem" +((buyables[i].getPrice()>1) ? "s": "");
+                description = getString(R.string.unlock_for)+ " " + buyables[i].getPrice() +" "+ ((buyables[i].getPrice()>1) ? getString(R.string.gems): getString(R.string.gem));
             }
             System.out.println(description);
             textSliders[i].description(description);
@@ -118,7 +86,7 @@ public class Shop extends AppCompatActivity implements GemFragment.OnGemFragment
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     setPlayerImage(buyable.getImage());
-                    Snackbar.make(findViewById(R.id.slider), "Player set", Snackbar.LENGTH_LONG).show();
+                    Snackbar.make(findViewById(R.id.slider), R.string.player_set, Snackbar.LENGTH_LONG).show();
                 }
 
             });
@@ -128,7 +96,7 @@ public class Shop extends AppCompatActivity implements GemFragment.OnGemFragment
 
                 }
             });
-            builder.setMessage(SELECT_THIS_PLAYER);
+            builder.setMessage(getString(R.string.Select_this_player_question));
             builder.create().show();
         } else {
             buyPlayerImagePopup(buyable);
@@ -146,10 +114,9 @@ public class Shop extends AppCompatActivity implements GemFragment.OnGemFragment
                     gemFragment.updateGemText();
                     setImageSubtitles();
                     recreate();//@// TODO: 5/29/2016 bugfix in github
-//                    findViewById(R.id.slider).requestLayout();
-                    Snackbar.make(findViewById(R.id.slider), "Player bought and set", Snackbar.LENGTH_LONG).show();
+                    Snackbar.make(findViewById(R.id.slider), R.string.player_bought_and_set, Snackbar.LENGTH_LONG).show();
                 } else {
-                    Snackbar.make(findViewById(R.id.slider), "Sorry, not enough gems", Snackbar.LENGTH_LONG).show();
+                    Snackbar.make(findViewById(R.id.slider), getString(R.string.sorry_not_enough)+" "+getString(R.string.gems), Snackbar.LENGTH_LONG).show();
                     getMoreGemsPopup();
                 }
             }
@@ -160,13 +127,14 @@ public class Shop extends AppCompatActivity implements GemFragment.OnGemFragment
 
             }
         });
-        builder.setMessage(BUY_THIS_PLAYER);
+        builder.setMessage(getString(R.string.Do_you_want_to_buy_this_player)+buyable.getPrice()+" "+
+                ((buyable.getPrice()>1) ? getString(R.string.gems): getString(R.string.gem)));
         builder.create().show();
     }
 
     private void getMoreGemsPopup() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setPositiveButton("get more gems", new DialogInterface.OnClickListener() {
+        builder.setPositiveButton(getString(R.string.get_more)+" "+getString(R.string.gems), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 Intent intent = new Intent(that, RecommendScreen.class);
@@ -179,12 +147,12 @@ public class Shop extends AppCompatActivity implements GemFragment.OnGemFragment
 
             }
         });
-        builder.setMessage(MORE_GEMS_NEEDED_DO_YOU_WANT);
+        builder.setMessage(getString(R.string.You_need_more_gems_do_you_want_to));
         builder.create().show();
     }
 
     private boolean buyImage(Buyable buyable) {
-        return PrefsHandler.buyPlayerImage(getSharedPreferences(MainActivity.GANME_PREFS, 0), buyable);
+        return PrefsHandler.buyPlayerImage(getSharedPreferences(PrefsHandler.GANME_PREFS, 0), buyable);
     }
 
     private boolean isDefaultImage(int playerImage) {
@@ -195,11 +163,11 @@ public class Shop extends AppCompatActivity implements GemFragment.OnGemFragment
         if (playerImage == PLAYERIMAGE_DEFAULT) {
             return true;
         }
-        return PrefsHandler.playerImageBought(getSharedPreferences(MainActivity.GANME_PREFS, 0), playerImage);
+        return PrefsHandler.playerImageBought(getSharedPreferences(PrefsHandler.GANME_PREFS, 0), playerImage);
     }
 
     public void setPlayerImage(int playerImage) {
-        PrefsHandler.setPlayerImage(getSharedPreferences(MainActivity.GANME_PREFS, 0), playerImage);
+        PrefsHandler.setPlayerImage(getSharedPreferences(PrefsHandler.GANME_PREFS, 0), playerImage);
     }
 
     @Override
@@ -209,12 +177,8 @@ public class Shop extends AppCompatActivity implements GemFragment.OnGemFragment
     }
 
     public void deletePurchasesClicked(View view) {
-        PrefsHandler.deletePlayerImages(getSharedPreferences(MainActivity.GANME_PREFS, 0));
+        PrefsHandler.deletePlayerImages(getSharedPreferences(PrefsHandler.GANME_PREFS, 0));
         recreate();
-//        setImageSubtitles();
-//        CustomSliderLayout sliderView = (CustomSliderLayout) findViewById(R.id.slider);
-//        sliderView.invalidate(0, 0,sliderView.getWidth(), sliderView.getHeight() );
-//        System.out.println("slider descr: "+sliderView.getCurrentSlider().getDescription());
     }
 
     public static float leftOfImage(int playerImgage) {

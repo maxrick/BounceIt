@@ -106,7 +106,6 @@ public class Player {
     }
 
     public void onEvent(JumpMissedEvent event){
-        System.out.println("jump missed");
         playerStatus.accelerate(maxHeight, playerPower);
         playerPower.activateAccelaration(this);
         playerObject.setMissedJump(true);

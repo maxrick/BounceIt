@@ -57,7 +57,6 @@ public class MainThread extends Thread {
             }
 
         }
-        System.out.println("Thread finished");
     }
 
 

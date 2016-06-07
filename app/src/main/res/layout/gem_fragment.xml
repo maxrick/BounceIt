@@ -10,9 +10,6 @@
         android:text="0"
         android:background="@drawable/gem_icon"
         android:id="@+id/gemButton"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_gravity="right|top"
+        android:layout_gravity="end|top"
         android:onClick="onGemFragmentInteraction"/>
 </FrameLayout>

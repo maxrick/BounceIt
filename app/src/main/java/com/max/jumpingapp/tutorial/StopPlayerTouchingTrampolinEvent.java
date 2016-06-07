@@ -8,9 +8,6 @@ import com.max.jumpingapp.tutorial.tutorialPlayer.TutorialPlayerPower;
  */
 public class StopPlayerTouchingTrampolinEvent {
 
-    public static final String HOLD_DOWN_FULL = "Hold down to increase power";
-    public static final String RELEASE = "Release to activate power";
-    public static final String WIND = "Sometimes wind will move you \nsideways.\nSwipe to move back to the middle.\nSwipe more often and \nlonger to move quicker.\nTouch to continue!";
     protected int xPos;
     protected int yPos;
     private final String message;

@@ -1,16 +1,14 @@
 package com.max.jumpingapp.tutorial.tutorialPlayer;
 
-import com.max.jumpingapp.R;
+import com.max.jumpingapp.Constants;
 import com.max.jumpingapp.game.FingerReleasedEvent;
 import com.max.jumpingapp.game.GamePanel;
 import com.max.jumpingapp.objects.player.Player;
 import com.max.jumpingapp.objects.player.PlayerStatus;
 import com.max.jumpingapp.objects.player.PlayerStatusFreeFalling;
-import com.max.jumpingapp.objects.player.PlayerStatusSpringFalling;
 import com.max.jumpingapp.tutorial.FingerTouchingEvent;
 import com.max.jumpingapp.tutorial.StopPlayerStatusInAir;
 import com.max.jumpingapp.tutorial.StopPlayerTouchingTrampolinEvent;
-import com.max.jumpingapp.types.XPosition;
 
 import de.greenrobot.event.EventBus;
 
@@ -32,9 +30,8 @@ public class TutorialPlayerStatusFreeFalling extends PlayerStatusFreeFalling {
         if(elapsed > fallPeriod){
             EventBus.getDefault().unregister(this);
             if(!fingerTouching){
-                System.out.println("pause after free falling");
                 TutorialPlayer.getTutorialPlayer().pause();
-                EventBus.getDefault().post(new StopPlayerTouchingTrampolinEvent(StopPlayerTouchingTrampolinEvent.HOLD_DOWN_FULL));
+                EventBus.getDefault().post(new StopPlayerTouchingTrampolinEvent(Constants.HOLD_DOWN_FULL));
             }
             return new TutorialPlayerStatusSpringFalling(oscPeriod, fallPeriod);
         }
@@ -43,7 +40,6 @@ public class TutorialPlayerStatusFreeFalling extends PlayerStatusFreeFalling {
 
     public void onEvent(FingerTouchingEvent event){
         fingerTouching = true;
-        System.out.println("finger touching free falling");
         continueIfPaused();
     }
 
@@ -58,13 +54,12 @@ public class TutorialPlayerStatusFreeFalling extends PlayerStatusFreeFalling {
     }
 
     public void onEvent(StopPlayerStatusInAir event){
-        stopGame(StopPlayerTouchingTrampolinEvent.WIND);
+        stopGame(Constants.WIND);
     }
     private void continueGame() {
         long minusFaktor = (long) (percentagePassedBeforeStop*oscPeriod);
         GamePanel.lastUpdateTime = System.nanoTime() - minusFaktor;
         TutorialPlayer.getTutorialPlayer().unPause(oscPeriod);
-//        lastUpdateTime = (long) (System.nanoTime() - oscPeriod* GamePanel.secondInNanos + STOP_BEFORE_TIME*GamePanel.secondInNanos);
     }
 
     private void stopGame(String message) {

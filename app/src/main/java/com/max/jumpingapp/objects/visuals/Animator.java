@@ -10,7 +10,6 @@ import com.max.jumpingapp.objects.visuals.PlayerObject;
 
 public class Animator {
     private static final long timeToDisplayAnimation = 1000000000; //1 Second
-    private boolean animated = false;
     private long time;
     private Paint defaultPaint;
     private Paint currentPaint;

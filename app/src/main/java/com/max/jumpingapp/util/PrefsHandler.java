@@ -18,6 +18,7 @@ import java.util.Set;
  */
 public class PrefsHandler {
 
+    public static final String GANME_PREFS = "ganmePrefs";
     public static final String HIGH_SCORES = "highScores";
     public static final String GEMS = "gems";
     public static final String PLAYER_IMAGE = "player_image";
@@ -28,7 +29,6 @@ public class PrefsHandler {
 
     private static int[] getHighScores(SharedPreferences sharedPreferences){
         try {
-            System.out.println("highscores are read");
             Set<String> scoreSet = sharedPreferences.getStringSet(HIGH_SCORES, null);
             ArrayList<Score> scoreList = Score.toArrayList(scoreSet);
             Collections.sort(scoreList);

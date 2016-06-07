@@ -88,7 +88,6 @@ public class TutorialMainThread extends MainThread {
             undrawnMessage = false;
             Paint paint = new Paint();
             paint.setTextSize(40);
-            System.out.println("printed: " + message);
 //            canvas.drawText(message, 100, GamePanel.screenHeight / 5, paint);
             drawMultiline(message.getMessage(), message.getxPos(), message.getyPos(), paint, canvas);
         }

@@ -4,15 +4,9 @@ import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Paint;
 
-import com.max.jumpingapp.game.FingerReleasedEvent;
-import com.max.jumpingapp.objects.Wind;
 import com.max.jumpingapp.objects.player.Player;
-import com.max.jumpingapp.objects.player.PlayerPower;
-import com.max.jumpingapp.objects.player.PlayerStatusFreeFalling;
 import com.max.jumpingapp.objects.visuals.PlayerObject;
-import com.max.jumpingapp.tutorial.TutorialGamePanel;
 import com.max.jumpingapp.tutorial.TutorialWind;
-import com.max.jumpingapp.tutorial.TutorialXPosition;
 import com.max.jumpingapp.types.Height;
 import com.max.jumpingapp.types.Width;
 import com.max.jumpingapp.types.XCenter;

@@ -28,7 +28,7 @@ public class DiedScreen extends AppCompatActivity {
         setContentView(R.layout.activity_died_screen);
         TextView scoreTextView = (TextView) findViewById(R.id.scoreView);
         EditText nameEditText = (EditText) findViewById(R.id.nameEdit);
-        SharedPreferences sharedPreferences = getSharedPreferences(MainActivity.GANME_PREFS, 0);
+        SharedPreferences sharedPreferences = getSharedPreferences(PrefsHandler.GANME_PREFS, 0);
 
         Intent myIntent = getIntent();
         score = new Score(Integer.valueOf(myIntent.getIntExtra("score", 0)));
@@ -46,7 +46,7 @@ public class DiedScreen extends AppCompatActivity {
                 nameEditText.setText(playerName);
             }
             TextView diedMessage = (TextView) findViewById(R.id.diedMessageTextView);
-            diedMessage.setText("Well, not good but a high score");
+            diedMessage.setText(getString(R.string.high_score_congrats));
         }else{
             nameEditText.setVisibility(View.INVISIBLE);
         }
@@ -57,7 +57,6 @@ public class DiedScreen extends AppCompatActivity {
     }
 
     public void buttonPlayClicked(View view){
-        System.out.println("StartScreen -- buttonPlayClicked()");
         Runtime.getRuntime().gc();
         onStop();//@// TODO: 4/18/2016 nicht schön
         finish();
@@ -73,7 +72,7 @@ public class DiedScreen extends AppCompatActivity {
     }
 
     private void setPlayerName(String name) {
-        SharedPreferences gameprefs = getSharedPreferences(MainActivity.GANME_PREFS, 0);
+        SharedPreferences gameprefs = getSharedPreferences(PrefsHandler.GANME_PREFS, 0);
         SharedPreferences.Editor scoreEdit = gameprefs.edit();
         scoreEdit.putString(PLAYER_NAME, name);
         scoreEdit.apply();
@@ -81,7 +80,7 @@ public class DiedScreen extends AppCompatActivity {
     }
 
     private synchronized void setHighScore(Score score) {
-        SharedPreferences gameprefs = getSharedPreferences(MainActivity.GANME_PREFS, 0);
+        SharedPreferences gameprefs = getSharedPreferences(PrefsHandler.GANME_PREFS, 0);
         SharedPreferences.Editor scoreEdit = gameprefs.edit();
         Set<String> scores = gameprefs.getStringSet(PrefsHandler.HIGH_SCORES, null);
         ArrayList scoreList = new ArrayList();
@@ -98,6 +97,5 @@ public class DiedScreen extends AppCompatActivity {
         scores = Score.toSet(scoreList);
         scoreEdit.putStringSet(PrefsHandler.HIGH_SCORES, scores);
         scoreEdit.apply();
-        System.out.println("highscores set");
     }
 }

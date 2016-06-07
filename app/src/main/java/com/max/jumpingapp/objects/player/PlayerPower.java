@@ -12,7 +12,6 @@ import de.greenrobot.event.EventBus;
  */
 public class PlayerPower {
     private PowerPercent powerPercent;
-    private int minAccelerator = 10;
     protected long increasePowerMikro;//@// TODO: 4/21/2016 change to nano
     protected long decreasePowerMikro;
     private double maxPower;
@@ -32,17 +31,14 @@ public class PlayerPower {
     private void resetAccelerator() {
         powerPercent = new PowerPercent();
         accelerator = 0;
-        System.out.println("accelarator reset");
     }
 
     public void resetPower() {
         increasePowerMikro = 0;
         decreasePowerMikro = 0;
-        System.out.println("power reset");
     }
 
     public void setAccelerator(double maxHeight, double oscPeriod) {//on finger released, on jump missed
-        System.out.println("setting accelerator with incMikro: "+increasePowerMikro);
         this.powerPercent = calculateUncappedPowerPercent(oscPeriod).cap();
         double minPower = minPowerFor(maxHeight);//only necessary for when jump missed;
         maxPowerFor(maxHeight);
@@ -51,7 +47,6 @@ public class PlayerPower {
         }
 
         accelerator = (int) ((powerPercent.value() - minPower) / (100 - minPower) * maxPower);
-        System.out.println("accelarator set: "+accelerator);
         resetPower();
     }
 

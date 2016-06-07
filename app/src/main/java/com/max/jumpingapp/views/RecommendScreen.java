@@ -39,18 +39,18 @@ public class RecommendScreen extends AppCompatActivity implements GemFragment.On
     protected void onResume() {
         super.onResume();
         if (recommended) {
-            Snackbar.make(findViewById(R.id.recommendButton), "great, now don't forget to send the recommendation code so that you can both receive a free gem", 8000).show();
+            Snackbar.make(findViewById(R.id.recommendButton), R.string.reminder_to_send_activation_code, 8000).show();
         }
         if (codeSent) {
             codeSent = false;
-            Snackbar.make(findViewById(R.id.recommendButton), "cool, now wait for your friend to download the app, enter the code and send you the thank you code", 8000).show();
+            Snackbar.make(findViewById(R.id.recommendButton), R.string.message_wait_for_thank_you_code, 8000).show();
         }
     }
 
     public void buttonRecommendAppClicked(View view) {
         Intent sendIntent = new Intent();
         sendIntent.setAction(Intent.ACTION_SEND);
-        sendIntent.putExtra(Intent.EXTRA_TEXT, "Hi\nThis app \"bounce it\" is amazing. You should get it.\nI will send you a code which you can enter to receive a free gem. Code: ");
+        sendIntent.putExtra(Intent.EXTRA_TEXT, getString(R.string.recommendation_text));
         sendIntent.setType("text/plain");
         startActivity(Intent.createChooser(sendIntent, getResources().getText(R.string.send_via)));
         recommended = true;
@@ -67,7 +67,7 @@ public class RecommendScreen extends AppCompatActivity implements GemFragment.On
     }
 
     private String generateActivationCode() {
-        String my_id = String.valueOf(PrefsHandler.getId(getSharedPreferences(MainActivity.GANME_PREFS, 0)));
+        String my_id = String.valueOf(PrefsHandler.getId(getSharedPreferences(PrefsHandler.GANME_PREFS, 0)));
         String date = RecommendScreen.currentDate();
         String mergedValues = my_id.substring(0, 1) + date.substring(0, 2) + my_id.substring(1, 2) + date.substring(2, 4) + my_id.substring(2, 3) +
                 date.substring(4, 6) + my_id.substring(3, 4) + date.substring(6, 8) + my_id.substring(4, 5);
@@ -130,21 +130,21 @@ public class RecommendScreen extends AppCompatActivity implements GemFragment.On
         String code = ((EditText) findViewById(R.id.thankYouCode)).getText().toString();
         try {
             String recommenderId = RecommendScreen.recommenderIdOfThankYou(code);
-            SharedPreferences sharedPreferences = getSharedPreferences(MainActivity.GANME_PREFS, 0);
+            SharedPreferences sharedPreferences = getSharedPreferences(PrefsHandler.GANME_PREFS, 0);
             if (Integer.valueOf(recommenderId) != PrefsHandler.getId(sharedPreferences)) {
                 if(!PrefsHandler.alreadyUsed(sharedPreferences, code)){
                     PrefsHandler.addGem(sharedPreferences);
                     PrefsHandler.invalidate(sharedPreferences, code);
                     ((GemFragment) getSupportFragmentManager().findFragmentByTag("gemFragment")).updateGemText();
-                    Snackbar.make(view, "Congratulations, you received a free gem.", Snackbar.LENGTH_LONG).show();
+                    Snackbar.make(view, R.string.congrats_free_gem, Snackbar.LENGTH_LONG).show();
                     return;
                 }
-                Snackbar.make(view, "Sorry, this code has already been used", Snackbar.LENGTH_LONG).show();
+                Snackbar.make(view, R.string.sorry_code_used, Snackbar.LENGTH_LONG).show();
             }
         } catch (UnvalidRecommendationCode unvalidRecommendationCode) {
 
         }
-        Snackbar.make(view, "Sorry, this code is not valid", Snackbar.LENGTH_LONG).show();//also invalid if recommender and thisid is not the same
+        Snackbar.make(view, R.string.sorry_code_not_valid, Snackbar.LENGTH_LONG).show();//also invalid if recommender and thisid is not the same
     }
 
     @Override

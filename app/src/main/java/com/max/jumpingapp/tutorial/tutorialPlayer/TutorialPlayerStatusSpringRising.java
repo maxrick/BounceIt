@@ -1,5 +1,6 @@
 package com.max.jumpingapp.tutorial.tutorialPlayer;
 
+import com.max.jumpingapp.Constants;
 import com.max.jumpingapp.game.FingerReleasedEvent;
 import com.max.jumpingapp.game.GamePanel;
 import com.max.jumpingapp.game.LeftTrampolinEvent;
@@ -35,7 +36,7 @@ public class TutorialPlayerStatusSpringRising extends PlayerStatusSpringRising {
             return new TutorialPlayerStatusFreeRising(oscPeriod, fallPeriod);
         }else if(oscPeriod - elapsed < STOP_BEFORE_TIME && !TutorialGamePanel.eventPleaseReleasePosted){
             TutorialGamePanel.eventPleaseReleasePosted = true;
-            stopGame(StopPlayerTouchingTrampolinEvent.RELEASE);
+            stopGame(Constants.RELEASE);
         }
         return this;
     }
@@ -48,13 +49,11 @@ public class TutorialPlayerStatusSpringRising extends PlayerStatusSpringRising {
         long minusFaktor = (long) (percentagePassedBeforeStop*oscPeriod);
         GamePanel.lastUpdateTime = System.nanoTime() - minusFaktor;
         TutorialPlayer.getTutorialPlayer().unPause(oscPeriod);
-//        lastUpdateTime = (long) (System.nanoTime() - oscPeriod* GamePanel.secondInNanos + STOP_BEFORE_TIME*GamePanel.secondInNanos);
     }
 
     public void onEvent(FingerReleasedEvent event) {
-        System.out.print("finger released caught i rising");
         if (!TutorialGamePanel.eventPleaseReleasePosted) {
-            stopGame(StopPlayerTouchingTrampolinEvent.HOLD_DOWN_FULL);
+            stopGame(Constants.HOLD_DOWN_FULL);
         }else {
             continueGame();
         }

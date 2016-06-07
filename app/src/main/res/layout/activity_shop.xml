@@ -33,7 +33,7 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Delete purchases"
+        android:text="@string/delete_purchases"
         android:id="@+id/deletePurchasesButton"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
