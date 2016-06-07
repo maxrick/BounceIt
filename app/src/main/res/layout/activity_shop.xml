@@ -4,7 +4,7 @@
     android:id="@+id/shopLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/app_background"
+    android:background="@drawable/app_background2"
     tools:context="com.max.jumpingapp.views.Shop">
 
     <fragment

@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:gravity="center_horizontal"
     tools:context=".views.RecommendScreen"
-    android:background="@drawable/app_background"
+    android:background="@drawable/app_background2"
     >
 
     <fragment

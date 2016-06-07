@@ -3,8 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.max.jumpingapp">
 
-    <!-- To access Google+ APIs: -->
-    <uses-permission android:name="android.permission.INTERNET" />
+    <!-- To access Google+ APIs:
+    <uses-permission android:name="android.permission.INTERNET" /><-->
 
     <application
         android:allowBackup="true"
