@@ -5,10 +5,10 @@
     tools:context=".views.StartScreen">
 
     <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:text="0"
-        android:background="@drawable/gem_icon"
+        android:background="@drawable/coin_icon"
         android:id="@+id/gemButton"
         android:layout_gravity="end|top"
         android:onClick="onGemFragmentInteraction"/>
