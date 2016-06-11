@@ -56,13 +56,6 @@ public class StartScreen extends AppCompatActivity implements GemFragment.OnGemF
         setContentView(R.layout.activity_start_screen);
         CheckBox checkBox = (CheckBox) findViewById(R.id.tutorial);
         checkBox.setChecked(tutorialSharedPref());
-        if (PrefsHandler.activationCodeUsed(getSharedPreferences(PrefsHandler.GANME_PREFS, 0))) {
-            EditText activationEditText = (EditText) findViewById(R.id.recommendationCode);
-            Button activationButton = (Button) findViewById(R.id.activateRecommendationCodeButton);
-            activationEditText.setVisibility(View.GONE);
-            activationButton.setVisibility(View.GONE);
-        }
-
     }
 
     @Override
@@ -129,29 +122,60 @@ public class StartScreen extends AppCompatActivity implements GemFragment.OnGemF
     }
 
     public void buttonActivateRecommendationCodeClicked(View view) {
-        String code = ((EditText) findViewById(R.id.recommendationCode)).getText().toString();
+        String fullCode = ((EditText) findViewById(R.id.recommendationCode)).getText().toString();
+        String prefix = fullCode.substring(0,1);
+        String code = fullCode.substring(1,fullCode.length());
+        if(prefix.equals(RecommendScreen.ACTIVATIONCODE_PREFIX)){
+            activateRecommendationCode(view, code);
+        }
+        if(prefix.equals(RecommendScreen.THANKYOUCODE_PREFIX)){
+            activateThankYouCode(view, code);
+        }
+    }
+
+    private void activateRecommendationCode(View view, String code) {
         try {
             String recommenderId = RecommendScreen.recommenderIdOf(code);
-//            if(Integer.valueOf(recommenderId) != PrefsHandler.getId(getSharedPreferences(MainActivity.GANME_PREFS, 0))){
-            SharedPreferences sharedPrefs = getSharedPreferences(PrefsHandler.GANME_PREFS, 0);
-            if(!PrefsHandler.alreadyUsed(sharedPrefs, code)){
-                PrefsHandler.addGem(sharedPrefs);
-                PrefsHandler.activationUsed(sharedPrefs);
-                ((GemFragment) getSupportFragmentManager().findFragmentByTag("gemFragment")).updateGemText();
-                PrefsHandler.invalidate(sharedPrefs, code);
-                String thankYouCode = RecommendScreen.createThankYouCode(recommenderId);
-                popupThankYouCode(thankYouCode, view.getContext());
+            if (Integer.valueOf(recommenderId) != PrefsHandler.getId(getSharedPreferences(PrefsHandler.GANME_PREFS, 0))) {
+                SharedPreferences sharedPrefs = getSharedPreferences(PrefsHandler.GANME_PREFS, 0);
+                if (!PrefsHandler.alreadyUsed(sharedPrefs, code)) {
+                    PrefsHandler.addGem(sharedPrefs);
+                    PrefsHandler.activationUsed(sharedPrefs);
+                    ((GemFragment) getSupportFragmentManager().findFragmentByTag("gemFragment")).updateGemText();
+                    PrefsHandler.invalidate(sharedPrefs, code);
+                    String thankYouCode = RecommendScreen.createThankYouCode(recommenderId);
+                    popupThankYouCode(thankYouCode, view.getContext());
+                } else {
+                    Snackbar.make(view, R.string.sorry_code_used, Snackbar.LENGTH_LONG).show();
+                }
             }else {
-                Snackbar.make(view, R.string.sorry_code_used, Snackbar.LENGTH_LONG).show();
+                Snackbar.make(view, R.string.sorry_code_only_for_others, Snackbar.LENGTH_LONG).show();
             }
-
-
-            //@// TODO: 5/28/2016 send code
-            //@// TODO: 5/28/2016 hide textfield
-//            }
         } catch (UnvalidRecommendationCode unvalidRecommendationCode) {
             Snackbar.make(view, R.string.sorry_code_not_valid, Snackbar.LENGTH_LONG).show();
         }
+    }
+
+    private void activateThankYouCode(View view, String code) {
+        try {
+            String recommenderId = RecommendScreen.recommenderIdOfThankYou(code);
+            SharedPreferences sharedPreferences = getSharedPreferences(PrefsHandler.GANME_PREFS, 0);
+            if (Integer.valueOf(recommenderId) != PrefsHandler.getId(sharedPreferences)) {
+                if (!PrefsHandler.alreadyUsed(sharedPreferences, code)) {
+                    PrefsHandler.addGem(sharedPreferences);
+                    PrefsHandler.invalidate(sharedPreferences, code);
+                    ((GemFragment) getSupportFragmentManager().findFragmentByTag("gemFragment")).updateGemText();
+                    Snackbar.make(view, R.string.congrats_free_gem, Snackbar.LENGTH_LONG).show();
+                    return;
+                }
+                Snackbar.make(view, R.string.sorry_code_used, Snackbar.LENGTH_LONG).show();
+                return;
+            }
+            Snackbar.make(view, R.string.sorry_code_only_for_others, Snackbar.LENGTH_LONG).show();
+        } catch (UnvalidRecommendationCode unvalidRecommendationCode) {
+
+        }
+        Snackbar.make(view, R.string.sorry_code_not_valid, Snackbar.LENGTH_LONG).show();//also invalid if recommender and thisid is not the same
     }
 
     private void popupThankYouCode(final String thankYouCode, final Context context) {

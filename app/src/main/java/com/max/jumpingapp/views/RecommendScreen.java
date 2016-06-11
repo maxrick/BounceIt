@@ -26,6 +26,8 @@ public class RecommendScreen extends AppCompatActivity implements GemFragment.On
     public static final int FIRST_MULTIPLICATOR_THANK_YOU = 53;
     public static final int ADD_THANK_YOU = 1733;
     public static final int SECOND_MULTIPLICATOR_THANK_YOU = 41;
+    public static final String ACTIVATIONCODE_PREFIX = "1";
+    public static final String THANKYOUCODE_PREFIX = "2";
     private boolean recommended = false;
     private boolean codeSent = false;
 
@@ -74,7 +76,7 @@ public class RecommendScreen extends AppCompatActivity implements GemFragment.On
         long code = (Long.valueOf(mergedValues) * FIRST_MULTIPLICATOR + ADD) * SECOND_MULTIPLICATOR;
         int r = new Random().nextInt(10) + 1;
         code *= r;
-        return code + "" + r;
+        return ACTIVATIONCODE_PREFIX +code + "" + r;
     }
 
     public static String currentDate() {//@// TODO: 5/28/2016 does not belong here
@@ -106,7 +108,7 @@ public class RecommendScreen extends AppCompatActivity implements GemFragment.On
         long code = (Long.valueOf(mergedValues) * FIRST_MULTIPLICATOR_THANK_YOU + ADD_THANK_YOU) * SECOND_MULTIPLICATOR_THANK_YOU;
         int r = new Random().nextInt(9) + 1;
         code *= r;
-        return code + "" + r;
+        return THANKYOUCODE_PREFIX +code + "" + r;
     }
 
     public static String recommenderIdOfThankYou(String code) throws UnvalidRecommendationCode {
@@ -124,27 +126,6 @@ public class RecommendScreen extends AppCompatActivity implements GemFragment.On
 
         }
         throw new UnvalidRecommendationCode();
-    }
-
-    public void buttonActivateThankYouCodeClicked(View view) {
-        String code = ((EditText) findViewById(R.id.thankYouCode)).getText().toString();
-        try {
-            String recommenderId = RecommendScreen.recommenderIdOfThankYou(code);
-            SharedPreferences sharedPreferences = getSharedPreferences(PrefsHandler.GANME_PREFS, 0);
-            if (Integer.valueOf(recommenderId) != PrefsHandler.getId(sharedPreferences)) {
-                if(!PrefsHandler.alreadyUsed(sharedPreferences, code)){
-                    PrefsHandler.addGem(sharedPreferences);
-                    PrefsHandler.invalidate(sharedPreferences, code);
-                    ((GemFragment) getSupportFragmentManager().findFragmentByTag("gemFragment")).updateGemText();
-                    Snackbar.make(view, R.string.congrats_free_gem, Snackbar.LENGTH_LONG).show();
-                    return;
-                }
-                Snackbar.make(view, R.string.sorry_code_used, Snackbar.LENGTH_LONG).show();
-            }
-        } catch (UnvalidRecommendationCode unvalidRecommendationCode) {
-
-        }
-        Snackbar.make(view, R.string.sorry_code_not_valid, Snackbar.LENGTH_LONG).show();//also invalid if recommender and thisid is not the same
     }
 
     @Override
