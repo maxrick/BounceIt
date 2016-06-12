@@ -1,5 +1,6 @@
 package com.max.jumpingapp.tutorial.tutorialPlayer;
 
+import com.max.jumpingapp.objects.visuals.PlayerObject;
 import com.max.jumpingapp.util.Constants;
 import com.max.jumpingapp.game.FingerReleasedEvent;
 import com.max.jumpingapp.game.GamePanel;
@@ -20,8 +21,8 @@ public class TutorialPlayerStatusFreeFalling extends PlayerStatusFreeFalling {
     private boolean fingerTouching = false;
     private double percentagePassedBeforeStop=0;
 
-    public TutorialPlayerStatusFreeFalling(double maxHeight) {
-        super(maxHeight);
+    public TutorialPlayerStatusFreeFalling(double maxHeight, PlayerObject playerObject) {
+        super(maxHeight, playerObject);
         EventBus.getDefault().register(this);//@// TODO: 4/19/2016 not todo
     }
 
@@ -34,7 +35,7 @@ public class TutorialPlayerStatusFreeFalling extends PlayerStatusFreeFalling {
                 TutorialPlayer.getTutorialPlayer().pause();
                 EventBus.getDefault().post(new StopPlayerTouchingTrampolinEvent(Constants.HOLD_DOWN_FULL));
             }
-            return new TutorialPlayerStatusSpringFalling(oscPeriod, fallPeriod);
+            return new TutorialPlayerStatusSpringFalling(oscPeriod, fallPeriod, playerObject);
         }
         return this;
     }

@@ -14,16 +14,18 @@ import de.greenrobot.event.EventBus;
  * Created by normal on 25.10.2015.
  */
 public class PlayerStatusSpringRising extends PlayerStatus {
-    public PlayerStatusSpringRising(double oscPeriod, double fallPeriod) {
-        super(oscPeriod, fallPeriod);
+    public PlayerStatusSpringRising(double oscPeriod, double fallPeriod, PlayerObject playerObject) {
+        super(oscPeriod, fallPeriod, playerObject);
     }
 
     @Override
     public Height calculatePos(PlayerPower playerPower, int maxHeight, XPosition xPosition, Player player, Trampolin trampolin) throws PlayerDiedException {
         double elapsedSeconds = (System.nanoTime() - GamePanel.lastUpdateTime) / GamePanel.secondInNanos;
         xPosition.dontMove();
-        return new Height((int) (-(Math.sqrt(2 * mass * PlayerStatus.gravitaion * maxHeight / GamePanel.SPRINGCONST)
-                * Math.sin((elapsedSeconds+this.oscPeriod) / Math.sqrt(mass / GamePanel.SPRINGCONST)))));
+        Height curHeight = new Height((int) (-(Math.sqrt(2 * mass * PlayerStatus.gravitaion * maxHeight / GamePanel.SPRINGCONST)
+                * Math.sin((elapsedSeconds + this.oscPeriod) / Math.sqrt(mass / GamePanel.SPRINGCONST)))));
+        playerObject.setRect(curHeight, xPosition);
+        return curHeight;
     }
 
     @Override
@@ -31,7 +33,7 @@ public class PlayerStatusSpringRising extends PlayerStatus {
         double elapsed = (System.nanoTime() - GamePanel.lastUpdateTime) / GamePanel.secondInNanos;
         if(elapsed > oscPeriod){
             EventBus.getDefault().post(new LeftTrampolinEvent(player));
-            return new PlayerStatusFreeRising(oscPeriod, fallPeriod);
+            return new PlayerStatusFreeRising(oscPeriod, fallPeriod, playerObject);
         }
         return this;
     }
@@ -49,7 +51,7 @@ public class PlayerStatusSpringRising extends PlayerStatus {
     }
 
     @Override
-    public void animate(PlayerObject playerObject, boolean touching) {
+    public void animate(boolean touching) {
         playerObject.animate(touching);
     }
 

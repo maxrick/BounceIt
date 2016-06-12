@@ -1,5 +1,6 @@
 package com.max.jumpingapp.tutorial.tutorialPlayer;
 
+import com.max.jumpingapp.objects.visuals.PlayerObject;
 import com.max.jumpingapp.util.Constants;
 import com.max.jumpingapp.game.GamePanel;
 import com.max.jumpingapp.objects.player.PlayerStatusFreeRising;
@@ -16,8 +17,8 @@ import de.greenrobot.event.EventBus;
 public class TutorialPlayerStatusFreeRising extends PlayerStatusFreeRising {
     private double percentagePassedBeforeStop=0;
 
-    public TutorialPlayerStatusFreeRising(double oscPeriod, double fallPeriod) {
-        super(oscPeriod, fallPeriod);
+    public TutorialPlayerStatusFreeRising(double oscPeriod, double fallPeriod, PlayerObject playerObject) {
+        super(oscPeriod, fallPeriod, playerObject);
         EventBus.getDefault().register(this);//@// TODO: 5/19/2016 not good
     }
 

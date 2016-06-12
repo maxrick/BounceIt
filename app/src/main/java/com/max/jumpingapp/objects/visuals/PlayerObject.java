@@ -8,7 +8,9 @@ import android.graphics.Paint;
 import android.graphics.Rect;
 
 import com.max.jumpingapp.game.GamePanel;
+import com.max.jumpingapp.game.PlayerDiedException;
 import com.max.jumpingapp.objects.Wind;
+import com.max.jumpingapp.objects.player.Player;
 import com.max.jumpingapp.types.Height;
 import com.max.jumpingapp.types.Width;
 import com.max.jumpingapp.types.XCenter;
@@ -157,5 +159,15 @@ public class PlayerObject {
 
     public float getBottom() {
         return rect.bottom;
+    }
+
+    public void animateDead(Player player) throws PlayerDiedException {
+        if (rect.height() > minHeightRect/4) {
+            rect.top += 10;
+            rect.left -=5;
+            rect.right +=5;
+        }else {
+            throw new PlayerDiedException(player);
+        }
     }
 }

@@ -22,7 +22,6 @@ public class TutorialPlayer extends Player {
 
     private TutorialPlayer(XCenter playerXCenter, Width playerWidth, Bitmap playerImage, float footFromLeft, float footFromRight) {
         maxHeight = Math.abs(com.max.jumpingapp.game.GamePanel.HEIGHT_POS);
-        this.playerObject = new PlayerObject(playerXCenter, playerWidth, com.max.jumpingapp.game.GamePanel.HEIGHT_POS, playerImage, footFromLeft, footFromRight);
 
         this.curHeight = new Height();
         this.wind = new TutorialWind();
@@ -33,7 +32,8 @@ public class TutorialPlayer extends Player {
         xPosition = new XPosition();
 
         this.playerPower = new TutorialPlayerPower();
-        this.playerStatus = new TutorialPlayerStatusFreeFalling(maxHeight);
+        PlayerObject playerObject = new PlayerObject(playerXCenter, playerWidth, com.max.jumpingapp.game.GamePanel.HEIGHT_POS, playerImage, footFromLeft, footFromRight);
+        this.playerStatus = new TutorialPlayerStatusFreeFalling(maxHeight, playerObject);
         EventBus.getDefault().register(playerPower);
     }
 

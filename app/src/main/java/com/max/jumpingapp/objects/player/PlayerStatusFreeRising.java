@@ -1,7 +1,6 @@
 package com.max.jumpingapp.objects.player;
 
 import com.max.jumpingapp.game.GamePanel;
-import com.max.jumpingapp.game.JumpMissedException;
 import com.max.jumpingapp.game.ResetPowerDisplayEvent;
 import com.max.jumpingapp.objects.visuals.PlayerObject;
 import com.max.jumpingapp.types.Height;
@@ -15,8 +14,8 @@ import de.greenrobot.event.EventBus;
  * Created by normal on 25.10.2015.
  */
 public class PlayerStatusFreeRising extends PlayerStatus {
-    public PlayerStatusFreeRising(double oscPeriod, double fallPeriod) {
-        super(oscPeriod, fallPeriod);
+    public PlayerStatusFreeRising(double oscPeriod, double fallPeriod, PlayerObject playerObject) {
+        super(oscPeriod, fallPeriod, playerObject);
     }
 
     @Override
@@ -24,14 +23,16 @@ public class PlayerStatusFreeRising extends PlayerStatus {
         double elapsedSeconds = (System.nanoTime() - GamePanel.lastUpdateTime) / GamePanel.secondInNanos;
         testDieSet=false;
         xPosition.move();
-        return new Height((int) (- 0.5 * PlayerStatus.gravitaion * Math.pow((elapsedSeconds - Math.sqrt(2*maxHeight/ PlayerStatus.gravitaion)), 2)+ maxHeight));
+        Height curHeight = new Height((int) (-0.5 * PlayerStatus.gravitaion * Math.pow((elapsedSeconds - Math.sqrt(2 * maxHeight / PlayerStatus.gravitaion)), 2) + maxHeight));
+        playerObject.setRect(curHeight, xPosition);
+        return curHeight;
     }
 
     @Override
     public PlayerStatus getCurrentPlayerStatus(Player player) {
         double elapsed = (System.nanoTime() - GamePanel.lastUpdateTime) / GamePanel.secondInNanos;
         if(elapsed > fallPeriod){
-            return new PlayerStatusFreeFalling(oscPeriod, fallPeriod);
+            return new PlayerStatusFreeFalling(oscPeriod, fallPeriod, playerObject);
         }
         return this;
     }
@@ -50,7 +51,7 @@ public class PlayerStatusFreeRising extends PlayerStatus {
     }
 
     @Override
-    public void animate(PlayerObject playerObject, boolean touching) {
+    public void animate(boolean touching) {
         playerObject.animate(false);// no new animation
     }
 

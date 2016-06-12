@@ -1,5 +1,6 @@
 package com.max.jumpingapp.tutorial.tutorialPlayer;
 
+import com.max.jumpingapp.objects.visuals.PlayerObject;
 import com.max.jumpingapp.util.Constants;
 import com.max.jumpingapp.game.FingerReleasedEvent;
 import com.max.jumpingapp.game.GamePanel;
@@ -19,8 +20,8 @@ import de.greenrobot.event.EventBus;
 public class TutorialPlayerStatusSpringFalling extends PlayerStatusSpringFalling {
     private double percentagePassedBeforeStop=0;
 
-    public TutorialPlayerStatusSpringFalling(double oscPeriod, double fallPeriod) {
-        super(oscPeriod, fallPeriod);
+    public TutorialPlayerStatusSpringFalling(double oscPeriod, double fallPeriod, PlayerObject playerObject) {
+        super(oscPeriod, fallPeriod, playerObject);
         EventBus.getDefault().register(this);//@// TODO: 4/19/2016 not todo
     }
 
@@ -29,7 +30,7 @@ public class TutorialPlayerStatusSpringFalling extends PlayerStatusSpringFalling
         double elapsed = (System.nanoTime() - GamePanel.lastUpdateTime) / GamePanel.secondInNanos;
         if(elapsed > oscPeriod){
             EventBus.getDefault().unregister(this);
-            return new TutorialPlayerStatusSpringRising(oscPeriod, fallPeriod);
+            return new TutorialPlayerStatusSpringRising(oscPeriod, fallPeriod, playerObject);
         }
         return this;
     }

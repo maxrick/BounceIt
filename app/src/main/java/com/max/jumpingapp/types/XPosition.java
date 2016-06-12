@@ -23,7 +23,6 @@ public class XPosition {
 
     public void move(){
         value = (int) (xVelocity/ TIME_IN_MILI);
-        System.out.println("xpos: "+value);
     }
 
     public void adjustVelocity(int xSwipedToRight) {

@@ -1,5 +1,6 @@
 package com.max.jumpingapp.tutorial.tutorialPlayer;
 
+import com.max.jumpingapp.objects.visuals.PlayerObject;
 import com.max.jumpingapp.util.Constants;
 import com.max.jumpingapp.game.FingerReleasedEvent;
 import com.max.jumpingapp.game.GamePanel;
@@ -21,8 +22,8 @@ public class TutorialPlayerStatusSpringRising extends PlayerStatusSpringRising {
     public static final double STOP_BEFORE_TIME = 0.1d;
     private double percentagePassedBeforeStop=0;
 
-    public TutorialPlayerStatusSpringRising(double oscPeriod, double fallPeriod) {
-        super(oscPeriod, fallPeriod);
+    public TutorialPlayerStatusSpringRising(double oscPeriod, double fallPeriod, PlayerObject playerObject) {
+        super(oscPeriod, fallPeriod, playerObject);
         EventBus.getDefault().register(this);//@// TODO: 4/19/2016 not todo
         TutorialGamePanel.eventPleaseReleasePosted = false;
     }
@@ -33,7 +34,7 @@ public class TutorialPlayerStatusSpringRising extends PlayerStatusSpringRising {
         if(elapsed > oscPeriod){
             EventBus.getDefault().post(new LeftTrampolinEvent(player));
             EventBus.getDefault().unregister(this);
-            return new TutorialPlayerStatusFreeRising(oscPeriod, fallPeriod);
+            return new TutorialPlayerStatusFreeRising(oscPeriod, fallPeriod, playerObject);
         }else if(oscPeriod - elapsed < STOP_BEFORE_TIME && !TutorialGamePanel.eventPleaseReleasePosted){
             TutorialGamePanel.eventPleaseReleasePosted = true;
             stopGame(Constants.RELEASE);
