@@ -2,7 +2,7 @@ package com.max.jumpingapp.types;
 
 import android.graphics.Rect;
 
-import com.max.jumpingapp.Constants;
+import com.max.jumpingapp.util.Constants;
 import com.max.jumpingapp.game.GamePanel;
 import com.max.jumpingapp.objects.visuals.PlayerObject;
 

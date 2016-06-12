@@ -1,4 +1,4 @@
-package com.max.jumpingapp;
+package com.max.jumpingapp.util;
 
 /**
  * Created by Max Rickayzen on 07.06.2016.
@@ -16,7 +16,7 @@ public abstract class Constants {
                                                 "to increase power. Release\n" +
                                                 "just before leaving the trampolin.";
     public static final String RELEASE = "Release to activate power.\nIf you release to late you lose height.";
-    public static final String WIND = "Sometimes wind will move you \nsideways.\nSwipe to move back to the middle.\nSwipe more often and \nlonger to move quicker.\nTouch to continue!";
+    public static final String WIND = "Sometimes wind will move you \nsideways.\nSwipe to move back to the middle.\nSwipe more often and \nlonger to move quicker.\nSwipe to continue!";
 
     public static final String HEIGHT = "Height: ";
     public static final String HEIGHT_0 = "Height: 0";

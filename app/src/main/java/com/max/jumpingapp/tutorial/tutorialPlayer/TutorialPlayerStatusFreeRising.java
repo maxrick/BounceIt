@@ -1,11 +1,12 @@
 package com.max.jumpingapp.tutorial.tutorialPlayer;
 
-import com.max.jumpingapp.Constants;
+import com.max.jumpingapp.util.Constants;
 import com.max.jumpingapp.game.GamePanel;
 import com.max.jumpingapp.objects.player.PlayerStatusFreeRising;
 import com.max.jumpingapp.tutorial.FingerTouchingEvent;
 import com.max.jumpingapp.tutorial.StopPlayerStatusInAir;
 import com.max.jumpingapp.tutorial.StopPlayerTouchingTrampolinEvent;
+import com.max.jumpingapp.tutorial.TutorialGamePanel;
 
 import de.greenrobot.event.EventBus;
 
@@ -42,6 +43,7 @@ public class TutorialPlayerStatusFreeRising extends PlayerStatusFreeRising {
     private void stopGame(String message) {
         double elapsedNanos = System.nanoTime() - GamePanel.lastUpdateTime;
         percentagePassedBeforeStop = elapsedNanos / oscPeriod;
+        TutorialGamePanel.onlyRestartWhenSwiped =true;
         TutorialPlayer.getTutorialPlayer().pause();
         EventBus.getDefault().post(new StopPlayerTouchingTrampolinEvent(message, 50, GamePanel.screenHeight/2));
     }

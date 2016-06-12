@@ -20,6 +20,7 @@ import de.greenrobot.event.EventBus;
  * Created by max on 4/19/2016.
  */
 public class TutorialGamePanel extends GamePanel {
+    public static boolean onlyRestartWhenSwiped=false;
     private TutorialMainThread thread;
     public static boolean eventPleaseReleasePosted= false;
     public static boolean gamePaused = false;
@@ -68,6 +69,8 @@ public class TutorialGamePanel extends GamePanel {
             int xSwipedToRight = (int) xTouchEnd - xTouchBeg;
             if (elapsed < secondInNanos && Math.abs(xSwipedToRight) > 100) {
                 game.swiped(xSwipedToRight);
+                onlyRestartWhenSwiped=false;
+                restartThreadIfNecessary();
             }
             EventBus.getDefault().post(new FingerReleasedEvent());
             this.touching = false;
@@ -85,7 +88,7 @@ public class TutorialGamePanel extends GamePanel {
     }
 
     private synchronized void restartThreadIfNecessary() {
-        if (!thread.isRunning()) {
+        if (!thread.isRunning() && !onlyRestartWhenSwiped) {
             EventBus.getDefault().unregister(thread);
             thread = new TutorialMainThread(getHolder(), this);
             EventBus.getDefault().register(thread);

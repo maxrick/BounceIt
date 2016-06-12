@@ -11,7 +11,7 @@ import android.view.View;
 import com.daimajia.slider.library.SliderLayout;
 import com.daimajia.slider.library.SliderTypes.BaseSliderView;
 import com.daimajia.slider.library.SliderTypes.TextSliderView;
-import com.max.jumpingapp.Constants;
+import com.max.jumpingapp.util.Constants;
 import com.max.jumpingapp.R;
 import com.max.jumpingapp.util.PrefsHandler;
 

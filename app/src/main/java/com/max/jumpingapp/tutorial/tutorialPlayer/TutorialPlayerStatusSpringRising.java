@@ -1,6 +1,6 @@
 package com.max.jumpingapp.tutorial.tutorialPlayer;
 
-import com.max.jumpingapp.Constants;
+import com.max.jumpingapp.util.Constants;
 import com.max.jumpingapp.game.FingerReleasedEvent;
 import com.max.jumpingapp.game.GamePanel;
 import com.max.jumpingapp.game.LeftTrampolinEvent;

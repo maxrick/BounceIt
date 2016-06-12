@@ -4,7 +4,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 
-import com.max.jumpingapp.Constants;
+import com.max.jumpingapp.util.Constants;
 import com.max.jumpingapp.game.GamePanel;
 import com.max.jumpingapp.game.JumpMissedEvent;
 
