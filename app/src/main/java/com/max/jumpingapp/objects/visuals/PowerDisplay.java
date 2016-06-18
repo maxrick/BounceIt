@@ -15,9 +15,9 @@ import com.max.jumpingapp.game.ResetPowerDisplayEvent;
  */
 public class PowerDisplay {
     private static final long timeToDisplayPower = 1000000000; //1 Second
-    public static final int LEFT = 500;
+    public static final int LEFT = GamePanel.screenWidth - ScoreBoardDisplay.GAP_RIGHT;//500;
     public static final int TOP = 100;
-    public static final int RIGHT = 700;
+    public static final int RIGHT = GamePanel.screenWidth - ScoreBoardDisplay.GAP_RIGHT + 200;//700;
     public static final int BOTTOM = 150;
     Rect border;
     Rect powerLoader;

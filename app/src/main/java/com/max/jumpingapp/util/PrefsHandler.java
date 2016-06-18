@@ -117,7 +117,8 @@ public class PrefsHandler {
     }
 
     public static int getId(SharedPreferences sharedPreferences) {
-        return sharedPreferences.getInt(MY_UUID, 0);
+        int myId = sharedPreferences.getInt(MY_UUID, 0);
+        return myId;
     }
 
     public static void invalidate(SharedPreferences sharedPrefs, String code) {

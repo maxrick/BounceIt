@@ -166,7 +166,7 @@ public class StartScreen extends AppCompatActivity implements GemFragment.OnGemF
         try {
             String recommenderId = RecommendScreen.recommenderIdOfThankYou(code);
             SharedPreferences sharedPreferences = getSharedPreferences(PrefsHandler.GANME_PREFS, 0);
-            if (Integer.valueOf(recommenderId) != PrefsHandler.getId(sharedPreferences)) {
+            if (Integer.valueOf(recommenderId) == PrefsHandler.getId(sharedPreferences)) {
                 if (!PrefsHandler.alreadyUsed(sharedPreferences, code)) {
                     PrefsHandler.addGem(sharedPreferences);
                     PrefsHandler.invalidate(sharedPreferences, code);
@@ -178,6 +178,7 @@ public class StartScreen extends AppCompatActivity implements GemFragment.OnGemF
                 return;
             }
             Snackbar.make(view, R.string.sorry_code_only_for_others, Snackbar.LENGTH_LONG).show();
+            return;
         } catch (UnvalidRecommendationCode unvalidRecommendationCode) {
 
         }
