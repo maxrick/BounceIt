@@ -128,7 +128,11 @@ public class StartScreen extends AppCompatActivity implements GemFragment.OnGemF
         String prefix = fullCode.substring(0,1);
         String code = fullCode.substring(1,fullCode.length());
         if(prefix.equals(RecommendScreen.ACTIVATIONCODE_PREFIX)){
-            activateRecommendationCode(view, code);
+            if(PrefsHandler.activationCodeUsed(getSharedPreferences(PrefsHandler.GANME_PREFS,0))){
+                Snackbar.make(view, R.string.sorry_code_for_new_users, Snackbar.LENGTH_LONG).show();
+            }else {
+                activateRecommendationCode(view, code);
+            }
         }
         if(prefix.equals(RecommendScreen.THANKYOUCODE_PREFIX)){
             activateThankYouCode(view, code);

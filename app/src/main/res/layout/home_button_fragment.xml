@@ -3,14 +3,13 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     tools:context=".views.StartScreen"
-    android:paddingTop="60dp"
-    android:paddingRight="20dp">
+    android:paddingBottom="60dp">
 
     <ImageButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/ic_menu_home"
         android:id="@+id/homeButton"
-        android:layout_gravity="end|top"
+        android:layout_gravity="center_horizontal|bottom"
         android:onClick="onHomeFragmentInteraction"/>
 </FrameLayout>

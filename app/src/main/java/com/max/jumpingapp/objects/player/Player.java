@@ -77,7 +77,7 @@ public class Player {
         return moveBy;
     }
 
-    public void activateAccelaration(int accelerator, double maxPower) {
+    public void activateAccelaration(int accelerator) {
         maxHeight += accelerator;
         EventBus.getDefault().post(new PlayerAcceleratedEvent(accelerator));
         playerStatus.setPaint(playerPower.accelerationPercentage(), wind);

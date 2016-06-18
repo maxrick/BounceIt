@@ -59,7 +59,8 @@ public class Highscores extends AppCompatActivity implements GemFragment.OnGemFr
 
     @Override
     public void onGemFragmentInteraction(View view) {
-        //do nothing
+        GemFragment gemFragment = (GemFragment) getSupportFragmentManager().findFragmentByTag("gemFragment");
+        gemFragment.gemButtonClicked(view);
     }
 
     @Override

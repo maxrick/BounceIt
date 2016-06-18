@@ -52,7 +52,7 @@ public class PlayerPower {
 
     public void activateAccelaration(Player player) {//on left trampolin
         if (accelerator != 0) {
-            player.activateAccelaration(accelerator, maxPower);
+            player.activateAccelaration(accelerator);
             resetAccelerator();
         } else if (increasePowerMikro != 0) {
             resetPower();

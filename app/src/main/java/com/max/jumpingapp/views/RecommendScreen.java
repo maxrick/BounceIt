@@ -133,7 +133,8 @@ public class RecommendScreen extends AppCompatActivity implements GemFragment.On
 
     @Override
     public void onGemFragmentInteraction(View view) {
-        //do nothing
+        GemFragment gemFragment = (GemFragment) getSupportFragmentManager().findFragmentByTag("gemFragment");
+        gemFragment.gemButtonClicked(view);
     }
 
     @Override

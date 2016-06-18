@@ -13,6 +13,7 @@ import com.max.jumpingapp.types.Score;
  * Created by max on 4/11/2016.
  */
 public class ScoreBoardDisplay {
+    public static final int TEXT_SIZE = 50;
     private Height height;
     private Score score;
     private Paint backgroundPaint;
@@ -25,7 +26,7 @@ public class ScoreBoardDisplay {
         backgroundPaint.setColor(Color.CYAN);
         dataPaint = new Paint();
         dataPaint.setColor(Color.BLACK);
-        dataPaint.setTextSize(50);
+        dataPaint.setTextSize(TEXT_SIZE);
     }
 
     public void draw(Canvas canvas) {

@@ -2,9 +2,9 @@
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:background="@drawable/app_background2"
-    android:gravity="center">
+    >
 
     <fragment
         android:layout_width="wrap_content"
@@ -19,10 +19,10 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_below="@+id/fragment4"
         android:id="@+id/scrollView"
-        android:padding="10dp">
+        android:paddingTop="10dp">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -35,7 +35,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
-                android:padding="20dp"
+                android:paddingBottom="20dp"
                 android:text="@string/title_activity_highscores"
                 android:textSize="24sp"
                 android:textStyle="bold" />
@@ -47,7 +47,6 @@
                 android:layout_below="@id/high_head"
                 android:layout_centerHorizontal="true"
                 android:gravity="center"
-                android:padding="10dp"
                 android:textSize="22sp"
                 android:textStyle="bold" />
 
@@ -60,8 +59,9 @@
         android:name="layout.HomeFragment"
         android:id="@+id/homeButton"
         android:tag="homeFragment"
-        android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:layout_below="@+id/scrollView"
         />
     <!--Button
         android:layout_width="wrap_content"

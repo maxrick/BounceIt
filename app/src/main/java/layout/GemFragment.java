@@ -105,20 +105,20 @@ public class GemFragment extends Fragment {
     public void popup(){
         AlertDialog.Builder builder = new AlertDialog.Builder((Context) mListener);
         final SharedPreferences  sharedPreferences = this.getActivity().getSharedPreferences(PrefsHandler.GANME_PREFS, 0);
-        builder.setPositiveButton(R.string.addGem, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                PrefsHandler.addGem(sharedPreferences);
-                updateGemText();
-            }
-        });
-        builder.setNegativeButton(R.string.resetGems, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                PrefsHandler.resetGems(sharedPreferences);
-                updateGemText();
-            }
-        });
+//        builder.setPositiveButton(R.string.addGem, new DialogInterface.OnClickListener() {
+//            @Override
+//            public void onClick(DialogInterface dialog, int which) {
+//                PrefsHandler.addGem(sharedPreferences);
+//                updateGemText();
+//            }
+//        });
+//        builder.setNegativeButton(R.string.resetGems, new DialogInterface.OnClickListener() {
+//            @Override
+//            public void onClick(DialogInterface dialog, int which) {
+//                PrefsHandler.resetGems(sharedPreferences);
+//                updateGemText();
+//            }
+//        });
         builder.setNeutralButton(getString(R.string.get_more_gems), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {

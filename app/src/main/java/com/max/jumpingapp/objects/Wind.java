@@ -9,7 +9,7 @@ import java.util.Random;
  * Created by max on 3/30/2016.
  */
 public class Wind {
-    protected int chance = 5;
+    protected int chance = 15;
     protected Random random;
 
     public Wind(){
