@@ -17,7 +17,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Set;
 
-public class DiedScreen extends AppCompatActivity {
+import layout.HomeFragment;
+
+public class DiedScreen extends AppCompatActivity implements HomeFragment.OnHomeFragmentInteractionListener {
 
     public static final String PLAYER_NAME = "PlayerName";
     private Score score;
@@ -25,6 +27,7 @@ public class DiedScreen extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_died_screen);
         TextView scoreTextView = (TextView) findViewById(R.id.scoreView);
         EditText nameEditText = (EditText) findViewById(R.id.nameEdit);
@@ -97,5 +100,11 @@ public class DiedScreen extends AppCompatActivity {
         scores = Score.toSet(scoreList);
         scoreEdit.putStringSet(PrefsHandler.HIGH_SCORES, scores);
         scoreEdit.apply();
+    }
+
+    @Override
+    public void onHomeFragmentInteraction(View view) {
+        HomeFragment homeFragment = (HomeFragment) getSupportFragmentManager().findFragmentByTag("homeFragment");
+        homeFragment.homeButtonClicked(view);
     }
 }

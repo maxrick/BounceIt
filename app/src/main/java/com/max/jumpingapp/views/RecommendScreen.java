@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.EditText;
 
 import com.max.jumpingapp.R;
@@ -17,8 +18,9 @@ import java.util.Date;
 import java.util.Random;
 
 import layout.GemFragment;
+import layout.HomeFragment;
 
-public class RecommendScreen extends AppCompatActivity implements GemFragment.OnGemFragmentInteractionListener {
+public class RecommendScreen extends AppCompatActivity implements GemFragment.OnGemFragmentInteractionListener, HomeFragment.OnHomeFragmentInteractionListener {
 
     public static final int FIRST_MULTIPLICATOR = 89;
     public static final int ADD = 1451;
@@ -34,6 +36,7 @@ public class RecommendScreen extends AppCompatActivity implements GemFragment.On
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_recommend_screen);
     }
 
@@ -131,5 +134,11 @@ public class RecommendScreen extends AppCompatActivity implements GemFragment.On
     @Override
     public void onGemFragmentInteraction(View view) {
         //do nothing
+    }
+
+    @Override
+    public void onHomeFragmentInteraction(View view) {
+        HomeFragment homeFragment = (HomeFragment) getSupportFragmentManager().findFragmentByTag("homeFragment");
+        homeFragment.homeButtonClicked(view);
     }
 }

@@ -4,6 +4,7 @@ import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.TextView;
 
 import com.max.jumpingapp.R;
@@ -14,11 +15,15 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Set;
 
-public class Highscores extends AppCompatActivity {
+import layout.GemFragment;
+import layout.HomeFragment;
+
+public class Highscores extends AppCompatActivity implements GemFragment.OnGemFragmentInteractionListener, HomeFragment.OnHomeFragmentInteractionListener{
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_highscores);
 
         TextView scoreView = (TextView) findViewById(R.id.high_scores_list);
@@ -50,5 +55,16 @@ public class Highscores extends AppCompatActivity {
         TextView scoreList = (TextView) findViewById(R.id.high_scores_list);
         placeHighscoresOn(scoreList);
         scoreList.invalidate();
+    }
+
+    @Override
+    public void onGemFragmentInteraction(View view) {
+        //do nothing
+    }
+
+    @Override
+    public void onHomeFragmentInteraction(View view) {
+        HomeFragment homeFragment = (HomeFragment) getSupportFragmentManager().findFragmentByTag("homeFragment");
+        homeFragment.homeButtonClicked(view);
     }
 }

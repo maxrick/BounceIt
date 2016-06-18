@@ -3,17 +3,31 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@drawable/app_background2"
     android:gravity="center">
+
+    <fragment
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:name="layout.GemFragment"
+        android:id="@+id/fragment4"
+        android:tag="gemFragment"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        />
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/app_background2"
+        android:layout_below="@+id/fragment4"
+        android:id="@+id/scrollView"
         android:padding="10dp">
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:id="@+id/relLayout"
             android:gravity="center">
 
             <TextView
@@ -40,7 +54,16 @@
         </RelativeLayout>
     </ScrollView>
 
-    <Button
+    <fragment
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:name="layout.HomeFragment"
+        android:id="@+id/homeButton"
+        android:tag="homeFragment"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        />
+    <!--Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/deleteScores"
@@ -48,6 +71,6 @@
         android:id="@+id/button2"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="88dp" />
+        android:layout_marginBottom="88dp" /-->
 
 </RelativeLayout>

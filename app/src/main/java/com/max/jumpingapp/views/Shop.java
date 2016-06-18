@@ -7,6 +7,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.WindowManager;
 
 import com.daimajia.slider.library.SliderLayout;
 import com.daimajia.slider.library.SliderTypes.BaseSliderView;
@@ -16,8 +17,9 @@ import com.max.jumpingapp.R;
 import com.max.jumpingapp.util.PrefsHandler;
 
 import layout.GemFragment;
+import layout.HomeFragment;
 
-public class Shop extends AppCompatActivity implements GemFragment.OnGemFragmentInteractionListener {
+public class Shop extends AppCompatActivity implements GemFragment.OnGemFragmentInteractionListener, HomeFragment.OnHomeFragmentInteractionListener{
 
     public static final int PLAYERIMAGE_HAT_AND_SHOES = R.drawable.playerimage_hat_and_shoes;
     public static final int PLAXERIMAGE_STICK = R.drawable.playerimage_stickfigure;
@@ -37,6 +39,7 @@ public class Shop extends AppCompatActivity implements GemFragment.OnGemFragment
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_shop);
 
 
@@ -195,5 +198,11 @@ public class Shop extends AppCompatActivity implements GemFragment.OnGemFragment
         }
         //default
         return 0.2F;
+    }
+
+    @Override
+    public void onHomeFragmentInteraction(View view) {
+        HomeFragment homeFragment = (HomeFragment) getSupportFragmentManager().findFragmentByTag("homeFragment");
+        homeFragment.homeButtonClicked(view);
     }
 }

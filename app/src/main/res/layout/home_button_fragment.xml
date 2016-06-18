@@ -6,12 +6,11 @@
     android:paddingTop="60dp"
     android:paddingRight="20dp">
 
-    <Button
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:text="0"
-        android:background="@drawable/coin_icon"
-        android:id="@+id/gemButton"
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_menu_home"
+        android:id="@+id/homeButton"
         android:layout_gravity="end|top"
-        android:onClick="onGemFragmentInteraction"/>
+        android:onClick="onHomeFragmentInteraction"/>
 </FrameLayout>

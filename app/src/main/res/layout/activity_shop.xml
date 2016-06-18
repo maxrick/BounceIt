@@ -30,7 +30,18 @@
         android:paddingRight="@dimen/activity_horizontal_margin"
         />
 
-    <Button
+    <fragment
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:name="layout.HomeFragment"
+        android:id="@+id/homeButton"
+        android:tag="homeFragment"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/slider"
+        />
+
+    <!--Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/delete_purchases"
@@ -38,7 +49,7 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="61dp"
-        android:onClick="deletePurchasesClicked"/>
+        android:onClick="deletePurchasesClicked"/-->
 
 
 </RelativeLayout>
