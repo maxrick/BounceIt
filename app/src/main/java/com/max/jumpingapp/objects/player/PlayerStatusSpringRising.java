@@ -1,8 +1,10 @@
 package com.max.jumpingapp.objects.player;
 
 import com.max.jumpingapp.game.GamePanel;
+import com.max.jumpingapp.game.HelpInstructionEvent;
 import com.max.jumpingapp.game.LeftTrampolinEvent;
 import com.max.jumpingapp.objects.visuals.PlayerObject;
+import com.max.jumpingapp.tutorial.ScreenMessage;
 import com.max.jumpingapp.types.Height;
 import com.max.jumpingapp.game.PlayerDiedException;
 import com.max.jumpingapp.objects.Trampolin;
@@ -25,6 +27,12 @@ public class PlayerStatusSpringRising extends PlayerStatus {
         Height curHeight = new Height((int) (-(Math.sqrt(2 * mass * PlayerStatus.gravitaion * maxHeight / GamePanel.SPRINGCONST)
                 * Math.sin((elapsedSeconds + this.oscPeriod) / Math.sqrt(mass / GamePanel.SPRINGCONST)))));
         playerObject.setRect(curHeight, xPosition);
+        if(maxHeight < 2000 && !curHeight.isGreaterThan(-300)){
+            EventBus.getDefault().post(new HelpInstructionEvent(new ScreenMessage("Touch and Hold"), 2000000000/30));
+        }
+        if(maxHeight < 2000 && curHeight.isGreaterThan(-300)){
+            EventBus.getDefault().post(new HelpInstructionEvent(new ScreenMessage("Release"), 2000000000/30));
+        }
         return curHeight;
     }
 

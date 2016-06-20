@@ -1,6 +1,13 @@
 package com.max.jumpingapp.tutorial.tutorialPlayer;
 
+import com.max.jumpingapp.game.PlayerDiedException;
+import com.max.jumpingapp.objects.Trampolin;
+import com.max.jumpingapp.objects.player.Player;
+import com.max.jumpingapp.objects.player.PlayerPower;
 import com.max.jumpingapp.objects.visuals.PlayerObject;
+import com.max.jumpingapp.objects.visuals.PowerDisplay;
+import com.max.jumpingapp.types.Height;
+import com.max.jumpingapp.types.XPosition;
 import com.max.jumpingapp.util.Constants;
 import com.max.jumpingapp.game.GamePanel;
 import com.max.jumpingapp.objects.player.PlayerStatusFreeRising;
@@ -16,6 +23,7 @@ import de.greenrobot.event.EventBus;
  */
 public class TutorialPlayerStatusFreeRising extends PlayerStatusFreeRising {
     private double percentagePassedBeforeStop=0;
+    private boolean hadStoppedForPowerDisplay=false;
 
     public TutorialPlayerStatusFreeRising(double oscPeriod, double fallPeriod, PlayerObject playerObject) {
         super(oscPeriod, fallPeriod, playerObject);
@@ -33,7 +41,7 @@ public class TutorialPlayerStatusFreeRising extends PlayerStatusFreeRising {
     }
 
     public void onEvent(StopPlayerStatusInAir event){
-        stopGame(Constants.WIND);
+        stopGame(Constants.WIND,true, GamePanel.screenHeight/2);
     }
     private void continueGame() {
         long minusFaktor = (long) (percentagePassedBeforeStop*oscPeriod);
@@ -41,11 +49,21 @@ public class TutorialPlayerStatusFreeRising extends PlayerStatusFreeRising {
         TutorialPlayer.getTutorialPlayer().unPause(oscPeriod);
     }
 
-    private void stopGame(String message) {
+    @Override
+    public Height calculatePos(PlayerPower playerPower, int maxHeight, XPosition xPosition, Player player, Trampolin trampolin) throws PlayerDiedException {
+        Height curHeight = super.calculatePos(playerPower, maxHeight, xPosition, player, trampolin);
+        if(curHeight.isGreaterThan(100) && !hadStoppedForPowerDisplay){
+            stopGame(Constants.NOTICE_DISPLAY,false, PowerDisplay.BOTTOM+50);
+            hadStoppedForPowerDisplay = true;
+        }
+        return curHeight;
+    }
+
+    private void stopGame(String message, boolean swipeToRestart, int yPos) {
         double elapsedNanos = System.nanoTime() - GamePanel.lastUpdateTime;
         percentagePassedBeforeStop = elapsedNanos / oscPeriod;
-        TutorialGamePanel.onlyRestartWhenSwiped =true;
+        TutorialGamePanel.onlyRestartWhenSwiped =swipeToRestart;
         TutorialPlayer.getTutorialPlayer().pause();
-        EventBus.getDefault().post(new StopPlayerTouchingTrampolinEvent(message, 50, GamePanel.screenHeight/2));
+        EventBus.getDefault().post(new StopPlayerTouchingTrampolinEvent(message, 50,yPos));
     }
 }

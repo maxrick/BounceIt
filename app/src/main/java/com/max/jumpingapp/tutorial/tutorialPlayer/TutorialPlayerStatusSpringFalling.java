@@ -1,6 +1,14 @@
 package com.max.jumpingapp.tutorial.tutorialPlayer;
 
+import com.max.jumpingapp.game.HelpInstructionEvent;
+import com.max.jumpingapp.game.PlayerDiedException;
+import com.max.jumpingapp.game.PlayerStatusDiedException;
+import com.max.jumpingapp.objects.Trampolin;
+import com.max.jumpingapp.objects.player.PlayerStatusDead;
 import com.max.jumpingapp.objects.visuals.PlayerObject;
+import com.max.jumpingapp.tutorial.ScreenMessage;
+import com.max.jumpingapp.types.Height;
+import com.max.jumpingapp.types.XPosition;
 import com.max.jumpingapp.util.Constants;
 import com.max.jumpingapp.game.FingerReleasedEvent;
 import com.max.jumpingapp.game.GamePanel;
@@ -39,6 +47,19 @@ public class TutorialPlayerStatusSpringFalling extends PlayerStatusSpringFalling
         long minusFactor = (long) (percentagePassedBeforeStop*oscPeriod);
         GamePanel.lastUpdateTime = System.nanoTime() - minusFactor;// - 0);
         TutorialPlayer.getTutorialPlayer().unPause(oscPeriod);
+    }
+
+    @Override
+    public Height calculatePos(PlayerPower playerPower, int maxHeight, XPosition xPosition, Player player, Trampolin trampolin) throws PlayerDiedException, PlayerStatusDiedException {
+        double elapsedSeconds = (System.nanoTime() - GamePanel.lastUpdateTime) / GamePanel.secondInNanos;
+        xPosition.dontMove();
+        Height curHeight = new Height((int) (-(Math.sqrt(2 * mass * PlayerStatus.gravitaion * maxHeight / GamePanel.SPRINGCONST) *
+                Math.sin(elapsedSeconds / Math.sqrt(mass / GamePanel.SPRINGCONST)))));
+        playerObject.setRect(curHeight, xPosition);
+        if(!trampolin.supportingPlayer(player)){
+            throw new PlayerStatusDiedException(new PlayerStatusDead(oscPeriod, fallPeriod, playerObject));
+        }
+        return curHeight;
     }
 
     public void onEvent(FingerReleasedEvent event){

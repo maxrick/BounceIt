@@ -1,5 +1,7 @@
 package com.max.jumpingapp.tutorial;
 
+import com.max.jumpingapp.game.GamePanel;
+
 /**
  * Created by max on 5/20/2016.
  */
@@ -12,6 +14,11 @@ public class ScreenMessage {
         this.message=message;
         this.xPos = xPos;
         this.yPos = yPos;
+    }
+    public ScreenMessage(String message){
+        this.message = message;
+        xPos = 60;
+        yPos = GamePanel.screenHeight/5;
     }
 
     public int getxPos() {

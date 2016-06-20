@@ -17,6 +17,7 @@ public abstract class Constants {
                                                 "just before leaving the trampolin.";
     public static final String RELEASE = "Release to activate power.\nIf you release to late you lose height.";
     public static final String WIND = "Sometimes wind will move you \nsideways.\nSwipe to move back to the middle.\nSwipe more often and \nlonger to move quicker.\nSwipe to continue!";
+    public static final String NOTICE_DISPLAY = "Good Jump. Notice the power display\nis almost full!";
 
     public static final String HEIGHT = "Height: ";
     public static final String HEIGHT_0 = "Height: 0";

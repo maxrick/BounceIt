@@ -25,6 +25,7 @@ public class PowerDisplay {
     Paint minPowerPaint;
     Paint borderPaint;
     Paint powerLoaderPaint;
+    Paint textPaint;
 
     public PowerDisplay() {
         border = new Rect(LEFT, TOP, RIGHT, BOTTOM);
@@ -35,6 +36,9 @@ public class PowerDisplay {
         powerLoaderPaint = new Paint();
         powerLoaderPaint.setColor(GamePanel.GREEN1);
         powerLoaderPaint.setStyle(Paint.Style.FILL);
+        textPaint = new Paint();
+        textPaint.setColor(Color.BLACK);
+        textPaint.setTextSize(30);
     }
 
     public void onEvent(LivePowerEvent event) {
@@ -72,6 +76,7 @@ public class PowerDisplay {
 
     public void draw(Canvas canvas) {
         resetAfterTime();
+        canvas.drawText("Power",LEFT, TOP-10,textPaint );
         canvas.drawRect(powerLoader, powerLoaderPaint);
         canvas.drawRect(border, borderPaint);
     }
