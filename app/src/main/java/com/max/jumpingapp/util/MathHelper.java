@@ -1,5 +1,7 @@
 package com.max.jumpingapp.util;
 
+import com.max.jumpingapp.game.GamePanel;
+
 /**
  * Created by max on 5/28/2016.
  */
@@ -14,5 +16,10 @@ public class MathHelper {
             returnString+= String.valueOf(getNthDigit(mergedValues, base, number));
         }
         return returnString;
+    }
+
+    public static int adjustToScreensize(int number){
+        int defaultWidth = 768;
+        return number * GamePanel.screenWidth/defaultWidth;
     }
 }

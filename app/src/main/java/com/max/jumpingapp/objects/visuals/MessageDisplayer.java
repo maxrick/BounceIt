@@ -10,6 +10,7 @@ import com.max.jumpingapp.tutorial.ScreenMessage;
 import com.max.jumpingapp.util.Constants;
 import com.max.jumpingapp.game.GamePanel;
 import com.max.jumpingapp.game.JumpMissedEvent;
+import com.max.jumpingapp.util.MathHelper;
 
 /**
  * Created by max on 4/10/2016.
@@ -26,8 +27,8 @@ public class MessageDisplayer {
     public MessageDisplayer(){
         paint = new Paint();
         paint.setColor(Color.BLACK);
-        paint.setTextSize(50);
-        xPos = 60;
+        paint.setTextSize(MathHelper.adjustToScreensize(40));
+        xPos = MathHelper.adjustToScreensize(40);
         yPos = GamePanel.screenHeight/5;
     }
 

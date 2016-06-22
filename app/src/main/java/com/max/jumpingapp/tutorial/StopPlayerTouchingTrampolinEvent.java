@@ -17,7 +17,7 @@ public class StopPlayerTouchingTrampolinEvent {
     }
 
     public StopPlayerTouchingTrampolinEvent(String message){
-        this(message, 100, GamePanel.screenHeight/5);
+        this(message, 50, GamePanel.screenHeight/5);
     }
 
     public StopPlayerTouchingTrampolinEvent(String message, int xPos, int yPos) {

@@ -2,11 +2,11 @@ package com.max.jumpingapp.tutorial;
 
 import android.graphics.Canvas;
 import android.graphics.Paint;
-import android.os.Message;
 import android.view.SurfaceHolder;
 
 import com.max.jumpingapp.game.GamePanel;
 import com.max.jumpingapp.game.MainThread;
+import com.max.jumpingapp.util.MathHelper;
 
 /**
  * Created by max on 4/19/2016.
@@ -87,9 +87,9 @@ public class TutorialMainThread extends MainThread {
         if (undrawnMessage) {
             undrawnMessage = false;
             Paint paint = new Paint();
-            paint.setTextSize(40);
+            paint.setTextSize(MathHelper.adjustToScreensize(50));
 //            canvas.drawText(message, 100, GamePanel.screenHeight / 5, paint);
-            drawMultiline(message.getMessage(), message.getxPos(), message.getyPos(), paint, canvas);
+            drawMultiline(message.getMessage(), MathHelper.adjustToScreensize(message.getxPos()), message.getyPos(), paint, canvas);
         }
     }
 

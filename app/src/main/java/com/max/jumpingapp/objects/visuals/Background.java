@@ -7,6 +7,7 @@ import android.graphics.LightingColorFilter;
 import android.graphics.Paint;
 
 import com.max.jumpingapp.R;
+import com.max.jumpingapp.game.GamePanel;
 
 /**
  * Created by normal on 29.08.2015.
@@ -20,8 +21,8 @@ public class Background {
     public Background(Bitmap res, Bitmap noChange) {
         image = res;
         this.stars = noChange;
-//        double scaleFactor = GamePanel.screenWidth*1.0 / res.getWidth();
-//        image = Bitmap.createScaledBitmap(res, GamePanel.screenWidth, (int)( GamePanel.screenHeight*scaleFactor), false); @// TODO: 4/11/2016 scale image
+        double scaleFactor = GamePanel.screenWidth*1.0 / res.getWidth();
+        image = Bitmap.createScaledBitmap(res, GamePanel.screenWidth, (int)( res.getHeight()*scaleFactor), false); // TODO: 4/11/2016 scale image
         y = 0;
         x = 0;
     }
