@@ -1,5 +1,6 @@
 package com.max.jumpingapp.objects.player;
 
+import com.max.jumpingapp.game.DrawFingerTouchEvent;
 import com.max.jumpingapp.game.GamePanel;
 import com.max.jumpingapp.game.HelpInstructionEvent;
 import com.max.jumpingapp.game.PlayerStatusDiedException;
@@ -32,7 +33,8 @@ public class PlayerStatusSpringFalling extends PlayerStatus {//@// TODO: 4/12/20
             throw new PlayerStatusDiedException(new PlayerStatusDead(oscPeriod, fallPeriod, playerObject));
         }
         if(maxHeight < 2000){
-            EventBus.getDefault().post(new HelpInstructionEvent(new ScreenMessage("Touch and Hold"), 2000000000/30));
+            //EventBus.getDefault().post(new HelpInstructionEvent(new ScreenMessage("Touch and Hold"), 2000000000/30));
+            EventBus.getDefault().post(new DrawFingerTouchEvent(new ScreenMessage("Touch and Hold",-GamePanel.screenWidth/5,GamePanel.screenHeight*3/5), 2000000000/30));
         }
         return curHeight;
     }

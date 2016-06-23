@@ -101,7 +101,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
 
         Player player = GamePanel.createPlayer(createPlayerImage(), leftOfImage, rightOfImage);
 
-        this.game = new Game(createBackground(), trampolin, player, highScores);
+        this.game = new Game(createBackground(), trampolin, player, highScores, getResources());
     }
 
     protected Bitmap createPlayerImage() {

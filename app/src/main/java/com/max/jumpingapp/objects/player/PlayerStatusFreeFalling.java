@@ -1,7 +1,7 @@
 package com.max.jumpingapp.objects.player;
 
-import android.graphics.Bitmap;
-
+import com.max.jumpingapp.game.DrawFingerSwipeLeftEvent;
+import com.max.jumpingapp.game.DrawFingerSwipeRightEvent;
 import com.max.jumpingapp.game.GamePanel;
 import com.max.jumpingapp.game.HelpInstructionEvent;
 import com.max.jumpingapp.game.ResetPowerDisplayEvent;
@@ -10,8 +10,6 @@ import com.max.jumpingapp.tutorial.ScreenMessage;
 import com.max.jumpingapp.types.Height;
 import com.max.jumpingapp.game.PlayerDiedException;
 import com.max.jumpingapp.objects.Trampolin;
-import com.max.jumpingapp.types.Width;
-import com.max.jumpingapp.types.XCenter;
 import com.max.jumpingapp.types.XPosition;
 
 import de.greenrobot.event.EventBus;
@@ -36,9 +34,11 @@ public class PlayerStatusFreeFalling extends PlayerStatus {
         Height curHeight = new Height((int) (-0.5 * PlayerStatus.gravitaion * Math.pow(elapsedSeconds, 2) + maxHeight));
         playerObject.setRect(curHeight, xPosition);
         if(player.getLeft() < GamePanel.screenWidth/4 && maxHeight < 2000){
-            EventBus.getDefault().post(new HelpInstructionEvent(new ScreenMessage("Swipe right"), 2000000000/30));
+            //EventBus.getDefault().post(new HelpInstructionEvent(new ScreenMessage("Swipe right"), 2000000000/30));
+            EventBus.getDefault().post(new DrawFingerSwipeRightEvent(new ScreenMessage("Swipe right",-GamePanel.screenWidth/5,GamePanel.screenHeight*3/5), 1000000000/2));
         }else if(player.getRight() > GamePanel.screenWidth*3/4 && maxHeight < 2000){
-            EventBus.getDefault().post(new HelpInstructionEvent(new ScreenMessage("Swipe left"), 2000000000/30));
+            //EventBus.getDefault().post(new HelpInstructionEvent(new ScreenMessage("Swipe left"), 2000000000/30));
+            EventBus.getDefault().post(new DrawFingerSwipeLeftEvent(new ScreenMessage("Swipe left",-GamePanel.screenWidth/5,GamePanel.screenHeight*3/5), 1000000000/2));
         }
         return curHeight;
     }

@@ -3,65 +3,90 @@ package com.max.jumpingapp.objects.visuals;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.provider.Settings;
 
+import com.max.jumpingapp.game.DrawFingerSwipeEvent;
+import com.max.jumpingapp.game.DrawableEvent;
+import com.max.jumpingapp.game.DrawFingerSwipeRightEvent;
 import com.max.jumpingapp.game.HelpInstructionEvent;
-import com.max.jumpingapp.tutorial.ScreenMessage;
-import com.max.jumpingapp.util.Constants;
-import com.max.jumpingapp.game.GamePanel;
 import com.max.jumpingapp.game.JumpMissedEvent;
 import com.max.jumpingapp.util.MathHelper;
+
+import java.util.ArrayList;
+import java.util.Iterator;
 
 /**
  * Created by max on 4/10/2016.
  */
 public class MessageDisplayer {
-    private static final long timeToDisplayMessage = 2000000000;
     private Paint paint;
-    private long timer;
-    private long timeToDisplay;
-    private ScreenMessage message;
-    private int xPos;
-    private int yPos;//@// TODO: 4/10/2016 create a type
+    private ArrayList<DrawableEvent> events;
 
     public MessageDisplayer(){
         paint = new Paint();
         paint.setColor(Color.BLACK);
         paint.setTextSize(MathHelper.adjustToScreensize(40));
-        xPos = MathHelper.adjustToScreensize(40);
-        yPos = GamePanel.screenHeight/5;
+        events = new ArrayList<DrawableEvent>();
     }
 
     public void onEvent(JumpMissedEvent event){
-        timer = System.nanoTime();
-        timeToDisplay = timeToDisplayMessage;
-        this.message = new ScreenMessage(Constants.JUMP_MISSED + "\n"+Constants.RELEASE_EARLIER,xPos,yPos);
+        event.setStartTime();
+        this.events.add(event);
+        //this.message = new ScreenMessage(Constants.JUMP_MISSED + "\n"+Constants.RELEASE_EARLIER,xPos,yPos);
     }
 
     public void onEvent(HelpInstructionEvent event){
-        timer = System.nanoTime();
-        timeToDisplay = event.getTime();
-        this.message = event.getMessage();
+        stopSwipe();
+        event.setStartTime();
+        this.events.add(event);
+    }
+
+    private void stopSwipe() {
+        for (Iterator<DrawableEvent> iterator = events.iterator(); iterator.hasNext();) {
+            DrawableEvent event = iterator.next();
+            if(!event.equals(null) && event.getClass().getSuperclass()==DrawFingerSwipeEvent.class) {
+                    iterator.remove();
+            }
+        }
+    }
+
+    public void onEvent(DrawFingerSwipeEvent event){
+        boolean containsSwipe = false;
+        for(DrawableEvent e : events){
+            if(e.getClass().getSuperclass() == DrawFingerSwipeEvent.class){
+                containsSwipe=true;
+            }
+        }
+        if(!containsSwipe) {
+            event.setStartTime();
+            this.events.add(event);
+        }
     }
 
     public void draw(Canvas canvas) {
-        long elapsed = System.nanoTime() - timer;
-        if(elapsed < timeToDisplay){
-            drawMessage(canvas);
+        for (Iterator<DrawableEvent> iterator = events.iterator(); iterator.hasNext();) {
+            DrawableEvent event = iterator.next();
+            if(!event.equals(null)) {
+                if (event.stillActive()) {
+                    event.draw(canvas);
+                } else {
+                    iterator.remove();
+                }
+            }
+        }
+            //drawMessage(canvas);
 //            canvas.drawText(Constants.JUMP_MISSED , xPos, yPos, paint);
 //            canvas.drawText(Constants.RELEASE_EARLIER , xPos, yPos+60, paint);
-        }
     }
-    private void drawMessage(Canvas canvas) {
-            drawMultiline(message.getMessage(), message.getxPos(), message.getyPos(), paint, canvas);
-    }
-
-    public void drawMultiline(String str, int x, int y, Paint paint, Canvas canvas)
-    {
-        for (String line: str.split("\n"))
-        {
-            canvas.drawText(line, x, y, paint);
-            y += -paint.ascent() + paint.descent();
-        }
-    }
+//    private void drawMessage(Canvas canvas) {
+//            drawMultiline(message.getMessage(), message.getxPos(), message.getyPos(), paint, canvas);
+//    }
+//
+//    public void drawMultiline(String str, int x, int y, Paint paint, Canvas canvas)
+//    {
+//        for (String line: str.split("\n"))
+//        {
+//            canvas.drawText(line, x, y, paint);
+//            y += -paint.ascent() + paint.descent();
+//        }
+//    }
 }

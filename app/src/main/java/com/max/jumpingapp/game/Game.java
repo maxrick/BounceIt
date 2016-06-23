@@ -1,5 +1,6 @@
 package com.max.jumpingapp.game;
 
+import android.content.res.Resources;
 import android.graphics.Canvas;
 
 import com.max.jumpingapp.objects.Trampolin;
@@ -22,13 +23,13 @@ public class Game {
     private Score score;
     private DrawObjects objects;
 
-    public Game(Background background, Trampolin trampolin, Player player, int[] highScores) {
+    public Game(Background background, Trampolin trampolin, Player player, int[] highScores, Resources resources) {
         this.bg = background;
         score = new Score(0);
         this.trampolin = trampolin;
         this.player = player;
         EventBus.getDefault().register(player);
-        objects = new DrawObjects(highScores);
+        objects = new DrawObjects(highScores, resources);
     }
 
     public void draw(Canvas canvas) {

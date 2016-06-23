@@ -1,5 +1,7 @@
 package com.max.jumpingapp.objects.player;
 
+import com.max.jumpingapp.game.DrawFingerReleaseEvent;
+import com.max.jumpingapp.game.DrawFingerTouchEvent;
 import com.max.jumpingapp.game.GamePanel;
 import com.max.jumpingapp.game.HelpInstructionEvent;
 import com.max.jumpingapp.game.LeftTrampolinEvent;
@@ -27,11 +29,15 @@ public class PlayerStatusSpringRising extends PlayerStatus {
         Height curHeight = new Height((int) (-(Math.sqrt(2 * mass * PlayerStatus.gravitaion * maxHeight / GamePanel.SPRINGCONST)
                 * Math.sin((elapsedSeconds + this.oscPeriod) / Math.sqrt(mass / GamePanel.SPRINGCONST)))));
         playerObject.setRect(curHeight, xPosition);
-        if(maxHeight < 2000 && !curHeight.isGreaterThan(-300)){
-            EventBus.getDefault().post(new HelpInstructionEvent(new ScreenMessage("Touch and Hold"), 2000000000/30));
+        if(maxHeight < 2000 && !curHeight.isGreaterThan(-200)){
+            //EventBus.getDefault().post(new HelpInstructionEvent(new ScreenMessage("Touch and Hold"), 2000000000/30));
+            EventBus.getDefault().post(new DrawFingerTouchEvent(new ScreenMessage("Touch and Hold",-GamePanel.screenWidth/5,GamePanel.screenHeight*3/5), 2000000000/30));
+
         }
-        if(maxHeight < 2000 && curHeight.isGreaterThan(-300)){
-            EventBus.getDefault().post(new HelpInstructionEvent(new ScreenMessage("Release"), 2000000000/30));
+        if(maxHeight < 2000 && curHeight.isGreaterThan(-200)){
+            //EventBus.getDefault().post(new HelpInstructionEvent(new ScreenMessage("Release"), 2000000000/30));
+            //EventBus.getDefault().post(new DrawFingerReleaseEvent(new ScreenMessage("Touch and Hold",-GamePanel.screenWidth/5,GamePanel.screenHeight*3/5), 2000000000/30));
+
         }
         return curHeight;
     }

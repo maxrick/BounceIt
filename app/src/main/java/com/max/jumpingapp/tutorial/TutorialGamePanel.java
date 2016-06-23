@@ -39,7 +39,7 @@ public class TutorialGamePanel extends GamePanel {
 
         Player player = TutorialPlayer.createTutorialPlayer(new XCenter(screenWidth / 2), new Width(GamePanel.screenWidth * 0.2), createPlayerImage(), leftOfImage, rightOfImage);
 
-        this.game = new Game(createBackground(), trampolin, player, highScores);
+        this.game = new Game(createBackground(), trampolin, player, highScores, getResources());
     }
 
     @Override

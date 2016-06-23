@@ -1,7 +1,11 @@
 package com.max.jumpingapp.objects.visuals;
 
+import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 
+import com.max.jumpingapp.R;
 import com.max.jumpingapp.types.Height;
 import com.max.jumpingapp.types.Score;
 
@@ -16,13 +20,17 @@ public class DrawObjects {
     private HighscoreDisplay highscoreDisplay;
     private ScoreBoardDisplay scoreBoardDisplay;
     private PowerDisplay powerDisplay;
+    public static Bitmap fingerReleaseImage;
+    public static Bitmap fingerTouchImage;
 
-    public DrawObjects(int[] highScores){
+    public DrawObjects(int[] highScores, Resources resources){
         this.messageDisplayer = new MessageDisplayer();
         this.lastHeightDisplay = new LastHeightDisplay();
         this.highscoreDisplay = new HighscoreDisplay(highScores);
         this.scoreBoardDisplay = new ScoreBoardDisplay(new Height(0), new Score(0));
         this.powerDisplay = new PowerDisplay();
+        fingerTouchImage = BitmapFactory.decodeResource(resources, R.drawable.fingertouch);
+        fingerReleaseImage = BitmapFactory.decodeResource(resources, R.drawable.finger);
         EventBus.getDefault().register(powerDisplay);
         EventBus.getDefault().register(messageDisplayer);
     }

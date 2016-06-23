@@ -9,7 +9,7 @@ import java.util.Random;
  * Created by max on 3/30/2016.
  */
 public class Wind {
-    protected int chance = 15;
+    protected int chance = 20;//harder:15
     protected Random random;
 
     public Wind(){
@@ -20,7 +20,7 @@ public class Wind {
         if(curHeight.isPositive()&&chance>0){
             double chance = random.nextInt(this.chance);
             if(chance == 1){
-                int windPower = random.nextInt(curHeight.devideBy(5));
+                int windPower = random.nextInt(curHeight.devideBy(15));//harder:5
                 windPower = random.nextBoolean()? windPower : -windPower;
                 xPosition.velocityByWind(windPower);
             }
