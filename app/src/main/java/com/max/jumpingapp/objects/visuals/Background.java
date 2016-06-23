@@ -20,9 +20,10 @@ public class Background {
 
     public Background(Bitmap res, Bitmap noChange) {
         image = res;
-        this.stars = noChange;
+        double starsScale = GamePanel.screenWidth*1.0 /noChange.getWidth();
         double scaleFactor = GamePanel.screenWidth*1.0 / res.getWidth();
         image = Bitmap.createScaledBitmap(res, GamePanel.screenWidth, (int)( res.getHeight()*scaleFactor), false); // TODO: 4/11/2016 scale image
+        stars = Bitmap.createScaledBitmap(noChange, GamePanel.screenWidth, (int)(noChange.getHeight()*starsScale),false);
         y = 0;
         x = 0;
     }
@@ -41,6 +42,7 @@ public class Background {
 //        int alpha = (-moveBy/image.getHeight())* GREY_STEP;
 //        paint.setAlpha(255 - alpha);
         y = -moveBy %image.getHeight();
+        int yStars =  -moveBy %stars.getHeight();
         int stage = (-moveBy/image.getHeight());
         if(stage>0){
             double greenMulDuble = Math.pow(((178.d * 255.d) / 238.d) / 255.d, stage);
@@ -50,7 +52,7 @@ public class Background {
             paint.setColorFilter(new LightingColorFilter(Color.rgb(0, greenMul, blueMul),Color.rgb(33,0,0)));
         }
         canvas.drawBitmap(image, x, y, paint);
-        canvas.drawBitmap(stars,x,y, new Paint());
+        canvas.drawBitmap(stars,x,yStars, new Paint());
 
 //        paint.setAlpha(255 - (alpha + GREY_STEP));
         if (y > 0) {
@@ -60,7 +62,7 @@ public class Background {
             int blueMul = (int) (blueMulDouble *255);
             paint.setColorFilter(new LightingColorFilter(Color.rgb(0, greenMul, blueMul),Color.rgb(33,0,0)));
             canvas.drawBitmap(image, x, y-image.getHeight(), paint);
-            canvas.drawBitmap(stars,x,y-image.getHeight(), new Paint());
+            canvas.drawBitmap(stars,x,yStars-stars.getHeight(), new Paint());
         }
     }
 
