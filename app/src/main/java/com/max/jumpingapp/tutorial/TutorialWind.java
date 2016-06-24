@@ -16,9 +16,8 @@ public class TutorialWind extends Wind {
     protected boolean tutorialMode;
 
     public TutorialWind(){
+        super();
         tutorialMode = true;
-        this.chance = 0;
-        this.random = new Random();
     }
 
     @Override
