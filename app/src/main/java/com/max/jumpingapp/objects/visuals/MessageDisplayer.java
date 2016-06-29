@@ -4,11 +4,10 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 
-import com.max.jumpingapp.game.DrawFingerSwipeEvent;
-import com.max.jumpingapp.game.DrawableEvent;
-import com.max.jumpingapp.game.DrawFingerSwipeRightEvent;
-import com.max.jumpingapp.game.HelpInstructionEvent;
-import com.max.jumpingapp.game.JumpMissedEvent;
+import com.max.jumpingapp.events.DrawFingerSwipeEvent;
+import com.max.jumpingapp.events.DrawableEvent;
+import com.max.jumpingapp.events.HelpInstructionEvent;
+import com.max.jumpingapp.events.JumpMissedEvent;
 import com.max.jumpingapp.util.MathHelper;
 
 import java.util.ArrayList;

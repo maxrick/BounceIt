@@ -1,8 +1,8 @@
 package com.max.jumpingapp.objects.player;
 
-import com.max.jumpingapp.game.JumpMissedEvent;
-import com.max.jumpingapp.game.LeftTrampolinEvent;
-import com.max.jumpingapp.game.LivePowerEvent;
+import com.max.jumpingapp.events.JumpMissedEvent;
+import com.max.jumpingapp.events.LeftTrampolinEvent;
+import com.max.jumpingapp.events.LivePowerEvent;
 import com.max.jumpingapp.types.PowerPercent;
 
 import de.greenrobot.event.EventBus;

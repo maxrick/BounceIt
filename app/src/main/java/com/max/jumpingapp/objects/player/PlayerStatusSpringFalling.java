@@ -1,8 +1,7 @@
 package com.max.jumpingapp.objects.player;
 
-import com.max.jumpingapp.game.DrawFingerTouchEvent;
+import com.max.jumpingapp.events.DrawFingerTouchEvent;
 import com.max.jumpingapp.game.GamePanel;
-import com.max.jumpingapp.game.HelpInstructionEvent;
 import com.max.jumpingapp.game.PlayerStatusDiedException;
 import com.max.jumpingapp.objects.visuals.PlayerObject;
 import com.max.jumpingapp.tutorial.ScreenMessage;

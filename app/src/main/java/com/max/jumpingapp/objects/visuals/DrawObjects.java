@@ -30,7 +30,7 @@ public class DrawObjects {
         this.scoreBoardDisplay = new ScoreBoardDisplay(new Height(0), new Score(0));
         this.powerDisplay = new PowerDisplay();
         fingerTouchImage = BitmapFactory.decodeResource(resources, R.drawable.fingertouch);
-        fingerReleaseImage = BitmapFactory.decodeResource(resources, R.drawable.finger);
+        fingerReleaseImage = BitmapFactory.decodeResource(resources, R.drawable.fingertouch);
         EventBus.getDefault().register(powerDisplay);
         EventBus.getDefault().register(messageDisplayer);
     }

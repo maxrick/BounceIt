@@ -1,4 +1,4 @@
-package com.max.jumpingapp.game;
+package com.max.jumpingapp.events;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -9,8 +9,8 @@ import com.max.jumpingapp.tutorial.ScreenMessage;
 /**
  * Created by Max Rickayzen on 23.06.2016.
  */
-public class DrawFingerReleaseEvent extends HelpInstructionEvent {
-    public DrawFingerReleaseEvent(ScreenMessage message, long time) {
+public class DrawFingerTouchEvent extends HelpInstructionEvent {
+    public DrawFingerTouchEvent(ScreenMessage message, long time) {
         super(message, time);
     }
 
@@ -18,7 +18,7 @@ public class DrawFingerReleaseEvent extends HelpInstructionEvent {
     public void draw(Canvas canvas) {
         //drawMultiline(message.getMessage(), message.getxPos(), message.getyPos(), paint, canvas);
         Bitmap image;
-        image= DrawObjects.fingerReleaseImage;
+        image= DrawObjects.fingerTouchImage;
         canvas.drawBitmap(image, message.getxPos(), message.getyPos(), paint);
     }
 }

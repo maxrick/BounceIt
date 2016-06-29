@@ -1,10 +1,9 @@
 package com.max.jumpingapp.objects.player;
 
-import com.max.jumpingapp.game.DrawFingerSwipeLeftEvent;
-import com.max.jumpingapp.game.DrawFingerSwipeRightEvent;
+import com.max.jumpingapp.events.DrawFingerSwipeLeftEvent;
+import com.max.jumpingapp.events.DrawFingerSwipeRightEvent;
 import com.max.jumpingapp.game.GamePanel;
-import com.max.jumpingapp.game.HelpInstructionEvent;
-import com.max.jumpingapp.game.ResetPowerDisplayEvent;
+import com.max.jumpingapp.events.ResetPowerDisplayEvent;
 import com.max.jumpingapp.objects.visuals.PlayerObject;
 import com.max.jumpingapp.tutorial.ScreenMessage;
 import com.max.jumpingapp.types.Height;
@@ -29,13 +28,13 @@ public class PlayerStatusFreeRising extends PlayerStatus {
         xPosition.move();
         Height curHeight = new Height((int) (-0.5 * PlayerStatus.gravitaion * Math.pow((elapsedSeconds - Math.sqrt(2 * maxHeight / PlayerStatus.gravitaion)), 2) + maxHeight));
         playerObject.setRect(curHeight, xPosition);
-        if(player.getLeft() < GamePanel.screenWidth/4 && maxHeight < 2000){
+        if(player.getRight() < GamePanel.screenWidth/2 && maxHeight < 2000){
             //EventBus.getDefault().post(new HelpInstructionEvent(new ScreenMessage("Swipe right"), 2000000000/30));
-            EventBus.getDefault().post(new DrawFingerSwipeRightEvent(new ScreenMessage("Swipe right",-GamePanel.screenWidth/5,GamePanel.screenHeight*3/5), 1000000000/2));
+            EventBus.getDefault().post(new DrawFingerSwipeRightEvent(new ScreenMessage("Swipe right",-GamePanel.screenWidth/5,GamePanel.screenHeight*3/5), 1200000000/2));
 
-        }else if(player.getRight() > GamePanel.screenWidth*3/4 && maxHeight < 2000){
+        }else if(player.getLeft() > GamePanel.screenWidth/2 && maxHeight < 2000){
             //EventBus.getDefault().post(new HelpInstructionEvent(new ScreenMessage("Swipe left"), 2000000000/30));
-            EventBus.getDefault().post(new DrawFingerSwipeLeftEvent(new ScreenMessage("Swipe left",-GamePanel.screenWidth/5,GamePanel.screenHeight*3/5), 1000000000/2));
+            EventBus.getDefault().post(new DrawFingerSwipeLeftEvent(new ScreenMessage("Swipe left",-GamePanel.screenWidth/5,GamePanel.screenHeight*3/5), 1200000000/2));
         }
         return curHeight;
     }

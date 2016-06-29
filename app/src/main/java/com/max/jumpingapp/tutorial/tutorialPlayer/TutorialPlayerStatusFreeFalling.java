@@ -2,7 +2,7 @@ package com.max.jumpingapp.tutorial.tutorialPlayer;
 
 import com.max.jumpingapp.objects.visuals.PlayerObject;
 import com.max.jumpingapp.util.Constants;
-import com.max.jumpingapp.game.FingerReleasedEvent;
+import com.max.jumpingapp.events.FingerReleasedEvent;
 import com.max.jumpingapp.game.GamePanel;
 import com.max.jumpingapp.objects.player.Player;
 import com.max.jumpingapp.objects.player.PlayerStatus;

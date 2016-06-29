@@ -1,13 +1,12 @@
-package com.max.jumpingapp.game;
+package com.max.jumpingapp.events;
 
-import android.graphics.Canvas;
-
+import com.max.jumpingapp.events.DrawableEvent;
 import com.max.jumpingapp.tutorial.ScreenMessage;
 
 /**
  * Created by Max Rickayzen on 23.06.2016.
  */
-public abstract class DrawFingerSwipeEvent extends DrawableEvent{
+public abstract class DrawFingerSwipeEvent extends DrawableEvent {
     protected ScreenMessage message;
 
     public DrawFingerSwipeEvent(ScreenMessage message, long time){

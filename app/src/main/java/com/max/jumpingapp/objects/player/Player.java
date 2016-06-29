@@ -5,11 +5,9 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 
-import com.max.jumpingapp.game.FingerReleasedEvent;
-import com.max.jumpingapp.game.GamePanel;
-import com.max.jumpingapp.game.JumpMissedEvent;
-import com.max.jumpingapp.game.JumpMissedException;
-import com.max.jumpingapp.game.PlayerAcceleratedEvent;
+import com.max.jumpingapp.events.FingerReleasedEvent;
+import com.max.jumpingapp.events.JumpMissedEvent;
+import com.max.jumpingapp.events.PlayerAcceleratedEvent;
 import com.max.jumpingapp.game.PlayerStatusDiedException;
 import com.max.jumpingapp.types.Height;
 import com.max.jumpingapp.game.PlayerDiedException;

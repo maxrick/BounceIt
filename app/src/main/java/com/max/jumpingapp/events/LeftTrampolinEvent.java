@@ -1,4 +1,4 @@
-package com.max.jumpingapp.game;
+package com.max.jumpingapp.events;
 
 import com.max.jumpingapp.objects.player.Player;
 

@@ -1,13 +1,9 @@
-package com.max.jumpingapp.game;
+package com.max.jumpingapp.events;
 
-import android.graphics.Bitmap;
 import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
 
-import com.max.jumpingapp.objects.visuals.DrawObjects;
+import com.max.jumpingapp.events.DrawableEvent;
 import com.max.jumpingapp.tutorial.ScreenMessage;
-import com.max.jumpingapp.util.MathHelper;
 
 /**
  * Created by max on 6/20/2016.

@@ -6,9 +6,9 @@ import android.graphics.Paint;
 import android.graphics.Rect;
 
 import com.max.jumpingapp.game.GamePanel;
-import com.max.jumpingapp.game.LivePowerEvent;
-import com.max.jumpingapp.game.PlayerAcceleratedEvent;
-import com.max.jumpingapp.game.ResetPowerDisplayEvent;
+import com.max.jumpingapp.events.LivePowerEvent;
+import com.max.jumpingapp.events.PlayerAcceleratedEvent;
+import com.max.jumpingapp.events.ResetPowerDisplayEvent;
 
 /**
  * Created by max on 4/6/2016.

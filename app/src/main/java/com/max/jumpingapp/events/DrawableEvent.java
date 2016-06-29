@@ -1,4 +1,4 @@
-package com.max.jumpingapp.game;
+package com.max.jumpingapp.events;
 
 import android.graphics.Canvas;
 import android.graphics.Color;

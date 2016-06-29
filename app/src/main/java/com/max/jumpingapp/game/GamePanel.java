@@ -11,6 +11,7 @@ import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
 import com.max.jumpingapp.R;
+import com.max.jumpingapp.events.FingerReleasedEvent;
 import com.max.jumpingapp.objects.visuals.Background;
 import com.max.jumpingapp.objects.player.Player;
 import com.max.jumpingapp.objects.Trampolin;

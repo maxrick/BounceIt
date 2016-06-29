@@ -1,4 +1,4 @@
-package com.max.jumpingapp.game;
+package com.max.jumpingapp.events;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -9,9 +9,9 @@ import com.max.jumpingapp.tutorial.ScreenMessage;
 /**
  * Created by Max Rickayzen on 23.06.2016.
  */
-public class DrawFingerSwipeRightEvent extends DrawFingerSwipeEvent{
-    protected int xMover = 0;
-    public DrawFingerSwipeRightEvent(ScreenMessage message, long time) {
+public class DrawFingerSwipeLeftEvent extends DrawFingerSwipeEvent{
+    protected int xMover = 300;
+    public DrawFingerSwipeLeftEvent(ScreenMessage message, long time) {
         super(message, time);
     }
 
@@ -19,7 +19,7 @@ public class DrawFingerSwipeRightEvent extends DrawFingerSwipeEvent{
     public void draw(Canvas canvas) {
         Bitmap image;
         image= DrawObjects.fingerReleaseImage;
-        xMover+=20;
+        xMover-=40;
         canvas.drawBitmap(image, message.getxPos()+xMover, message.getyPos(), paint);
     }
 }
