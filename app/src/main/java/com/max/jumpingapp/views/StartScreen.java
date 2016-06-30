@@ -114,7 +114,7 @@ public class StartScreen extends AppCompatActivity implements GemFragment.OnGemF
     }
 
     public void buttonRecommendAppClicked(View view) {//@// TODO: 6/2/2016 rename
-        Intent intent = new Intent(this, RecommendScreen.class);
+        Intent intent = new Intent(this, HelpPage2.class);
         startActivity(intent);
     }
 

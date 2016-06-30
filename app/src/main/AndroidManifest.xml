@@ -3,9 +3,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.max.jumpingapp">
 
-    <!-- To access Google+ APIs:
-    <uses-permission android:name="android.permission.INTERNET" /><-->
-
+    <!--
+     To access Google+ APIs:
+    <uses-permission android:name="android.permission.INTERNET" /><
+    -->
     <application
         android:allowBackup="true"
         android:icon="@mipmap/appicon"
@@ -30,14 +31,19 @@
             android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:theme="@style/FullscreenTheme" />
-        <activity android:name=".views.DiedScreen"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".views.Highscores"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".views.Shop"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".views.RecommendScreen"
-            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".views.DiedScreen"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".views.Highscores"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".views.Shop"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".views.RecommendScreen"
+            android:screenOrientation="portrait" />
+        <activity android:name=".views.HelpPage2"></activity>
     </application>
 
 </manifest>
