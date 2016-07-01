@@ -20,7 +20,7 @@ public class DrawObjects {
     private HighscoreDisplay highscoreDisplay;
     private ScoreBoardDisplay scoreBoardDisplay;
     private PowerDisplay powerDisplay;
-    public static Bitmap fingerReleaseImage;
+//    public static Bitmap fingerReleaseImage;
     public static Bitmap fingerTouchImage;
 
     public DrawObjects(int[] highScores, Resources resources){
@@ -30,7 +30,7 @@ public class DrawObjects {
         this.scoreBoardDisplay = new ScoreBoardDisplay(new Height(0), new Score(0));
         this.powerDisplay = new PowerDisplay();
         fingerTouchImage = BitmapFactory.decodeResource(resources, R.drawable.fingertouch);
-        fingerReleaseImage = BitmapFactory.decodeResource(resources, R.drawable.fingertouch);
+        //fingerReleaseImage = BitmapFactory.decodeResource(resources, R.drawable.fingertouch);
         EventBus.getDefault().register(powerDisplay);
         EventBus.getDefault().register(messageDisplayer);
     }

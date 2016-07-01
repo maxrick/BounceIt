@@ -18,7 +18,7 @@ public class DrawFingerReleaseEvent extends HelpInstructionEvent {
     public void draw(Canvas canvas) {
         //drawMultiline(message.getMessage(), message.getxPos(), message.getyPos(), paint, canvas);
         Bitmap image;
-        image= DrawObjects.fingerReleaseImage;
+        image= DrawObjects.fingerTouchImage;
         canvas.drawBitmap(image, message.getxPos(), message.getyPos(), paint);
     }
 }
