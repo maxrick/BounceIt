@@ -18,7 +18,7 @@ public class DrawFingerSwipeRightEvent extends DrawFingerSwipeEvent{
     @Override
     public void draw(Canvas canvas) {
         Bitmap image;
-        image= DrawObjects.fingerReleaseImage;
+        image= DrawObjects.fingerTouchImage;
         xMover+=40;
         canvas.drawBitmap(image, message.getxPos()+xMover, message.getyPos(), paint);
     }
