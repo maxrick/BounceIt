@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/fragment4"
-        android:paddingTop="10dp">
+        android:paddingTop="60dp">
 
         <RelativeLayout
             android:id="@+id/relLayout"
@@ -23,7 +23,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
-                android:padding="20dp"
                 android:text="Bounce higher and higher"
                 android:textSize="24sp"
                 android:textStyle="bold" />
@@ -34,7 +33,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
                 android:layout_below="@+id/high_head"
-                android:padding="20dp"
+                android:padding="10dp"
                 android:src="@drawable/a1screenshot_start_touch_small" />
 
             <ImageView
@@ -92,15 +91,26 @@
                 app:siBorderWidth="6dp"
                 app:siBorderColor="@color/black_overlay"
                 app:siSquare="false"/-->
+            <fragment
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:name="layout.HomeFragment"
+                android:id="@+id/homeButton"
+                android:tag="homeFragment"
+                android:paddingBottom="10dp"
+                android:layout_centerHorizontal="true"
+                android:layout_alignParentBottom="true"
+                android:layout_below="@+id/imageView6"
+                />
 
             <TextView
                 android:id="@+id/credits"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/imageView6"
+                android:layout_below="@+id/homeButton"
                 android:layout_centerHorizontal="true"
                 android:paddingBottom="20dp"
-                android:text="Credits:\nAndroid ImageSlider\nLicence: (MIT) https://github.com/daimajia/AndroidImageSlider/blob/master/LICENSE\nAndroid Shape-imageview\nLicense: (MIT) https://github.com/siyamed/android-shape-imageview/blob/master/LICENSE.md"
+                android:text="Credits:\nAndroid ImageSlider\nLicence: (MIT) https://github.com/daimajia/AndroidImageSlider/blob/master/LICENSE"
                 android:textSize="12sp"
                 android:textStyle="bold" />
 

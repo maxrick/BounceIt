@@ -57,4 +57,5 @@
     <string name="enter_recommendation_code">Enter code for free coin</string>
     <string name="sorry_code_only_for_others">Sorry, this code can only be used by other users</string>
     <string name="sorry_code_for_new_users">Sorry, this code is only valid for new users</string>
+    <string name="help_page">Help</string>
 </resources>
