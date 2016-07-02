@@ -42,7 +42,8 @@
     <string name="sorry_code_not_valid">Sorry, this code is not valid</string>
     <string name="also_thank_your_friend">" Thank your friend by giving him a code for a free coin also.\n\nThis code is only valid for the person who sent you your voucher code."</string>
     <string name="sure_no_thank_you_code_question">Are you sure you don\'t want to send your friend the free coin? After cancelling you won\'t have the possibility to send the code again.</string>
-    <string name="get_more_gems">Get more coins</string>
+    <string name="get_free_coins">Get free coins</string>
+    <string name="spend_coins">Spend coins</string>
     <string name="name">Name</string>
     <string name="recommend_instructions">Get more coins by recommending this App. Send an activation code to a friend. With this code your friend will get a free coin. \nMake sure your friend also sends you your thank you code back. Enter the thank you code below to receive your free coin.</string>
     <string name="first">First:</string>
@@ -52,7 +53,7 @@
     <string name="delete_purchases">Delete purchases</string>
     <string name="play_game">Play Game</string>
     <string name="high_scores">High Scores</string>
-    <string name="shop">Store</string>
+    <string name="shop">Shop</string>
     <string name="tutorial">Tutorial</string>
     <string name="enter_recommendation_code">Enter code for free coin</string>
     <string name="sorry_code_only_for_others">Sorry, this code can only be used by other users</string>

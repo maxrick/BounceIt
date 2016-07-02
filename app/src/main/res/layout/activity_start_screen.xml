@@ -26,7 +26,7 @@
             android:layout_width="@dimen/widthMenuButtons"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:layout_below="@+id/tutorial"
+            android:layout_below="@+id/shop"
             android:background="@drawable/buttonshape"
             android:layout_gravity="center_horizontal|bottom"
             android:onClick="buttonHighScoresClicked"
@@ -35,7 +35,7 @@
             android:text="@string/high_scores" />
 
         <Button
-            android:id="@+id/recommend"
+            android:id="@+id/help_page"
             android:layout_width="@dimen/widthMenuButtons"
             android:layout_height="wrap_content"
             android:layout_below="@+id/buttonScores"
@@ -51,7 +51,7 @@
             android:id="@+id/shop"
             android:layout_width="@dimen/widthMenuButtons"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/recommend"
+            android:layout_below="@+id/tutorial"
             android:background="@drawable/buttonshape"
             android:layout_centerHorizontal="true"
             android:layout_margin="@dimen/marginMenuButtons"

@@ -15,6 +15,7 @@ import android.widget.Button;
 import com.max.jumpingapp.R;
 import com.max.jumpingapp.util.PrefsHandler;
 import com.max.jumpingapp.views.RecommendScreen;
+import com.max.jumpingapp.views.Shop;
 
 /**
  * A fragment with a Google +1 button.
@@ -119,10 +120,19 @@ public class GemFragment extends Fragment {
 //                updateGemText();
 //            }
 //        });
-        builder.setNeutralButton(getString(R.string.get_more_gems), new DialogInterface.OnClickListener() {
+        builder.setNeutralButton(getString(R.string.get_free_coins), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 Intent intent = new Intent(that.getContext(), RecommendScreen.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+            }
+        });
+        builder.setPositiveButton(getString(R.string.spend_coins), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Intent intent = new Intent(that.getContext(), Shop.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
             }
         });
