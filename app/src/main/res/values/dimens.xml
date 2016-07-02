@@ -4,4 +4,6 @@
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="app_header">60dp</dimen>
+    <dimen name="widthMenuButtons">120dp</dimen>
+    <dimen name="marginMenuButtons">5dp</dimen>
 </resources>

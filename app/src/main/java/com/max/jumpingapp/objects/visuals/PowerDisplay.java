@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
 
+import com.max.jumpingapp.events.LeftTrampolinEvent;
 import com.max.jumpingapp.game.GamePanel;
 import com.max.jumpingapp.events.LivePowerEvent;
 import com.max.jumpingapp.events.PlayerAcceleratedEvent;
@@ -19,6 +20,8 @@ public class PowerDisplay {
     public static final int TOP = 100;
     public static final int RIGHT = GamePanel.screenWidth - ScoreBoardDisplay.GAP_RIGHT + 200;//700;
     public static final int BOTTOM = 150;
+    private long lastUpdateTime;
+    private boolean leftTrampolin;
     Rect border;
     Rect powerLoader;
     Rect minPower;
@@ -39,6 +42,8 @@ public class PowerDisplay {
         textPaint = new Paint();
         textPaint.setColor(Color.BLACK);
         textPaint.setTextSize(30);
+        leftTrampolin=false;
+        lastUpdateTime=System.nanoTime();
     }
 
     public void onEvent(LivePowerEvent event) {
@@ -67,15 +72,23 @@ public class PowerDisplay {
         powerLoaderPaint.setColor(GamePanel.GREEN1);
     }
 
+    public void onEvent(LeftTrampolinEvent event){
+        leftTrampolin=true;
+        lastUpdateTime =System.nanoTime();
+    }
+
     public void resetAfterTime() {
-        long elapsed = System.nanoTime() - GamePanel.lastUpdateTime;
-        if (elapsed > timeToDisplayPower) {
+        long elapsed = System.nanoTime() - lastUpdateTime;
+        if (leftTrampolin && elapsed > timeToDisplayPower) {
+            System.out.println("reset after time");
+            leftTrampolin = false;
             reset();
         }
     }
 
     public void draw(Canvas canvas) {
         resetAfterTime();
+        System.out.println("draw power: "+powerLoader.right);
         canvas.drawText("Power",LEFT, TOP-10,textPaint );
         canvas.drawRect(powerLoader, powerLoaderPaint);
         canvas.drawRect(border, borderPaint);
