@@ -10,7 +10,6 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.WindowManager;
-import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 
@@ -114,7 +113,7 @@ public class StartScreen extends AppCompatActivity implements GemFragment.OnGemF
     }
 
     public void buttonRecommendAppClicked(View view) {//@// TODO: 6/2/2016 rename
-        Intent intent = new Intent(this, HelpPage2.class);
+        Intent intent = new Intent(this, HelpPage.class);
         startActivity(intent);
     }
 
