@@ -10,6 +10,8 @@
         android:layout_height="wrap_content"
         android:src="@drawable/ic_menu_home"
         android:id="@+id/homeButton"
+        android:background="@drawable/buttonshape_cornered"
+        android:padding="5dp"
         android:layout_gravity="center_horizontal|bottom"
         android:onClick="onHomeFragmentInteraction"/>
 </FrameLayout>

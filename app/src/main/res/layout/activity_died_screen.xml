@@ -58,6 +58,7 @@
         android:layout_margin="30dp"
         android:layout_below="@id/scoreView"
         android:onClick="buttonPlayClicked"
+        android:background="@drawable/buttonshape_cornered"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true" />
     <fragment

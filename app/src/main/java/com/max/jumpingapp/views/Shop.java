@@ -137,7 +137,7 @@ public class Shop extends AppCompatActivity implements GemFragment.OnGemFragment
 
     private void getMoreGemsPopup() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setPositiveButton(getString(R.string.get_more)+" "+getString(R.string.gems), new DialogInterface.OnClickListener() {
+        builder.setPositiveButton(getString(R.string.get_free_coins), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 Intent intent = new Intent(that, RecommendScreen.class);

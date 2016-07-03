@@ -125,18 +125,25 @@ public class StartScreen extends AppCompatActivity implements GemFragment.OnGemF
 
     public void buttonActivateRecommendationCodeClicked(View view) {
         String fullCode = ((EditText) findViewById(R.id.recommendationCode)).getText().toString();
-        String prefix = fullCode.substring(0,1);
-        String code = fullCode.substring(1,fullCode.length());
-        if(prefix.equals(RecommendScreen.ACTIVATIONCODE_PREFIX)){
-            if(PrefsHandler.activationCodeUsed(getSharedPreferences(PrefsHandler.GANME_PREFS,0))){
-                Snackbar.make(view, R.string.sorry_code_for_new_users, Snackbar.LENGTH_LONG).show();
-            }else {
-                activateRecommendationCode(view, code);
+        if ((fullCode.length() > 0)) {
+            String prefix = fullCode.substring(0, 1);
+            String code = fullCode.substring(1, fullCode.length());
+            if (prefix.equals(RecommendScreen.ACTIVATIONCODE_PREFIX)) {
+                if (PrefsHandler.activationCodeUsed(getSharedPreferences(PrefsHandler.GANME_PREFS, 0))) {
+                    Snackbar.make(view, R.string.sorry_code_for_new_users, Snackbar.LENGTH_LONG).show();
+                } else {
+                    activateRecommendationCode(view, code);
+                    return;
+                }
+            }
+            if (prefix.equals(RecommendScreen.THANKYOUCODE_PREFIX)) {
+                activateThankYouCode(view, code);
+                return;
             }
         }
-        if(prefix.equals(RecommendScreen.THANKYOUCODE_PREFIX)){
-            activateThankYouCode(view, code);
-        }
+        //default
+        Snackbar.make(view, R.string.sorry_code_not_valid, Snackbar.LENGTH_LONG).show();
+        return;
     }
 
     private void activateRecommendationCode(View view, String code) {
@@ -154,7 +161,7 @@ public class StartScreen extends AppCompatActivity implements GemFragment.OnGemF
                 } else {
                     Snackbar.make(view, R.string.sorry_code_used, Snackbar.LENGTH_LONG).show();
                 }
-            }else {
+            } else {
                 Snackbar.make(view, R.string.sorry_code_only_for_others, Snackbar.LENGTH_LONG).show();
             }
         } catch (UnvalidRecommendationCode unvalidRecommendationCode) {
@@ -187,7 +194,7 @@ public class StartScreen extends AppCompatActivity implements GemFragment.OnGemF
 
     private void popupThankYouCode(final String thankYouCode, final Context context) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
-        builder.setMessage(getString(R.string.congrats_free_gem)+getString(R.string.also_thank_your_friend));
+        builder.setMessage(getString(R.string.congrats_free_gem) + getString(R.string.also_thank_your_friend));
         builder.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
