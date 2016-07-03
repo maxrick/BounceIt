@@ -36,6 +36,9 @@ public class Height {
     public int devideBy(int devider) {
         return height/devider;
     }
+    public float devideByReal(float devider) {
+        return height/devider;
+    }
 
     @Override
     public String toString() {

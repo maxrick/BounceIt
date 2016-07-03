@@ -32,10 +32,10 @@ public class PlayerStatusFreeFalling extends PlayerStatus {
         testDieSet = false;
         Height curHeight = new Height((int) (-0.5 * PlayerStatus.gravitaion * Math.pow(elapsedSeconds, 2) + maxHeight));
         playerObject.setRect(curHeight, xPosition);
-        if(player.getRight() < GamePanel.screenWidth/2 && maxHeight < 2000){
+        if(player.getLeft() < GamePanel.screenWidth/4 && maxHeight < 2000){
             //EventBus.getDefault().post(new HelpInstructionEvent(new ScreenMessage("Swipe right"), 2000000000/30));
             EventBus.getDefault().post(new DrawFingerSwipeRightEvent(new ScreenMessage("Swipe right",-GamePanel.screenWidth/5,GamePanel.screenHeight*3/5), 1200000000/2));
-        }else if(player.getLeft() > GamePanel.screenWidth/2 && maxHeight < 2000){
+        }else if(player.getRight() > GamePanel.screenWidth*3/4 && maxHeight < 2000){
             //EventBus.getDefault().post(new HelpInstructionEvent(new ScreenMessage("Swipe left"), 2000000000/30));
             EventBus.getDefault().post(new DrawFingerSwipeLeftEvent(new ScreenMessage("Swipe left",-GamePanel.screenWidth/5,GamePanel.screenHeight*3/5), 1200000000/2));
         }

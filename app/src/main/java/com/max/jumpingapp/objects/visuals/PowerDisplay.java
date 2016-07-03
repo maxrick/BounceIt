@@ -80,15 +80,14 @@ public class PowerDisplay {
     public void resetAfterTime() {
         long elapsed = System.nanoTime() - lastUpdateTime;
         if (leftTrampolin && elapsed > timeToDisplayPower) {
-            System.out.println("reset after time");
             leftTrampolin = false;
             reset();
         }
     }
 
-    public void draw(Canvas canvas) {
+    public void draw(Canvas canvas, int color) {
         resetAfterTime();
-        System.out.println("draw power: "+powerLoader.right);
+        textPaint.setColor(color);
         canvas.drawText("Power",LEFT, TOP-10,textPaint );
         canvas.drawRect(powerLoader, powerLoaderPaint);
         canvas.drawRect(border, borderPaint);

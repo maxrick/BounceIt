@@ -40,7 +40,7 @@ public class DrawObjects {
         lastHeightDisplay.draw(canvas, moveBy);
         highscoreDisplay.draw(canvas, moveBy);
         scoreBoardDisplay.draw(canvas);
-        powerDisplay.draw(canvas);
+        powerDisplay.draw(canvas, scoreBoardDisplay.currentPaintColor());
     }
 
     public void update(Height height, Score score) {

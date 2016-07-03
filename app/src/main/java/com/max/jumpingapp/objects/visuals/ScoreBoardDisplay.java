@@ -40,5 +40,20 @@ public class ScoreBoardDisplay {
     public void update(Height height, Score score) {
         this.height = height;
         this.score = score;
+        float colorValue = height.devideByReal(10000);
+        if(colorValue<0){
+            colorValue=0;
+        }
+        if(colorValue>1){
+            colorValue=1;
+        }
+        int colorRed = (int) (Math.pow(colorValue,8)*255);
+        int colorGreen = (int) (Math.pow(colorValue,8)*255);
+        int colorBlue = (int) (Math.pow(colorValue,8)*255);
+        dataPaint.setColor(Color.rgb(colorRed, colorGreen, colorBlue));
+    }
+
+    public int currentPaintColor(){
+        return dataPaint.getColor();
     }
 }
