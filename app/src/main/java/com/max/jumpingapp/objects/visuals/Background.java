@@ -5,6 +5,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.LightingColorFilter;
 import android.graphics.Paint;
+import android.graphics.Rect;
 
 import com.max.jumpingapp.R;
 import com.max.jumpingapp.game.GamePanel;
@@ -20,10 +21,10 @@ public class Background {
 
     public Background(Bitmap res, Bitmap noChange) {
         image = res;
-        double starsScale = GamePanel.screenWidth*1.0 /noChange.getWidth();
-        double scaleFactor = GamePanel.screenWidth*1.0 / res.getWidth();
-        image = Bitmap.createScaledBitmap(res, GamePanel.screenWidth, (int)( res.getHeight()*scaleFactor), false); // TODO: 4/11/2016 scale image
-        stars = Bitmap.createScaledBitmap(noChange, GamePanel.screenWidth, (int)(noChange.getHeight()*starsScale),false);
+        double starsScale = GamePanel.screenWidth * 1.0 / noChange.getWidth();
+        double scaleFactor = GamePanel.screenWidth * 1.0 / res.getWidth();
+        image = Bitmap.createScaledBitmap(res, GamePanel.screenWidth, (int) (res.getHeight() * scaleFactor), false); // TODO: 4/11/2016 scale image
+        stars = Bitmap.createScaledBitmap(noChange, GamePanel.screenWidth, (int) (noChange.getHeight() * starsScale), false);
         y = 0;
         x = 0;
     }
@@ -31,7 +32,7 @@ public class Background {
     private void draw(Canvas canvas) {
         canvas.drawBitmap(image, x, y, null);
         if (y > 0) {
-            canvas.drawBitmap(image, x, y-image.getHeight(), null);
+            canvas.drawBitmap(image, x, y - image.getHeight(), null);
         }
     }
 
@@ -41,28 +42,37 @@ public class Background {
         paint.setColor(Color.WHITE);
 //        int alpha = (-moveBy/image.getHeight())* GREY_STEP;
 //        paint.setAlpha(255 - alpha);
-        y = -moveBy %image.getHeight();
-        int yStars =  -moveBy %stars.getHeight();
-        int stage = (-moveBy/image.getHeight());
-        if(stage>0){
+        y = -moveBy % image.getHeight();
+        int yStars = -moveBy % stars.getHeight();
+        int stage = (-moveBy / image.getHeight());
+        if (stage > 0) {
             double greenMulDuble = Math.pow(((178.d * 255.d) / 238.d) / 255.d, stage);
-            int greenMul = (int) (greenMulDuble *255);
+            int greenMul = (int) (greenMulDuble * 255);
             double blueMulDouble = Math.pow(((178.d * 255.d) / 236.d) / 255.d, stage);
-            int blueMul = (int) (blueMulDouble *255);
-            paint.setColorFilter(new LightingColorFilter(Color.rgb(0, greenMul, blueMul),Color.rgb(33,0,0)));
+            int blueMul = (int) (blueMulDouble * 255);
+            paint.setColorFilter(new LightingColorFilter(Color.rgb(0, greenMul, blueMul), Color.rgb(33, 0, 0)));
         }
-        canvas.drawBitmap(image, x, y, paint);
-        canvas.drawBitmap(stars,x,yStars, new Paint());
-
+        if(stage<0){
+            paint.setColorFilter(new LightingColorFilter(Color.rgb(0, 0, 0), Color.rgb(33, 238, 236)));
+            canvas.drawRect(new Rect(x,y,x+image.getWidth(), y+image.getHeight()), paint);
+        }
+        if(stage>=0){
+            canvas.drawBitmap(image, x, y, paint);
+        }
+        canvas.drawBitmap(stars, x, yStars, new Paint());
 //        paint.setAlpha(255 - (alpha + GREY_STEP));
         if (y > 0) {
-            double greenMulDuble = Math.pow(((178.d * 255.d) / 238.d) / 255.d, stage + 1);
-            int greenMul = (int) (greenMulDuble *255);
-            double blueMulDouble = Math.pow(((178.d * 255.d) / 236.d) / 255.d, stage + 1);
-            int blueMul = (int) (blueMulDouble *255);
-            paint.setColorFilter(new LightingColorFilter(Color.rgb(0, greenMul, blueMul),Color.rgb(33,0,0)));
-            canvas.drawBitmap(image, x, y-image.getHeight(), paint);
-            canvas.drawBitmap(stars,x,yStars-stars.getHeight(), new Paint());
+            double greenMulDuble = Math.pow((178.d / 238.d), stage + 1);
+            int greenMul = (int) (greenMulDuble * 255);
+            double blueMulDouble = Math.pow((178.d / 236.d), stage + 1);
+            int blueMul = (int) (blueMulDouble * 255);
+            paint.setColorFilter(new LightingColorFilter(Color.rgb(0, greenMul, blueMul), Color.rgb(33, 0, 0)));
+            canvas.drawBitmap(image, x, y - image.getHeight(), paint);
+            canvas.drawBitmap(stars, x, yStars - stars.getHeight(), new Paint());
+        } else {
+            paint.setColorFilter(new LightingColorFilter(Color.rgb(0, 0, 0), Color.rgb(33, 238, 236)));
+            canvas.drawRect(new Rect(x,y+image.getHeight(),x+image.getWidth(), y+2*image.getHeight()), paint);
+            canvas.drawBitmap(stars, x, yStars + stars.getHeight(), new Paint());
         }
     }
 
