@@ -110,7 +110,7 @@
                 android:layout_below="@+id/homeButton"
                 android:layout_centerHorizontal="true"
                 android:paddingBottom="20dp"
-                android:text="Credits:\nAndroid ImageSlider\nLicence: (MIT) https://github.com/daimajia/AndroidImageSlider/blob/master/LICENSE"
+                android:text="Credits:\nAndroid ImageSlider\nLicence: (MIT) https://github.com/daimajia/AndroidImageSlider/blob/master/LICENSE\nIcon made by Freepik from www.flaticon.com"
                 android:textSize="12sp"
                 android:textStyle="bold" />
 

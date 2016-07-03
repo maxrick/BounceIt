@@ -33,8 +33,8 @@ public class ScoreBoardDisplay {
 
     public void draw(Canvas canvas) {
 
-        canvas.drawText(score.toString(), GamePanel.screenWidth- GAP_RIGHT, 60, dataPaint);
-        canvas.drawText(height.cappedToString(), GAP_LEFT, 60, dataPaint);
+        canvas.drawText(score.toString(), GamePanel.screenWidth- GAP_RIGHT, MathHelper.adjustToScreensize(60), dataPaint);
+        canvas.drawText(height.cappedToString(), GAP_LEFT, MathHelper.adjustToScreensize(60), dataPaint);
     }
 
     public void update(Height height, Score score) {

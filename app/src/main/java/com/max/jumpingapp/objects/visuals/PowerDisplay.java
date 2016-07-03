@@ -10,6 +10,7 @@ import com.max.jumpingapp.game.GamePanel;
 import com.max.jumpingapp.events.LivePowerEvent;
 import com.max.jumpingapp.events.PlayerAcceleratedEvent;
 import com.max.jumpingapp.events.ResetPowerDisplayEvent;
+import com.max.jumpingapp.util.MathHelper;
 
 /**
  * Created by max on 4/6/2016.
@@ -17,9 +18,9 @@ import com.max.jumpingapp.events.ResetPowerDisplayEvent;
 public class PowerDisplay {
     private static final long timeToDisplayPower = 1000000000; //1 Second
     public static final int LEFT = GamePanel.screenWidth - ScoreBoardDisplay.GAP_RIGHT;//500;
-    public static final int TOP = 100;
-    public static final int RIGHT = GamePanel.screenWidth - ScoreBoardDisplay.GAP_RIGHT + 200;//700;
-    public static final int BOTTOM = 150;
+    public static final int TOP = MathHelper.adjustToScreensize(100);
+    public static final int RIGHT = GamePanel.screenWidth - ScoreBoardDisplay.GAP_RIGHT + MathHelper.adjustToScreensize(200);//700;
+    public static final int BOTTOM = MathHelper.adjustToScreensize(150);
     private long lastUpdateTime;
     private boolean leftTrampolin;
     Rect border;
@@ -41,7 +42,7 @@ public class PowerDisplay {
         powerLoaderPaint.setStyle(Paint.Style.FILL);
         textPaint = new Paint();
         textPaint.setColor(Color.BLACK);
-        textPaint.setTextSize(30);
+        textPaint.setTextSize(MathHelper.adjustToScreensize(30));
         leftTrampolin=false;
         lastUpdateTime=System.nanoTime();
     }
@@ -88,7 +89,7 @@ public class PowerDisplay {
     public void draw(Canvas canvas, int color) {
         resetAfterTime();
         textPaint.setColor(color);
-        canvas.drawText("Power",LEFT, TOP-10,textPaint );
+        canvas.drawText("Power",LEFT, TOP-MathHelper.adjustToScreensize(10),textPaint );
         canvas.drawRect(powerLoader, powerLoaderPaint);
         canvas.drawRect(border, borderPaint);
     }
