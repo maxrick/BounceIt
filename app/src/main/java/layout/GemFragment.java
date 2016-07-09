@@ -106,13 +106,13 @@ public class GemFragment extends Fragment {
     public void popup(){
         AlertDialog.Builder builder = new AlertDialog.Builder((Context) mListener);
         final SharedPreferences  sharedPreferences = this.getActivity().getSharedPreferences(PrefsHandler.GANME_PREFS, 0);
-//        builder.setPositiveButton(R.string.addGem, new DialogInterface.OnClickListener() {
-//            @Override
-//            public void onClick(DialogInterface dialog, int which) {
-//                PrefsHandler.addGem(sharedPreferences);
-//                updateGemText();
-//            }
-//        });
+        builder.setPositiveButton(R.string.addGem, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                PrefsHandler.addGem(sharedPreferences);
+                updateGemText();
+            }
+        });
 //        builder.setNegativeButton(R.string.resetGems, new DialogInterface.OnClickListener() {
 //            @Override
 //            public void onClick(DialogInterface dialog, int which) {
@@ -128,14 +128,14 @@ public class GemFragment extends Fragment {
                 startActivity(intent);
             }
         });
-        builder.setPositiveButton(getString(R.string.spend_coins), new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                Intent intent = new Intent(that.getContext(), Shop.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(intent);
-            }
-        });
+//        builder.setPositiveButton(getString(R.string.spend_coins), new DialogInterface.OnClickListener() {
+//            @Override
+//            public void onClick(DialogInterface dialog, int which) {
+//                Intent intent = new Intent(that.getContext(), Shop.class);
+//                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//                startActivity(intent);
+//            }
+//        });
         builder.create().show();
     }
 

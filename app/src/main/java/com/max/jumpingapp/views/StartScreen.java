@@ -80,6 +80,7 @@ public class StartScreen extends AppCompatActivity implements GemFragment.OnGemF
             textSliders[i].setOnSliderClickListener(new BaseSliderView.OnSliderClickListener() {
                 @Override
                 public void onSliderClick(BaseSliderView slider) {
+                    popup(buyable);
                 }
             });
             slideShow.addSlider(textSliders[i]);
@@ -266,4 +267,98 @@ public class StartScreen extends AppCompatActivity implements GemFragment.OnGemF
         GemFragment gemFragment = (GemFragment) getSupportFragmentManager().findFragmentByTag("gemFragment");
         gemFragment.gemButtonClicked(view);
     }
+
+    /////////////////////////////////////////////////////////////////////////////////
+    //shop
+    public void popup(final Buyable buyable) {
+        if (alreadyOwns(buyable.getImage()) || isDefaultImage(buyable.getImage())) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    setPlayerImage(buyable.getImage());
+                    Snackbar.make(findViewById(R.id.slider), R.string.player_set, Snackbar.LENGTH_LONG).show();
+                }
+
+            });
+            builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+
+                }
+            });
+            builder.setMessage(getString(R.string.Select_this_player_question));
+            builder.create().show();
+        } else {
+            buyPlayerImagePopup(buyable);
+        }
+    }
+
+    private void buyPlayerImagePopup(final Buyable buyable) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                if (buyImage(buyable)) {
+                    setPlayerImage(buyable.getImage());
+                    GemFragment gemFragment = (GemFragment) getSupportFragmentManager().findFragmentByTag("gemFragment");
+                    gemFragment.updateGemText();
+                    recreate();//@// TODO: 5/29/2016 bugfix in github
+                    Snackbar.make(findViewById(R.id.slider), R.string.player_bought_and_set, Snackbar.LENGTH_LONG).show();
+                } else {
+                    Snackbar.make(findViewById(R.id.slider), getString(R.string.sorry_not_enough)+" "+getString(R.string.gems), Snackbar.LENGTH_LONG).show();
+                    getMoreGemsPopup();
+                }
+            }
+        });
+        builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+            }
+        });
+        builder.setMessage(getString(R.string.Do_you_want_to_buy_this_player)+buyable.getPrice()+" "+
+                ((buyable.getPrice()>1) ? getString(R.string.gems): getString(R.string.gem)));
+        builder.create().show();
+    }
+
+    private void getMoreGemsPopup() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        final StartScreen that = this;
+        builder.setPositiveButton(getString(R.string.get_free_coins), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Intent intent = new Intent(that, RecommendScreen.class);
+                startActivity(intent);
+            }
+        });
+        builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+            }
+        });
+        builder.setMessage(getString(R.string.You_need_more_gems_do_you_want_to));
+        builder.create().show();
+    }
+
+    private boolean buyImage(Buyable buyable) {
+        return PrefsHandler.buyPlayerImage(getSharedPreferences(PrefsHandler.GANME_PREFS, 0), buyable);
+    }
+
+    private boolean isDefaultImage(int playerImage) {
+        return playerImage == Shop.PLAYERIMAGE_DEFAULT;
+    }
+
+    private boolean alreadyOwns(int playerImage) {
+        if (playerImage == Shop.PLAYERIMAGE_DEFAULT) {
+            return true;
+        }
+        return PrefsHandler.playerImageBought(getSharedPreferences(PrefsHandler.GANME_PREFS, 0), playerImage);
+    }
+
+    public void setPlayerImage(int playerImage) {
+        PrefsHandler.setPlayerImage(getSharedPreferences(PrefsHandler.GANME_PREFS, 0), playerImage);
+    }
+
 }
