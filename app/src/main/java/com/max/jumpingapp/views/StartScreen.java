@@ -13,7 +13,11 @@ import android.view.WindowManager;
 import android.widget.CheckBox;
 import android.widget.EditText;
 
+import com.daimajia.slider.library.SliderLayout;
+import com.daimajia.slider.library.SliderTypes.BaseSliderView;
+import com.daimajia.slider.library.SliderTypes.TextSliderView;
 import com.max.jumpingapp.R;
+import com.max.jumpingapp.util.Constants;
 import com.max.jumpingapp.util.PrefsHandler;
 
 import java.util.Random;
@@ -48,6 +52,13 @@ public class StartScreen extends AppCompatActivity implements GemFragment.OnGemF
     private View mContentView;
     private View mControlsView;
     private boolean mVisible;
+    private SliderLayout slideShow;
+    public TextSliderView[] textSliders;
+    public Buyable[] buyables = {
+            new Buyable(Shop.PLAYERIMAGE_DEFAULT, Constants.PLAYERNAME_CLASSIC, 0),
+            new Buyable(Shop.PLAYERIMAGE_HAT_AND_SHOES, Constants.PLAYERNAME_SHOES_AND_HAT, 1),
+            new Buyable(Shop.PLAXERIMAGE_STICK, Constants.PLAYERNAME_STICK_FIGURE, 1),
+            new Buyable(Shop.PLAYERIMAGE_EGGMAN, Constants.PLAYERNAME_EGGMAN, 2)};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +68,22 @@ public class StartScreen extends AppCompatActivity implements GemFragment.OnGemF
         setContentView(R.layout.activity_start_screen);
         CheckBox checkBox = (CheckBox) findViewById(R.id.tutorial);
         checkBox.setChecked(tutorialSharedPref());
+        slideShow = (SliderLayout) findViewById(R.id.slider);
+        slideShow.stopAutoCycle();
+//@// TODO: 5/28/2016 open closed principle
+        textSliders = new TextSliderView[buyables.length];
+        for (int i = 0; i < buyables.length; i++) {
+            final Buyable buyable = buyables[i];
+            textSliders[i] = new TextSliderView(this);
+            textSliders[i].image(buyable.getImage());
+            final int finalI = i;
+            textSliders[i].setOnSliderClickListener(new BaseSliderView.OnSliderClickListener() {
+                @Override
+                public void onSliderClick(BaseSliderView slider) {
+                }
+            });
+            slideShow.addSlider(textSliders[i]);
+        }
     }
 
     @Override
