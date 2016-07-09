@@ -69,7 +69,7 @@ public class StartScreen extends AppCompatActivity implements GemFragment.OnGemF
         CheckBox checkBox = (CheckBox) findViewById(R.id.tutorial);
         checkBox.setChecked(tutorialSharedPref());
         slideShow = (SliderLayout) findViewById(R.id.slider);
-        slideShow.stopAutoCycle();
+//        slideShow.stopAutoCycle();
 //@// TODO: 5/28/2016 open closed principle
         textSliders = new TextSliderView[buyables.length];
         for (int i = 0; i < buyables.length; i++) {
@@ -169,7 +169,15 @@ public class StartScreen extends AppCompatActivity implements GemFragment.OnGemF
             }
         }
         //default
-        Snackbar.make(view, R.string.sorry_code_not_valid, Snackbar.LENGTH_LONG).show();
+        final StartScreen that = this;
+        Snackbar.make(view, R.string.sorry_code_not_valid, Snackbar.LENGTH_LONG)
+                .setAction("Get Code", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent intent = new Intent(that, RecommendScreen.class);
+                        startActivity(intent);
+                    }
+                }).show();
         return;
     }
 
