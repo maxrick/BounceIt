@@ -20,6 +20,8 @@ import com.max.jumpingapp.R;
 import com.max.jumpingapp.util.Constants;
 import com.max.jumpingapp.util.PrefsHandler;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 
 import layout.GemFragment;
@@ -59,6 +61,7 @@ public class StartScreen extends AppCompatActivity implements GemFragment.OnGemF
             new Buyable(Shop.PLAYERIMAGE_HAT_AND_SHOES, Constants.PLAYERNAME_SHOES_AND_HAT, 1),
             new Buyable(Shop.PLAXERIMAGE_STICK, Constants.PLAYERNAME_STICK_FIGURE, 1),
             new Buyable(Shop.PLAYERIMAGE_EGGMAN, Constants.PLAYERNAME_EGGMAN, 2)};
+    private Map<TextSliderView, Buyable> slideToImgMap = new HashMap<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,20 +72,14 @@ public class StartScreen extends AppCompatActivity implements GemFragment.OnGemF
         CheckBox checkBox = (CheckBox) findViewById(R.id.tutorial);
         checkBox.setChecked(tutorialSharedPref());
         slideShow = (SliderLayout) findViewById(R.id.slider);
-//        slideShow.stopAutoCycle();
+        slideShow.stopAutoCycle();
 //@// TODO: 5/28/2016 open closed principle
         textSliders = new TextSliderView[buyables.length];
         for (int i = 0; i < buyables.length; i++) {
             final Buyable buyable = buyables[i];
             textSliders[i] = new TextSliderView(this);
             textSliders[i].image(buyable.getImage());
-            final int finalI = i;
-            textSliders[i].setOnSliderClickListener(new BaseSliderView.OnSliderClickListener() {
-                @Override
-                public void onSliderClick(BaseSliderView slider) {
-                    popup(buyable);
-                }
-            });
+            slideToImgMap.put(textSliders[i], buyable);
             slideShow.addSlider(textSliders[i]);
         }
     }
@@ -120,9 +117,16 @@ public class StartScreen extends AppCompatActivity implements GemFragment.OnGemF
     }
 
     public void buttonPlayClicked(View view) {
-        Intent intent = new Intent(this, MainActivity.class);
-        intent.putExtra(TUTORIAL_EXTRA, tutorialSelected());
-        startActivity(intent);
+        BaseSliderView currentSlider = slideShow.getCurrentSlider();
+        Buyable buyable= slideToImgMap.get(currentSlider);
+        if (alreadyOwns(buyable.getImage()) || isDefaultImage(buyable.getImage())) {
+            setPlayerImage(buyable.getImage());
+            Intent intent = new Intent(this, MainActivity.class);
+            intent.putExtra(TUTORIAL_EXTRA, tutorialSelected());
+            startActivity(intent);
+        }else {
+            buyPlayerImagePopup(buyable);
+        }
     }
 
     private boolean tutorialSelected() {
@@ -278,30 +282,6 @@ public class StartScreen extends AppCompatActivity implements GemFragment.OnGemF
 
     /////////////////////////////////////////////////////////////////////////////////
     //shop
-    public void popup(final Buyable buyable) {
-        if (alreadyOwns(buyable.getImage()) || isDefaultImage(buyable.getImage())) {
-            AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    setPlayerImage(buyable.getImage());
-                    Snackbar.make(findViewById(R.id.slider), R.string.player_set, Snackbar.LENGTH_LONG).show();
-                }
-
-            });
-            builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-
-                }
-            });
-            builder.setMessage(getString(R.string.Select_this_player_question));
-            builder.create().show();
-        } else {
-            buyPlayerImagePopup(buyable);
-        }
-    }
-
     private void buyPlayerImagePopup(final Buyable buyable) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
