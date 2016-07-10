@@ -3,7 +3,6 @@ package layout;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
@@ -11,7 +10,6 @@ import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 
 import com.daimajia.slider.library.SliderLayout;
 import com.daimajia.slider.library.SliderTypes.BaseSliderView;
@@ -20,10 +18,7 @@ import com.max.jumpingapp.R;
 import com.max.jumpingapp.util.Constants;
 import com.max.jumpingapp.util.PrefsHandler;
 import com.max.jumpingapp.views.Buyable;
-import com.max.jumpingapp.views.MainActivity;
 import com.max.jumpingapp.views.RecommendScreen;
-import com.max.jumpingapp.views.Shop;
-import com.max.jumpingapp.views.StartScreen;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -35,11 +30,15 @@ public class ShopFragment extends Fragment {
 
     private SliderLayout slideShow;
     public TextSliderView[] textSliders;
+    public static final int PLAYERIMAGE_EGGMAN  = R.drawable.eggman;
+    public static final int PLAYERIMAGE_DEFAULT = R.drawable.playerimage;
+    public static final int PLAXERIMAGE_STICK = R.drawable.playerimage_stickfigure;
+    public static final int PLAYERIMAGE_HAT_AND_SHOES = R.drawable.playerimage_hat_and_shoes;
     public Buyable[] buyables = {
-            new Buyable(Shop.PLAYERIMAGE_DEFAULT, Constants.PLAYERNAME_CLASSIC, 0),
-            new Buyable(Shop.PLAYERIMAGE_HAT_AND_SHOES, Constants.PLAYERNAME_SHOES_AND_HAT, 1),
-            new Buyable(Shop.PLAXERIMAGE_STICK, Constants.PLAYERNAME_STICK_FIGURE, 1),
-            new Buyable(Shop.PLAYERIMAGE_EGGMAN, Constants.PLAYERNAME_EGGMAN, 2)};
+            new Buyable(PLAYERIMAGE_DEFAULT, Constants.PLAYERNAME_CLASSIC, 0),
+            new Buyable(PLAYERIMAGE_HAT_AND_SHOES, Constants.PLAYERNAME_SHOES_AND_HAT, 1),
+            new Buyable(PLAXERIMAGE_STICK, Constants.PLAYERNAME_STICK_FIGURE, 1),
+            new Buyable(PLAYERIMAGE_EGGMAN, Constants.PLAYERNAME_EGGMAN, 2)};
     private Map<TextSliderView, Buyable> slideToImgMap = new HashMap<>();
 
 
@@ -49,6 +48,22 @@ public class ShopFragment extends Fragment {
     }
     public ShopFragment() {
         // Required empty public constructor
+    }
+
+    public static float leftOfImage(int playerImgage) {
+        if(playerImgage == PLAYERIMAGE_EGGMAN){
+            return 0.05F;
+        }
+        //default
+        return 0.3F;
+    }
+
+    public static float rightOfImage(int playerImgage) {
+        if(playerImgage == PLAYERIMAGE_EGGMAN){
+            return 0.05F;
+        }
+        //default
+        return 0.2F;
     }
 
     @Override
@@ -155,11 +170,11 @@ public class ShopFragment extends Fragment {
     }
 
     private boolean isDefaultImage(int playerImage) {
-        return playerImage == Shop.PLAYERIMAGE_DEFAULT;
+        return playerImage == PLAYERIMAGE_DEFAULT;
     }
 
     private boolean alreadyOwns(int playerImage) {
-        if (playerImage == Shop.PLAYERIMAGE_DEFAULT) {
+        if (playerImage == PLAYERIMAGE_DEFAULT) {
             return true;
         }
         return PrefsHandler.playerImageBought(getContext().getSharedPreferences(PrefsHandler.GANME_PREFS, 0), playerImage);

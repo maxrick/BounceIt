@@ -3,11 +3,9 @@ package com.max.jumpingapp.util;
 import android.content.SharedPreferences;
 
 import com.max.jumpingapp.R;
-import com.max.jumpingapp.types.Score;//// TODO: 5/27/2016 not good
+import com.max.jumpingapp.types.Score;
 import com.max.jumpingapp.views.Buyable;
-import com.max.jumpingapp.views.MainActivity;
 import com.max.jumpingapp.views.NoScoresException;
-import com.max.jumpingapp.views.Shop;
 
 import java.util.ArrayList;
 import java.util.Collections;

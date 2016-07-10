@@ -38,9 +38,6 @@
             android:name=".views.Highscores"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".views.Shop"
-            android:screenOrientation="portrait" />
-        <activity
             android:name=".views.RecommendScreen"
             android:screenOrientation="portrait" />
         <activity android:name=".views.HelpPage"></activity>

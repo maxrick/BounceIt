@@ -3,14 +3,14 @@ package com.max.jumpingapp.views;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.WindowManager;
 
 import com.max.jumpingapp.game.GamePanel;
 import com.max.jumpingapp.tutorial.TutorialGamePanel;
 import com.max.jumpingapp.types.Score;
 import com.max.jumpingapp.util.PrefsHandler;
+
+import layout.ShopFragment;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -28,11 +28,11 @@ public class MainActivity extends AppCompatActivity {
         boolean tutorial_mode = getIntent().getBooleanExtra(StartScreen.TUTORIAL_EXTRA, false);
         GamePanel gamePanel;
         int[] highScores = PrefsHandler.getThreeHighScores(getSharedPreferences(PrefsHandler.GANME_PREFS, 0));
-        int playerImgage = PrefsHandler.getPlayerImage(getSharedPreferences(PrefsHandler.GANME_PREFS, Shop.PLAYERIMAGE_HAT_AND_SHOES));
+        int playerImgage = PrefsHandler.getPlayerImage(getSharedPreferences(PrefsHandler.GANME_PREFS, ShopFragment.PLAYERIMAGE_HAT_AND_SHOES));
         if(tutorial_mode){
-            gamePanel = TutorialGamePanel.create(this,highScores, playerImgage, Shop.leftOfImage(playerImgage), Shop.rightOfImage(playerImgage));
+            gamePanel = TutorialGamePanel.create(this,highScores, playerImgage, ShopFragment.leftOfImage(playerImgage), ShopFragment.rightOfImage(playerImgage));
         }else {
-            gamePanel = GamePanel.create(this,highScores, playerImgage, Shop.leftOfImage(playerImgage), Shop.rightOfImage(playerImgage));
+            gamePanel = GamePanel.create(this,highScores, playerImgage, ShopFragment.leftOfImage(playerImgage), ShopFragment.rightOfImage(playerImgage));
         }
         setContentView(gamePanel);
 
