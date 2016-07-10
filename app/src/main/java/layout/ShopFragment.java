@@ -76,17 +76,23 @@ public class ShopFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.shop_fragment, container, false);
+        int playerImgage = PrefsHandler.getPlayerImage(getContext().getSharedPreferences(PrefsHandler.GANME_PREFS, ShopFragment.PLAYERIMAGE_DEFAULT));
+        int currentSlide = 0;
         slideShow = (SliderLayout) view.findViewById(R.id.slider);
         slideShow.stopAutoCycle();
 //@// TODO: 5/28/2016 open closed principle
         textSliders = new TextSliderView[buyables.length];
         for (int i = 0; i < buyables.length; i++) {
             final Buyable buyable = buyables[i];
+            if (buyable.getImage() == playerImgage){
+                currentSlide=i;
+            }
             textSliders[i] = new TextSliderView(this.getContext());
             textSliders[i].image(buyable.getImage());
             slideToImgMap.put(textSliders[i], buyable);
             slideShow.addSlider(textSliders[i]);
         }
+        slideShow.setCurrentPosition(currentSlide);
         return view;
     }
 
