@@ -34,11 +34,14 @@ public class ShopFragment extends Fragment {
     public static final int PLAYERIMAGE_DEFAULT = R.drawable.playerimage;
     public static final int PLAXERIMAGE_STICK = R.drawable.playerimage_stickfigure;
     public static final int PLAYERIMAGE_HAT_AND_SHOES = R.drawable.playerimage_hat_and_shoes;
+    public static final int PLAYERIMAGE_EGGMAN_LOCKED  = R.drawable.eggman_locked;
+    public static final int PLAXERIMAGE_STICK_LOCKED = R.drawable.playerimage_stickfigure_locked;
+    public static final int PLAYERIMAGE_HAT_AND_SHOES_LOCKED = R.drawable.playerimage_hat_and_shoes_locked;
     public Buyable[] buyables = {
-            new Buyable(PLAYERIMAGE_DEFAULT, Constants.PLAYERNAME_CLASSIC, 0),
-            new Buyable(PLAYERIMAGE_HAT_AND_SHOES, Constants.PLAYERNAME_SHOES_AND_HAT, 1),
-            new Buyable(PLAXERIMAGE_STICK, Constants.PLAYERNAME_STICK_FIGURE, 1),
-            new Buyable(PLAYERIMAGE_EGGMAN, Constants.PLAYERNAME_EGGMAN, 2)};
+            new Buyable(PLAYERIMAGE_DEFAULT, PLAYERIMAGE_DEFAULT,  Constants.PLAYERNAME_CLASSIC, 0),
+            new Buyable(PLAYERIMAGE_HAT_AND_SHOES, PLAYERIMAGE_HAT_AND_SHOES_LOCKED, Constants.PLAYERNAME_SHOES_AND_HAT, 1),
+            new Buyable(PLAXERIMAGE_STICK, PLAXERIMAGE_STICK_LOCKED, Constants.PLAYERNAME_STICK_FIGURE, 1),
+            new Buyable(PLAYERIMAGE_EGGMAN, PLAYERIMAGE_EGGMAN_LOCKED, Constants.PLAYERNAME_EGGMAN, 2)};
     private Map<TextSliderView, Buyable> slideToImgMap = new HashMap<>();
 
 
@@ -88,7 +91,11 @@ public class ShopFragment extends Fragment {
                 currentSlide=i;
             }
             textSliders[i] = new TextSliderView(this.getContext());
-            textSliders[i].image(buyable.getImage());
+            if(PrefsHandler.playerImageBought(getContext().getSharedPreferences(PrefsHandler.GANME_PREFS, 0), buyable.getImage())){
+                textSliders[i].image(buyable.getImage());
+            }else {
+                textSliders[i].image(buyable.getLockedImageImage());
+            }
             slideToImgMap.put(textSliders[i], buyable);
             slideShow.addSlider(textSliders[i]);
         }
