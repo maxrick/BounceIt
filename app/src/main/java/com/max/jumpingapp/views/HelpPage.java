@@ -7,9 +7,10 @@ import android.view.WindowManager;
 
 import com.max.jumpingapp.R;
 
+import layout.GemFragment;
 import layout.HomeFragment;
 
-public class HelpPage extends AppCompatActivity implements HomeFragment.OnHomeFragmentInteractionListener {
+public class HelpPage extends AppCompatActivity implements GemFragment.OnGemFragmentInteractionListener, HomeFragment.OnHomeFragmentInteractionListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,5 +23,11 @@ public class HelpPage extends AppCompatActivity implements HomeFragment.OnHomeFr
     public void onHomeFragmentInteraction(View view) {
         HomeFragment homeFragment = (HomeFragment) getSupportFragmentManager().findFragmentByTag("homeFragment");
         homeFragment.homeButtonClicked(view);
+    }
+
+    @Override
+    public void onGemFragmentInteraction(View view) {
+        GemFragment gemFragment = (GemFragment) getSupportFragmentManager().findFragmentByTag("gemFragment");
+        gemFragment.gemButtonClicked(view);
     }
 }

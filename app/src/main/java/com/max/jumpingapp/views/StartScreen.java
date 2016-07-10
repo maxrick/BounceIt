@@ -17,6 +17,7 @@ import com.daimajia.slider.library.SliderLayout;
 import com.daimajia.slider.library.SliderTypes.BaseSliderView;
 import com.daimajia.slider.library.SliderTypes.TextSliderView;
 import com.max.jumpingapp.R;
+import com.max.jumpingapp.util.CodeChecker;
 import com.max.jumpingapp.util.Constants;
 import com.max.jumpingapp.util.PrefsHandler;
 
@@ -25,6 +26,7 @@ import java.util.Map;
 import java.util.Random;
 
 import layout.GemFragment;
+import layout.ShopFragment;
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
@@ -54,14 +56,6 @@ public class StartScreen extends AppCompatActivity implements GemFragment.OnGemF
     private View mContentView;
     private View mControlsView;
     private boolean mVisible;
-    private SliderLayout slideShow;
-    public TextSliderView[] textSliders;
-    public Buyable[] buyables = {
-            new Buyable(Shop.PLAYERIMAGE_DEFAULT, Constants.PLAYERNAME_CLASSIC, 0),
-            new Buyable(Shop.PLAYERIMAGE_HAT_AND_SHOES, Constants.PLAYERNAME_SHOES_AND_HAT, 1),
-            new Buyable(Shop.PLAXERIMAGE_STICK, Constants.PLAYERNAME_STICK_FIGURE, 1),
-            new Buyable(Shop.PLAYERIMAGE_EGGMAN, Constants.PLAYERNAME_EGGMAN, 2)};
-    private Map<TextSliderView, Buyable> slideToImgMap = new HashMap<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,17 +65,6 @@ public class StartScreen extends AppCompatActivity implements GemFragment.OnGemF
         setContentView(R.layout.activity_start_screen);
         CheckBox checkBox = (CheckBox) findViewById(R.id.tutorial);
         checkBox.setChecked(tutorialSharedPref());
-        slideShow = (SliderLayout) findViewById(R.id.slider);
-        slideShow.stopAutoCycle();
-//@// TODO: 5/28/2016 open closed principle
-        textSliders = new TextSliderView[buyables.length];
-        for (int i = 0; i < buyables.length; i++) {
-            final Buyable buyable = buyables[i];
-            textSliders[i] = new TextSliderView(this);
-            textSliders[i].image(buyable.getImage());
-            slideToImgMap.put(textSliders[i], buyable);
-            slideShow.addSlider(textSliders[i]);
-        }
     }
 
     @Override
@@ -117,15 +100,10 @@ public class StartScreen extends AppCompatActivity implements GemFragment.OnGemF
     }
 
     public void buttonPlayClicked(View view) {
-        BaseSliderView currentSlider = slideShow.getCurrentSlider();
-        Buyable buyable= slideToImgMap.get(currentSlider);
-        if (alreadyOwns(buyable.getImage()) || isDefaultImage(buyable.getImage())) {
-            setPlayerImage(buyable.getImage());
+        if (((ShopFragment) getSupportFragmentManager().findFragmentByTag("shopFragment")).currentPlayerCanBeSet()) {
             Intent intent = new Intent(this, MainActivity.class);
             intent.putExtra(TUTORIAL_EXTRA, tutorialSelected());
             startActivity(intent);
-        }else {
-            buyPlayerImagePopup(buyable);
         }
     }
 
@@ -156,117 +134,12 @@ public class StartScreen extends AppCompatActivity implements GemFragment.OnGemF
 
     public void buttonActivateRecommendationCodeClicked(View view) {
         String fullCode = ((EditText) findViewById(R.id.recommendationCode)).getText().toString();
-        if ((fullCode.length() > 0)) {
-            String prefix = fullCode.substring(0, 1);
-            String code = fullCode.substring(1, fullCode.length());
-            if (prefix.equals(RecommendScreen.ACTIVATIONCODE_PREFIX)) {
-                if (PrefsHandler.activationCodeUsed(getSharedPreferences(PrefsHandler.GANME_PREFS, 0))) {
-                    Snackbar.make(view, R.string.sorry_code_for_new_users, Snackbar.LENGTH_LONG).show();
-                } else {
-                    activateRecommendationCode(view, code);
-                    return;
-                }
-            }
-            if (prefix.equals(RecommendScreen.THANKYOUCODE_PREFIX)) {
-                activateThankYouCode(view, code);
-                return;
-            }
-        }
-        //default
-        final StartScreen that = this;
-        Snackbar.make(view, R.string.sorry_code_not_valid, Snackbar.LENGTH_LONG)
-                .setAction("Get Code", new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        Intent intent = new Intent(that, RecommendScreen.class);
-                        startActivity(intent);
-                    }
-                }).show();
-        return;
+        GemFragment gemFragment = (GemFragment) getSupportFragmentManager().findFragmentByTag("gemFragment");
+        CodeChecker codeChecker= new CodeChecker(this, gemFragment);
+        codeChecker.buttonActivateRecommendationCodeClicked(view, fullCode);
     }
 
-    private void activateRecommendationCode(View view, String code) {
-        try {
-            String recommenderId = RecommendScreen.recommenderIdOf(code);
-            if (Integer.valueOf(recommenderId) != PrefsHandler.getId(getSharedPreferences(PrefsHandler.GANME_PREFS, 0))) {
-                SharedPreferences sharedPrefs = getSharedPreferences(PrefsHandler.GANME_PREFS, 0);
-                if (!PrefsHandler.alreadyUsed(sharedPrefs, code)) {
-                    PrefsHandler.addGem(sharedPrefs);
-                    PrefsHandler.activationUsed(sharedPrefs);
-                    ((GemFragment) getSupportFragmentManager().findFragmentByTag("gemFragment")).updateGemText();
-                    PrefsHandler.invalidate(sharedPrefs, code);
-                    String thankYouCode = RecommendScreen.createThankYouCode(recommenderId);
-                    popupThankYouCode(thankYouCode, view.getContext());
-                } else {
-                    Snackbar.make(view, R.string.sorry_code_used, Snackbar.LENGTH_LONG).show();
-                }
-            } else {
-                Snackbar.make(view, R.string.sorry_code_only_for_others, Snackbar.LENGTH_LONG).show();
-            }
-        } catch (UnvalidRecommendationCode unvalidRecommendationCode) {
-            Snackbar.make(view, R.string.sorry_code_not_valid, Snackbar.LENGTH_LONG).show();
-        }
-    }
-
-    private void activateThankYouCode(View view, String code) {
-        try {
-            String recommenderId = RecommendScreen.recommenderIdOfThankYou(code);
-            SharedPreferences sharedPreferences = getSharedPreferences(PrefsHandler.GANME_PREFS, 0);
-            if (Integer.valueOf(recommenderId) == PrefsHandler.getId(sharedPreferences)) {
-                if (!PrefsHandler.alreadyUsed(sharedPreferences, code)) {
-                    PrefsHandler.addGem(sharedPreferences);
-                    PrefsHandler.invalidate(sharedPreferences, code);
-                    ((GemFragment) getSupportFragmentManager().findFragmentByTag("gemFragment")).updateGemText();
-                    Snackbar.make(view, R.string.congrats_free_gem, Snackbar.LENGTH_LONG).show();
-                    return;
-                }
-                Snackbar.make(view, R.string.sorry_code_used, Snackbar.LENGTH_LONG).show();
-                return;
-            }
-            Snackbar.make(view, R.string.sorry_code_only_for_others, Snackbar.LENGTH_LONG).show();
-            return;
-        } catch (UnvalidRecommendationCode unvalidRecommendationCode) {
-
-        }
-        Snackbar.make(view, R.string.sorry_code_not_valid, Snackbar.LENGTH_LONG).show();//also invalid if recommender and thisid is not the same
-    }
-
-    private void popupThankYouCode(final String thankYouCode, final Context context) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(context);
-        builder.setMessage(getString(R.string.congrats_free_gem) + getString(R.string.also_thank_your_friend));
-        builder.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                send(thankYouCode);
-            }
-        });
-        builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                popupReallyCancel(thankYouCode, context);
-            }
-        });
-        builder.create().show();
-    }
-
-    private void popupReallyCancel(final String thankYouCode, Context context) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(context);
-        builder.setMessage(getString(R.string.sure_no_thank_you_code_question));
-        builder.setPositiveButton(R.string.send_thank_you_code_after_all, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                send(thankYouCode);
-            }
-        });
-        builder.setNegativeButton(R.string.definately_no_thank_you_code, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-            }
-        });
-        builder.create().show();
-    }
-
-    private void send(String message) {
+    public void send(String message) {
         Intent sendIntent = new Intent();
         sendIntent.setAction(Intent.ACTION_SEND);
         sendIntent.putExtra(Intent.EXTRA_TEXT, message);
@@ -278,75 +151,6 @@ public class StartScreen extends AppCompatActivity implements GemFragment.OnGemF
     public void onGemFragmentInteraction(View view) {
         GemFragment gemFragment = (GemFragment) getSupportFragmentManager().findFragmentByTag("gemFragment");
         gemFragment.gemButtonClicked(view);
-    }
-
-    /////////////////////////////////////////////////////////////////////////////////
-    //shop
-    private void buyPlayerImagePopup(final Buyable buyable) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                if (buyImage(buyable)) {
-                    setPlayerImage(buyable.getImage());
-                    GemFragment gemFragment = (GemFragment) getSupportFragmentManager().findFragmentByTag("gemFragment");
-                    gemFragment.updateGemText();
-                    recreate();//@// TODO: 5/29/2016 bugfix in github
-                    Snackbar.make(findViewById(R.id.slider), R.string.player_bought_and_set, Snackbar.LENGTH_LONG).show();
-                } else {
-                    Snackbar.make(findViewById(R.id.slider), getString(R.string.sorry_not_enough)+" "+getString(R.string.gems), Snackbar.LENGTH_LONG).show();
-                    getMoreGemsPopup();
-                }
-            }
-        });
-        builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-
-            }
-        });
-        builder.setMessage(getString(R.string.Do_you_want_to_buy_this_player)+buyable.getPrice()+" "+
-                ((buyable.getPrice()>1) ? getString(R.string.gems): getString(R.string.gem)));
-        builder.create().show();
-    }
-
-    private void getMoreGemsPopup() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        final StartScreen that = this;
-        builder.setPositiveButton(getString(R.string.get_free_coins), new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                Intent intent = new Intent(that, RecommendScreen.class);
-                startActivity(intent);
-            }
-        });
-        builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-
-            }
-        });
-        builder.setMessage(getString(R.string.You_need_more_gems_do_you_want_to));
-        builder.create().show();
-    }
-
-    private boolean buyImage(Buyable buyable) {
-        return PrefsHandler.buyPlayerImage(getSharedPreferences(PrefsHandler.GANME_PREFS, 0), buyable);
-    }
-
-    private boolean isDefaultImage(int playerImage) {
-        return playerImage == Shop.PLAYERIMAGE_DEFAULT;
-    }
-
-    private boolean alreadyOwns(int playerImage) {
-        if (playerImage == Shop.PLAYERIMAGE_DEFAULT) {
-            return true;
-        }
-        return PrefsHandler.playerImageBought(getSharedPreferences(PrefsHandler.GANME_PREFS, 0), playerImage);
-    }
-
-    public void setPlayerImage(int playerImage) {
-        PrefsHandler.setPlayerImage(getSharedPreferences(PrefsHandler.GANME_PREFS, 0), playerImage);
     }
 
 }
