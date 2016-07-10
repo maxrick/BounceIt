@@ -59,4 +59,8 @@
     <string name="sorry_code_only_for_others">Sorry, this code can only be used by other users</string>
     <string name="sorry_code_for_new_users">Sorry, this code is only valid for new users</string>
     <string name="help_page">Help</string>
+    <string name="link">Credits:\nAndroid ImageSlider\nLicence: (MIT) https://github.com/daimajia/AndroidImageSlider/blob/master/LICENSE
+        \n<div>Icons made by <a href="http://www.flaticon.com/authors/madebyoliver" title="Madebyoliver">Madebyoliver</a> from <a href="http://www.flaticon.com" title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></div>
+        \n<div>Icons made by <a href="http://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> from <a href="http://www.flaticon.com" title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></div>
+    </string>
 </resources>
