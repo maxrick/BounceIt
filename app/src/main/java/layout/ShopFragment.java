@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.daimajia.slider.library.Indicators.PagerIndicator;
 import com.daimajia.slider.library.SliderLayout;
 import com.daimajia.slider.library.SliderTypes.BaseSliderView;
 import com.daimajia.slider.library.SliderTypes.TextSliderView;
@@ -49,6 +50,7 @@ public class ShopFragment extends Fragment {
         ShopFragment fragment = new ShopFragment();
         return fragment;
     }
+
     public ShopFragment() {
         // Required empty public constructor
     }
@@ -79,6 +81,7 @@ public class ShopFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.shop_fragment, container, false);
+        buyDefaultplayerIfNotBought(getContext());
         int playerImgage = PrefsHandler.getPlayerImage(getContext().getSharedPreferences(PrefsHandler.GANME_PREFS, ShopFragment.PLAYERIMAGE_DEFAULT));
         int currentSlide = 0;
         slideShow = (SliderLayout) view.findViewById(R.id.slider);
@@ -106,7 +109,18 @@ public class ShopFragment extends Fragment {
             slideShow.addSlider(textSliders[i]);
         }
         slideShow.setCurrentPosition(currentSlide);
+        slideShow.setCustomIndicator((PagerIndicator) view.findViewById(R.id.custom_indicator));
         return view;
+    }
+
+    private void buyDefaultplayerIfNotBought(Context context) {
+        if(!PrefsHandler.playerImageBought(context.getSharedPreferences(PrefsHandler.GANME_PREFS, 0), PLAYERIMAGE_DEFAULT)){
+            for(Buyable buyable : buyables){
+                if(buyable.getImage() == PLAYERIMAGE_DEFAULT){
+                    buyImage(buyable);
+                }
+            }
+        }
     }
 
     @Override
