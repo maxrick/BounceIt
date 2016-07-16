@@ -95,6 +95,12 @@ public class ShopFragment extends Fragment {
                 textSliders[i].image(buyable.getImage());
             }else {
                 textSliders[i].image(buyable.getLockedImageImage());
+                textSliders[i].setOnSliderClickListener(new BaseSliderView.OnSliderClickListener() {
+                    @Override
+                    public void onSliderClick(BaseSliderView slider) {
+                        buyPlayerImagePopup(buyable);
+                    }
+                });
             }
             slideToImgMap.put(textSliders[i], buyable);
             slideShow.addSlider(textSliders[i]);
