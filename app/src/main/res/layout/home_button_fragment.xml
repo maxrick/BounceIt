@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    tools:context="com.maxrick.bounceit.views.StartScreen"
+    tools:context="com.max.jumpingapp.views.StartScreen"
     android:paddingBottom="60dp">
 
     <ImageButton

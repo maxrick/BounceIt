@@ -36,11 +36,7 @@
     <string name="You_need_more_gems_do_you_want_to">You need more coins for this. Do you want to</string>
     <string name="reminder_to_send_activation_code">great, now don\'t forget to send the recommendation code so that you can both receive a free coin</string>
     <string name="message_wait_for_thank_you_code">cool, now wait for your friend to download the app, enter the code and send you the thank you code</string>
-<<<<<<< HEAD
     <string name="recommendation_text">"Hi\nThis app \"bounce it\" is amazing. You should get it.\nhttps://play.google.com/store/apps/details?id=com.max.jumpingapp\nI will send you a code which you can enter to receive a free coin. Code (only valid today): "</string>
-=======
-    <string name="recommendation_text">"Hi\nThis app \"bounce it\" is amazing. You should get it.\nhttps://play.google.com/store/apps/details?id=com.maxrick.bounceit\nI will send you a code which you can enter to receive a free coin. Code (only valid today): "</string>
->>>>>>> c3da243c456de12dba1f29989fc34625e394212d
     <string name="congrats_free_gem">Congratulations, you received a free coin.</string>
     <string name="sorry_code_used">Sorry, this code has already been used</string>
     <string name="sorry_code_not_valid">Sorry, this code is not valid</string>

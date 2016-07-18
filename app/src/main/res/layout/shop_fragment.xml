@@ -3,7 +3,7 @@
     xmlns:custom="http://schemas.android.com/apk/res-auto"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    tools:context="com.maxrick.bounceit.views.StartScreen"
+    tools:context="com.max.jumpingapp.views.StartScreen"
     android:paddingTop="10dp"
     android:paddingRight="5dp">
 

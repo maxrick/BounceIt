@@ -15,7 +15,7 @@
         android:theme="@style/AppTheme.NoActionBar"
         tools:ignore="HardcodedDebugMode">
         <activity
-            android:name="com.maxrick.bounceit.views.StartScreen"
+            android:name=".views.StartScreen"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_start_screen"
             android:screenOrientation="portrait">
@@ -26,21 +26,21 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.maxrick.bounceit.views.MainActivity"
+            android:name=".views.MainActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:theme="@style/FullscreenTheme" />
         <activity
-            android:name="com.maxrick.bounceit.views.DiedScreen"
+            android:name=".views.DiedScreen"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.maxrick.bounceit.views.Highscores"
+            android:name=".views.Highscores"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.maxrick.bounceit.views.RecommendScreen"
+            android:name=".views.RecommendScreen"
             android:screenOrientation="portrait" />
-        <activity android:name="com.maxrick.bounceit.views.HelpPage"></activity>
+        <activity android:name=".views.HelpPage"></activity>
     </application>
 
 </manifest>

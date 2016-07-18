@@ -9,7 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.max.jumpingapp.R;
-import com.maxrick.bounceit.views.StartScreen;
+import com.max.jumpingapp.views.StartScreen;
 
 /**
  * A fragment with a Google +1 button.
