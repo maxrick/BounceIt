@@ -5,10 +5,10 @@ android {
     buildToolsVersion "23.0.2"
 
     defaultConfig {
-        applicationId "com.max.jumpingapp"
+        applicationId "com.rick.bounceit"
         minSdkVersion 15
         targetSdkVersion 23
-        versionCode 13
+        versionCode 14
         versionName "1.0"
     }
     buildTypes {

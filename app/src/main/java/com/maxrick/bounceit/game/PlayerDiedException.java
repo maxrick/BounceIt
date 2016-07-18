@@ -1,0 +1,22 @@
+package com.maxrick.bounceit.game;
+
+import com.maxrick.bounceit.objects.player.Player;
+import com.maxrick.bounceit.types.Score;
+
+/**
+ * Created by normal on 29.10.2015.
+ */
+public class PlayerDiedException extends Throwable {
+    public Player player;
+    public Score score;
+
+    public  PlayerDiedException(Player player, Score score){
+        this.player = player;
+        this.score = score;
+    }
+
+    public PlayerDiedException(Player player) {
+        this.player = player;
+    }
+
+}

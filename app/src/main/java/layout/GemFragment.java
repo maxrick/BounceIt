@@ -13,8 +13,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.max.jumpingapp.R;
-import com.max.jumpingapp.util.PrefsHandler;
-import com.max.jumpingapp.views.RecommendScreen;
+import com.maxrick.bounceit.util.PrefsHandler;
+import com.maxrick.bounceit.views.RecommendScreen;
 
 /**
  * A fragment with a Google +1 button.
