@@ -16,10 +16,10 @@ import com.daimajia.slider.library.SliderLayout;
 import com.daimajia.slider.library.SliderTypes.BaseSliderView;
 import com.daimajia.slider.library.SliderTypes.TextSliderView;
 import com.max.jumpingapp.R;
-import com.max.jumpingapp.util.Constants;
-import com.max.jumpingapp.util.PrefsHandler;
-import com.max.jumpingapp.views.Buyable;
-import com.max.jumpingapp.views.RecommendScreen;
+import com.maxrick.bounceit.util.Constants;
+import com.maxrick.bounceit.util.PrefsHandler;
+import com.maxrick.bounceit.views.Buyable;
+import com.maxrick.bounceit.views.RecommendScreen;
 
 import java.util.HashMap;
 import java.util.Map;
